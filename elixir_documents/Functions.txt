@@ -1,0 +1,41 @@
+Admin
+    Add User
+    Delete User
+    Add/Update Client Info
+    Add Product
+    Change Product Price
+    Give Discount
+    No Supplier
+    
+User
+    Add Product
+    Add/Update Client Info
+    Payment
+    Sales Transaction
+    Stock In
+    Stock Out
+
+Categories(Product):
+  Printer
+  Ink
+  Solvent
+  Spare Parts
+
+
+Sales Monitoring
+   Date
+   Service Report Number
+   Technician
+   Name of Client
+   Printer Model
+   
+Findings/Recommendation(Printer Status)
+
+Payment Term
+30 days
+60
+90 
+120
+
+Dropdown
+Naa sa ubos ang error
