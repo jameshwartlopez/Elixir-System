@@ -71,9 +71,9 @@ $(document).ready(function(){
         if(e.which == 13){
             var attr = $("#btnUpdateCategory").attr("data-category-id");
             if(typeof attr != typeof undefined && attr !== false){
-                save_category();
+                 update_category();
             }else{
-                update_category();
+                save_category();
             }
             
         }
@@ -111,6 +111,7 @@ $(document).ready(function(){
         }else{
             $.post('/product/save_category',{'catName':$("#txtCategoryName").val()},function(response){
                 if(response != ''){
+                    notify_user('info','Successfully Saved!','');
                     $("#categoryList").append(response)
                     clear_category();        
                 }
@@ -127,6 +128,7 @@ $(document).ready(function(){
             $.post('/product/update_category',{'id':$("#btnUpdateCategory").attr('data-cat-id'),'catName':$("#txtCategoryName").val()},function(response){
               
                 if(response != ''){
+                    notify_user('info','Successfully Updated!','');
                     $("#categoryList").html("");
                     $("#categoryList").html(response)
                     clear_category();        
@@ -144,4 +146,103 @@ $(document).ready(function(){
     End Category Events
  */
 
+
+/*
+    Item units Events
+ */
+    //initialize html 
+    clear_itemUnit();
+
+    $(document).on('click','.btnEditItemUnit',function(){
+        $("#txtItemUnit").val($(this).attr('data-itemunit-name'));
+        $("#btnUpdateItemUnit").attr('data-itemunit-id',$(this).attr("data-itemunit-id"));
+        $("#btnUpdateItemUnit").show();
+        $("#btnSaveItemUnit").hide();
+    });
+
+    $("#btnSaveItemUnit").on('click',function(){
+        save_itemUnit();
+    });
+
+    $("#btnUpdateItemUnit").on('click',function(){
+        update_itemUnit();
+    });
+    
+    $("#btnClearItemUnit").on('click',function(){
+        clear_itemUnit();
+    });
+
+    $("#txtItemUnit").on('keypress',function(e){
+        if(e.which == 13){
+            var attr = $("#btnUpdateItemUnit").attr("data-itemunit-id");
+            if(typeof attr != typeof undefined && attr !== false){
+                 update_itemUnit();
+            }else{
+                save_itemUnit();
+            }
+            
+        }
+    });
+   
+    $('#txtSearchItemUnit').on("input",function(){
+        search_itemUnit();
+    });
+
+    function save_itemUnit(){
+        var value = $.trim($("#txtItemUnit").val());
+        if( value.length <= 0){
+
+             notify_user('danger','Please Enter Item Unit','Saving Error ');
+
+        }else{
+            $.post('/product/save_itemUnit',{'itemUnit':value},function(response){
+              
+                if(response != ''){
+                    notify_user('info','Successfully Saved!','');
+                    $("#itemUnitList").append(response)
+                    clear_itemUnit();        
+                }
+            });    
+        }
+    }
+
+    function update_itemUnit(){
+        var value = $.trim($("#txtItemUnit").val());
+        if( value.length <= 0){
+
+             notify_user('danger','Please Enter Category Name','Saving Error ');
+
+        }else{
+            $.post('/product/update_itemUnit',{'id':$("#btnUpdateItemUnit").attr('data-itemunit-id'),'itemName':$("#txtItemUnit").val()},function(response){
+                console.log(response);
+                if(response != ''){
+                    notify_user('info','Successfully Updated!','');
+                    $("#itemUnitList").html("");
+                    $("#itemUnitList").html(response)
+                    clear_itemUnit();        
+                }
+            });    
+        }
+    }
+
+    function search_itemUnit(){
+         $.post('/product/search_itemUnit',{'itemUnitName':$("#txtSearchItemUnit").val()},function(response){
+                console.log(response);
+                if(response != ''){
+                    $("#itemUnitList").html("");
+                    $("#itemUnitList").html(response)
+                    clear_itemUnit();        
+                }
+            });   
+    }
+
+    function clear_itemUnit(){
+        $("#btnUpdateItemUnit").hide();
+        $("#btnSaveItemUnit").show();
+        $("#txtItemUnit").val("")
+        $("#btnUpdateItemUnit").removeAttr('data-itemunit-id');
+    }
+/*
+    End Item units Events
+ */
 })

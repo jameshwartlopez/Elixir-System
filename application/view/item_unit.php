@@ -5,10 +5,10 @@
                         <!-- add Page Content here -->
                        <div class="card">
                        <div class="lv-header-alt clearfix m-b-5">
-                            <h2 class="lvh-label hidden-xs">19,453 Categories</h2>
+                            <h2 class="lvh-label hidden-xs">Search Item Unit</h2>
                             
                             <div class="lvh-search" style="display: none;">
-                                <input type="text" placeholder="Start typing..." class="lvhs-input">
+                                <input type="text" id="txtSearchItemUnit" placeholder="Start typing..." class="lvhs-input">
                                 
                                 <i class="lvh-search-close">×</i>
                             </div>
@@ -37,14 +37,15 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Unit Name">
+                                            <input type="text" id="txtItemUnit" class="form-control" placeholder="Unit Name">
                                         </div>
                                     </div>
 
                                     <div class="btn-demo col-sm-12">
                                         <p class="f-500 c-black m-b-20"> &nbsp; </p>
-                                        <button class="btn bgm-lightblue waves-effect"><i class="zmdi zmdi-plus-circle zmdi-hc-fw"></i> Save &nbsp;&nbsp;</button>
-                                        <button class="btn bgm-gray waves-effect"> <i class="zmdi zmdi-tag-close"></i> Clear &nbsp;&nbsp;</button>    
+                                        <button class="btn bgm-lightblue waves-effect" id="btnSaveItemUnit"><i class="zmdi zmdi-plus-circle zmdi-hc-fw"></i> Save &nbsp;&nbsp;</button>
+                                        <button class="btn bgm-lightblue waves-effect" id="btnUpdateItemUnit"><i class="zmdi zmdi-edit"></i> Update &nbsp;&nbsp;</button>
+                                        <button class="btn bgm-gray waves-effect" id="btnClearItemUnit"> <i class="zmdi zmdi-tag-close"></i> Clear &nbsp;&nbsp;</button>    
                                     </div>
                                     
                                     <br>
@@ -59,16 +60,17 @@
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>@wayne234</td>
-                                                    <td>
-                                                        <button class="btn btn-danger waves-effect btnEditCategory" data-category-id="1"><i class="zmdi zmdi-edit"></i> Edit</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@wayne234</td>
-                                                    <td><button class="btn btn-danger waves-effect btnEditCategory" data-category-id="1"><i class="zmdi zmdi-edit"></i> Edit</button></td>
-                                                </tr>
+                                            <tbody id="itemUnitList">
+                                                <?php foreach ($itemUnits as $itemUnit) {
+                                                   ?>
+                                                    <tr>
+                                                        <td><?php echo $itemUnit['name']; ?></td>
+                                                        <td>
+                                                            <button class="btn btn-danger waves-effect btnEditItemUnit" data-itemunit-name='<?php echo $itemUnit['name']; ?>' data-itemunit-id="<?php echo $itemUnit['id']; ?>"><i class="zmdi zmdi-edit"></i> Edit</button></td>
+                                                    </tr>
+                                                   <?php 
+                                                }?>
+                                                
                                                
                                             </tbody>
                                         </table>

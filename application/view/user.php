@@ -7,7 +7,7 @@
                         <!-- add Page Content here -->
                        <div class="card">
                        <div class="lv-header-alt clearfix m-b-5">
-                            <h2 class="lvh-label hidden-xs">19,453 Records</h2>
+                            <h2 class="lvh-label hidden-xs">Search User</h2>
                             
                             <div class="lvh-search" style="display: none;">
                                 <input type="text" placeholder="Start typing..." class="lvhs-input">

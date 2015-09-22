@@ -48,7 +48,7 @@ class userController extends Controller{
 			
 			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
 			$data['companyName'] = 'Elixir Industrial Equipment Inc.';
-			$this->load_template('home',$data);
+			$this->load_template('home',$data,'user');
 
 		}else{
 			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';

@@ -44,7 +44,13 @@
                             <div class="row product_entry">
                                  <div class="card-header">
                                     <h2>Product Entry</h2>
-                                </div>
+                                <?php 
+                                    echo '<pre>';
+                                    print_r($itemUnit);
+                                    print_r($category);
+                                    echo '</pre>';
+                                ?>
+                                 </div>
                                 <div class="col-sm-6">                       
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
@@ -78,8 +84,11 @@
                                         <div class="fg-line">
                                             <select class="selectpicker">
                                                 <option>Category</option>
-                                                <option>Ketchup</option>
-                                                <option>Relish</option>
+                                                <?php 
+                                                    foreach ($category as $value) {
+                                                       ?><option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option><?php
+                                                    }
+                                                ?>
                                             </select>
                                         </div>
                                             
@@ -87,17 +96,7 @@
                                    
                                     <br/>
                                     
-                                    <div class="input-group"> 
-                                        <span  class="input-group-addon"></span>
-                                        <div class="fg-line">
-                                            <select class="selectpicker">
-                                                    <option>Supplier Name</option>
-                                                    <option>Ketchup</option>
-                                                    <option>Relish</option>
-                                            </select>
-                                        </div>
-                                            
-                                    </div>
+                                    
 
                                 </div>
                                 
