@@ -39,3 +39,53 @@ Payment Term
 
 Dropdown
 Naa sa ubos ang error
+
+remvo description
+
+name,add,tel,fax number,email, contactperson
+
+amdin -all  ,discount,change price, manage user
+
+tech - service report only
+
+service report-> date,client name,model printer,remarks ,(status ->Ok,inprogress) 
+
+sales representative,assitant sales
+stockout
+  po number
+  date
+  client info 
+  product infom--
+  qty
+  total
+  dapat-> terms = 30,60,90 days
+
+  if admin
+    discount textbox
+
+
+
+x suppliers
+
+
+
+
+ no one decide your fate.
+you decide it for yourself
+
+35
+
+09753494873
+09353602155 
+
+\
+tno=&lqid date_default_timezone_set('Asia/Hong_Kong');
+
+$fullname = $_SESSION['stud_fname'].' '.$_SESSION['stud_lname'];
+$password_status = $_SESSION['pass_status'];
+$time = time();
+$curr_date = date('m-d-Y');
+$curr_time = date('H:i', $time);
+
+
+?>

@@ -69,13 +69,12 @@ $(document).ready(function(){
 
     $("#txtCategoryName").on('keypress',function(e){
         if(e.which == 13){
-            var attr = $("#btnUpdateCategory").attr("data-category-id");
+            var attr = $("#btnUpdateCategory").attr("data-cat-id");
             if(typeof attr != typeof undefined && attr !== false){
                  update_category();
             }else{
                 save_category();
             }
-            
         }
     });
 
@@ -244,5 +243,148 @@ $(document).ready(function(){
     }
 /*
     End Item units Events
+ */
+
+/*
+    Product Entry
+ */
+    clear_product();
+    $(document).on('click','.btnEditProduct',function(){
+        $("#txtPCode").val($(this).attr('data-product-code'));
+        $("#txtPName").val($(this).attr('data-product-name'));
+        $("#cmbPcategory").val($(this).attr('data-product-category'));
+        $("#cmbPItemUnit").val($(this).attr('data-product-item-unit'));
+        $("#txtPUnitPrice").val($(this).attr('data-product-unit-price'));
+        $("#txtPSellingPrice").val($(this).attr('data-product-selling-price'));
+        $("#txtPQuantity").val($(this).attr('data-product-quantity'));
+        $("#txtDate").val($(this).attr('data-product-date'));
+        $("#btnUpdateProduct").attr("data-product-id",$(this).attr('data-product-id'));
+        $("#btnUpdateProduct").show();
+        $("#btnSaveProduct").hide();
+        $('.selectpicker').selectpicker('refresh')
+    });
+
+    $("#btnSaveProduct").on('click',function(){
+        save_or_update_product();
+    });
+
+    $("#btnUpdateProduct").on('click',function(){
+        save_or_update_product("update");
+    });
+
+    $("#btnClearProduct").on('click',function(){
+        clear_product();
+    });
+
+     $("#txtPCode , #txtPName ,#txtPUnitPrice , #txtPSellingPrice , #txtPQuantity").on('keypress',function(e){
+        if(e.which == 13){
+            var attr = $("#btnUpdateProduct").attr("data-product-id");
+            if(typeof attr != typeof undefined && attr !== false){
+                 save_or_update_product("update");
+            }else{
+                save_or_update_product("save");
+            }
+            
+        }
+    });
+
+    $("#txtSearchProduct").on('input',function(){
+
+    });
+
+    function save_or_update_product(flag){
+         pcode = $.trim($("#txtPCode").val());
+         pname = $.trim($("#txtPName").val());
+         pcategory = $.trim($("#cmbPcategory").val());
+         pitemUnit = $.trim($("#cmbPItemUnit").val());
+         punitPrice = $.trim($("#txtPUnitPrice").val());
+         pSellingPrice = $.trim($("#txtPSellingPrice").val());
+         pQuantity = $.trim($("#txtPQuantity").val());
+         pDate = $.trim($("#txtDate").val());
+         data = {
+            'code':pcode,
+            'name':pname,
+            'category':pcategory,
+            'item_unit':pitemUnit,
+            'unit_price':punitPrice,
+            'selling_price':pSellingPrice,
+            'quantity':pQuantity,
+            'date':pDate
+        }
+
+        if(
+            pDate.length <= 0 ||
+            pcode.length <=0 || 
+            pname.length <= 0 || 
+            pcategory.length <= 0 || 
+            pitemUnit.length <= 0 || 
+            punitPrice.length <= 0 || 
+            pSellingPrice.length <= 0 || 
+            pQuantity.length <= 0){
+            notify_user('danger','Please fill in all fields!','');
+        }else if(punitPrice == 0){
+            notify_user('danger','Please Enter Unit Price!','');
+        }else if(pSellingPrice == 0){
+            notify_user('danger','Please Enter Selling Price!','');
+        }else if(pQuantity == 0){
+            notify_user('danger','Please Enter Quantity!','');
+        }else{
+            url = '/product/save_product';
+            product_data = {
+                'data':data
+            }
+
+            if(flag == 'update'){
+                url = '/product/update_product';
+                product_data = {
+                    'id':$("#btnUpdateProduct").attr("data-product-id"),
+                    'data':data
+                }
+            }
+
+            $.post(url,product_data,function(response){
+                    console.log(response);
+                    if(response != ''){
+                        notify_user('info','Products successfully saved!','');
+                        $("#productList").html("");
+                        $("#productList").html(response)
+                        clear_product();        
+                    }
+            });    
+        }
+    }
+
+    function clear_product(){
+         $("#txtPCode").val("");
+         $("#txtPName").val("");
+         $("#cmbPcategory").val("");
+         $("#cmbPItemUnit").val("");
+         $("#txtPUnitPrice").val("");
+         $("#txtPSellingPrice").val("");
+         $("#txtPQuantity").val("");
+         $("#txtDate").val($("#header").attr('data-date-today'));
+         $("#btnUpdateProduct").removeAttr('data-product-id');
+         $("#btnUpdateProduct").hide();
+         $("#btnSaveProduct").show();
+         $('.selectpicker').selectpicker('refresh');
+    }
+    
+    $("#txtSearchProduct").on('input',function(){
+        table_search('productList',$(this).val());
+    });
+
+    function table_search(tblSelector,value){
+        var rows = $('#'+tblSelector+' tr');
+       
+        var val = $.trim(value).replace(/ +/g, ' ').toLowerCase();
+            
+        rows.show().filter(function() {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+        }).hide();
+       
+    }
+/*
+    End Product Entry
  */
 })

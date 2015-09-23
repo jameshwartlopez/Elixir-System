@@ -25,7 +25,7 @@
         
     </head>
     <body>
-        <header id="header">
+        <header id="header" data-date-today="<?php echo date('Y-m-d'); ?>">
             <ul class="header-inner">
                 <li id="menu-trigger" data-trigger="#sidebar">
                     <div class="line-wrap">

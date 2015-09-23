@@ -9,6 +9,14 @@ class HomeController extends Controller{
 			
 			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
 			$data['companyName'] = 'Elixir Industrial Equipment Inc.';
+			$product = $this->load_model('product');
+			$data['category'] = $product->show_category();
+
+
+			$data['itemUnit'] = $product->show_item_unit();
+
+			
+			$data['products'] = $product->show_product();
 			$this->load_template('home',$data);
 
 		}else{

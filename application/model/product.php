@@ -62,4 +62,32 @@ class ProductModel extends Model{
 			return $this->db->select($this->tblItemUnit)->or_where('name LIKE ','%'.$searchKey.'%')->ja_execute();
 		}
 	}
+/*
+	Products related events
+ */
+	public function save_product($data){
+		if($this->db->insert($this->tblProducts,$data)->ja_execute()){
+			return $this->show_product();
+		}
+	}
+
+	public function update_product($data,$where){
+		if($this->db->update($this->tblProducts,$data)->where('id = ',$where)->ja_execute()){
+			return $this->show_product();
+		}
+	}
+
+	public function show_product($id = null){
+		if($id != null){
+			return $this->db->select($this->tblProducts)->where('id = ',$id)->ja_execute();
+		}else{
+			return $this->db->select($this->tblProducts)->ja_execute();
+		}
+	}
+
+	public function search_product($searchKey){
+		if($searchKey != null){
+			return $this->db->select($this->tblProducts)->or_where('name LIKE ','%'.$searchKey.'%')->ja_execute();
+		}
+	}
 }

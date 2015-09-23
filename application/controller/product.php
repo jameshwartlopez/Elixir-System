@@ -13,6 +13,8 @@ class ProductController extends Controller{
 
 
 			$data['itemUnit'] = $product->show_item_unit();
+
+			$data['products'] = $product->show_product();
 			$this->load_template('home',$data);
 
 		}else{
@@ -148,9 +150,116 @@ class ProductController extends Controller{
 				<?php
 		}
 	}
-
+/*
+	Products related methods
+*/
 	//products profile page
 	public function productsProfile(){
+
+	}
+
+	public function save_product(){
+		if(isset($_POST['data']) && !empty($_POST['data'])){
+			$result = $this->model->save_product($_POST['data']);
+
+			$product = $this->load_model('product');
+			$category = $product->show_category();
+
+
+			$itemUnit = $product->show_item_unit();
+
+                                            foreach ($result as $product) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $product['code']; ?></td>
+                                                    <td><?php echo $product['name']; ?></td>
+                                                    <td><?php  
+                                                            foreach ($category as $key) {
+                                                                if($key['id'] == $product['category'])
+                                                                    echo $key['name'];
+                                                            }
+                                                    ?></td>
+                                                    <td><?php 
+                                                            foreach ($itemUnit as $key) {
+                                                                if($key['id'] == $product['item_unit'])
+                                                                    echo $key['name'];
+                                                            }
+                                                    ?></td>
+                                                    <td><?php echo $product['unit_price']; ?></td>
+                                                    <td><?php echo $product['selling_price']; ?></td>
+                                                    <td><?php echo $product['quantity']; ?></td>
+                                                    <td><?php echo $product['date']; ?></td>
+                                                    <td>
+                                                        <button class='btn btn-danger waves-effect btnEditProduct' 
+                                                                data-product-code='<?php echo $product['code']; ?>' 
+                                                                data-product-name='<?php echo $product['name']; ?>' 
+                                                                data-product-category='<?php echo $product['category']; ?>' 
+                                                                data-product-item-unit='<?php echo $product['item_unit']; ?>'
+                                                                data-product-unit-price='<?php echo $product['unit_price']; ?>'
+                                                                data-product-selling-price='<?php echo $product['selling_price']; ?>'
+                                                                data-product-quantity='<?php echo $product['quantity']; ?>' 
+                                                                data-product-date='<?php echo $product['date']; ?>' 
+                                                                data-product-id='<?php echo $product['id']; ?>'  >
+                                                            <i class="zmdi zmdi-edit"></i> Edit
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            } 
+		}
+	}
+
+	public function update_product(){
+		if(isset($_POST['data']) && !empty($_POST['data']) && isset($_POST['id']) && !empty($_POST['id'])){
+			$result = $this->model->update_product($_POST['data'],$_POST['id']);
+			$product = $this->load_model('product');
+			$category = $product->show_category();
+
+
+			$itemUnit = $product->show_item_unit();
+
+                                            foreach ($result as $product) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $product['code']; ?></td>
+                                                    <td><?php echo $product['name']; ?></td>
+                                                    <td><?php  
+                                                            foreach ($category as $key) {
+                                                                if($key['id'] == $product['category'])
+                                                                    echo $key['name'];
+                                                            }
+                                                    ?></td>
+                                                    <td><?php 
+                                                            foreach ($itemUnit as $key) {
+                                                                if($key['id'] == $product['item_unit'])
+                                                                    echo $key['name'];
+                                                            }
+                                                    ?></td>
+                                                    <td><?php echo $product['unit_price']; ?></td>
+                                                    <td><?php echo $product['selling_price']; ?></td>
+                                                    <td><?php echo $product['quantity']; ?></td>
+                                                    <td><?php echo $product['date']; ?></td>
+                                                    <td>
+                                                        <button class='btn btn-danger waves-effect btnEditProduct' 
+                                                                data-product-code='<?php echo $product['code']; ?>' 
+                                                                data-product-name='<?php echo $product['name']; ?>' 
+                                                                data-product-category='<?php echo $product['category']; ?>' 
+                                                                data-product-item-unit='<?php echo $product['item_unit']; ?>'
+                                                                data-product-unit-price='<?php echo $product['unit_price']; ?>'
+                                                                data-product-selling-price='<?php echo $product['selling_price']; ?>'
+                                                                data-product-quantity='<?php echo $product['quantity']; ?>' 
+                                                                data-product-date='<?php echo $product['date']; ?>' 
+                                                                data-product-id='<?php echo $product['id']; ?>'  >
+                                                            <i class="zmdi zmdi-edit"></i> Edit
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            } 
+		}
+	}
+
+	public function search_product(){
 
 	}
 
