@@ -48,7 +48,7 @@ amdin -all  ,discount,change price, manage user
 
 tech - service report only
 
-service report-> date,client name,model printer,remarks ,(status ->Ok,inprogress) 
+service report-> date,client name,model printer,remarks ,(status -> machine operating satisfactorily , for in house repair,work not completed) 
 
 sales representative,assitant sales
 stockout

@@ -43,13 +43,14 @@
                             <!--Start Product Entry -->
                             <div class="row product_entry">
                                  <div class="card-header">
-                                    <h2>Product Entry</h2>
+                                    <h2>User Management</h2>
                                 </div>
                                 <div class="col-sm-6">                       
+                                    
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
-                                        <div class="dtp-container fg-line">
-                                            <input type="text" class="form-control date-picker" placeholder="Click here...">
+                                        <div class="fg-line">
+                                            <input type="text" class="form-control" placeholder="Username">
                                         </div>
                                     </div>
                                     
@@ -58,16 +59,15 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Product Code">
+                                            <input type="text" class="form-control" placeholder="Password">
                                         </div>
                                     </div>
                                     
                                     <br>
-                                    
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Product Name ">
+                                            <input type="text" class="form-control" placeholder="Email">
                                         </div>
                                     </div>
                                     
@@ -77,35 +77,23 @@
                                         <span  class="input-group-addon"></span>
                                         <div class="fg-line">
                                             <select class="selectpicker">
-                                                <option>Category</option>
-                                                <option>Ketchup</option>
-                                                <option>Relish</option>
+                                                <option>Male</option>
+                                                <option>Female</option>
                                             </select>
                                         </div>
                                             
                                     </div>
                                    
                                     <br/>
-                                    
-                                    <div class="input-group"> 
-                                        <span  class="input-group-addon"></span>
-                                        <div class="fg-line">
-                                            <select class="selectpicker">
-                                                    <option>Supplier Name</option>
-                                                    <option>Ketchup</option>
-                                                    <option>Relish</option>
-                                            </select>
-                                        </div>
-                                            
-                                    </div>
 
+                                   
                                 </div>
                                 
                                 <div class="col-sm-6">                       
                                      <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Product Description ">
+                                            <input type="text" class="form-control" placeholder="First Name">
                                         </div>
                                     </div>
                                     
@@ -114,7 +102,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Base Unit ">
+                                            <input type="text" class="form-control" placeholder="Last Name ">
                                         </div>
                                     </div>
                                     
@@ -123,60 +111,61 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Unit Price ">
+                                            <input type="text" class="form-control" placeholder="Contact ">
                                         </div>
                                     </div>
                                     
                                     <br>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"></span>
+                                    <div class="input-group"> 
+                                        <span  class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Selling Price ">
+                                            <select class="selectpicker">
+                                                <option>Usert Type</option>
+                                                <option value="1">Sales Assistant</option>
+                                                <option value="2">Product Specialist</option>
+                                                <option value="3">Technician</option>
+
+                                            </select>
                                         </div>
+                                            
                                     </div>
                                     
-                                    <br>
-                                    
-                                    <div class="input-group">
-                                        <span class="input-group-addon"></span>
-                                        <div class="fg-line">    
-                                            <input type="text" class="form-control" placeholder="Quantity">
-                                        </div>
+                                </div>
+                                <div class="col-sm-6">&nbsp;</div>
+                                <div class="col-sm-6">
+                                     <div class="btn-demo col-sm-6">
+                                        <p class="f-500 c-black m-b-20"> &nbsp; </p>
+                                        <button class="btn bgm-lightblue waves-effect"><i class="zmdi zmdi-plus-circle zmdi-hc-fw"></i> Save &nbsp;&nbsp;</button>
+                                        <button class="btn bgm-gray waves-effect"> <i class="zmdi zmdi-tag-close"></i> Clear &nbsp;&nbsp;</button>    
                                     </div>
                                 </div>
-                                <div class="btn-demo col-sm-6">
-                                    <p class="f-500 c-black m-b-20"> &nbsp; </p>
-                                    <button class="btn bgm-lightblue waves-effect"><i class="zmdi zmdi-plus-circle zmdi-hc-fw"></i> Save &nbsp;&nbsp;</button>
-                                    <button class="btn bgm-gray waves-effect"> <i class="zmdi zmdi-tag-close"></i> Clear &nbsp;&nbsp;</button>    
-                                </div>
+                               
                                 
                             </div>
                             <!--End Product Entry -->
                             <!-- Product List -->
                             <div class="row product_list">
                                  <div class="card-header">
-                                    <h2>Product List</h2>
+                                    <h2>Users List</h2>
                                 </div>
 
                                 <div class="table-responsive" tabindex="2" style="overflow: hidden; outline: none;">
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Code</th>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Category</th>
-                                                <th>Base Unit</th>
-                                                <th>Unit Price</th>
-                                                <th>Selling Price</th>
-                                                <th>Quantity</th>
-                                                <th>Date</th>
+                                                <th>Username</th>
+                                                <th>Password</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Email</th>
+                                                <th>Contact</th>
+                                                <th>Gender</th>
+                                                <th>User Type</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>6</td>
                                                 <td>Benjamin</td>
                                                 <td>Parnell</td>
                                                 <td>@wayne234</td>
@@ -186,20 +175,7 @@
                                                 <td>Parnell</td>
                                                 <td>@wayne234</td>
                                                 <td><button class="btn btn-danger waves-effect btnEditProduct" data-product-id="1"><i class="zmdi zmdi-edit"></i> Edit</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Benjamin</td>
-                                                <td>Parnell</td>
-                                                <td>@wayne234</td>
-                                                <td>Pokie</td>
-                                                <td>6</td>
-                                                <td>Benjamin</td>
-                                                <td>Parnell</td>
-                                                <td>@wayne234</td>
-                                                <td><button class="btn btn-danger waves-effect btnEditProduct" data-product-id="1"><i class="zmdi zmdi-edit"></i> Edit</button></td>
-                                            </tr>
-                                           
+                                            </tr>   
                                         </tbody>
                                     </table>
                                 </div>

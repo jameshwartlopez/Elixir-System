@@ -5,25 +5,13 @@
                         <!-- add Page Content here -->
                        <div class="card">
                        <div class="lv-header-alt clearfix m-b-5">
-                            <h2 class="lvh-label hidden-xs">Search Categories</h2>
                             
-                            <div class="lvh-search" style="display: none;">
-                                <input type="text" id="txtCategorySearch" placeholder="Start typing..." class="lvhs-input">
-                                
-                                <i class="lvh-search-close">×</i>
+                            <div class="lvh-search" style="display: block;" >
+                                 <input type="text" id="txtCategorySearch" placeholder="Start typing..." class="lvhs-input">
                             </div>
 
-                            <ul class="lv-actions actions">
-                                <li>
-                                    <a href="contacts.html" class="lvh-search-trigger">
-                                        <i class="zmdi zmdi-search"></i>
-                                    </a>
-                                </li>
-                               
-                            </ul>
                         </div>
                        
-                        
                         <div class="card-body card-padding">
                             <!--Start Category Entry -->
                             <div class="row product_entry">

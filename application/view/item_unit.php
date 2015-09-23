@@ -4,25 +4,13 @@
                     <div class="row">
                         <!-- add Page Content here -->
                        <div class="card">
-                       <div class="lv-header-alt clearfix m-b-5">
-                            <h2 class="lvh-label hidden-xs">Search Item Unit</h2>
+                        <div class="lv-header-alt clearfix m-b-5">
                             
-                            <div class="lvh-search" style="display: none;">
-                                <input type="text" id="txtSearchItemUnit" placeholder="Start typing..." class="lvhs-input">
-                                
-                                <i class="lvh-search-close">×</i>
+                            <div class="lvh-search" style="display: block;" >
+                                 <input type="text" id="txtSearchItemUnit" placeholder="Start Item Unit here..." class="lvhs-input">
                             </div>
 
-                            <ul class="lv-actions actions">
-                                <li>
-                                    <a href="contacts.html" class="lvh-search-trigger">
-                                        <i class="zmdi zmdi-search"></i>
-                                    </a>
-                                </li>
-                               
-                            </ul>
                         </div>
-                       
                         
                         <div class="card-body card-padding">
                             <!--Start Category Entry -->

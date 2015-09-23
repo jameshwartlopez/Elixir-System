@@ -7,35 +7,11 @@
                         <!-- add Page Content here -->
                        <div class="card">
                        <div class="lv-header-alt clearfix m-b-5">
-                            <h2 class="lvh-label hidden-xs">19,453 Records</h2>
                             
-                            <div class="lvh-search" style="display: none;">
-                                <input type="text" placeholder="Start typing..." class="lvhs-input">
-                                
-                                <i class="lvh-search-close">×</i>
+                            <div class="lvh-search" style="display: block;" >
+                                <input type="text" placeholder="Search Client here..." class="lvhs-input">
                             </div>
-
-                            <ul class="lv-actions actions">
-                                <li>
-                                    <a href="contacts.html" class="lvh-search-trigger">
-                                        <i class="zmdi zmdi-search"></i>
-                                    </a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="" data-toggle="dropdown" =""="" aria-expanded="false" aria-haspopup="true">
-                                        <i class="zmdi zmdi-more-vert"></i>
-                                    </a>
-                
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li>
-                                            <a href="#" id="gotoProductEntry">Product Entry</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" id="gotoProductList">Product List</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            
                         </div>
                        
                         
@@ -43,13 +19,14 @@
                             <!--Start Product Entry -->
                             <div class="row product_entry">
                                  <div class="card-header">
-                                    <h2>Product Entry</h2>
+                                    <h2>Clients Profile</h2>
                                 </div>
-                                <div class="col-sm-6">                       
+                                <div class="col-sm-4">                       
+                                    
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
-                                        <div class="dtp-container fg-line">
-                                            <input type="text" class="form-control date-picker" placeholder="Click here...">
+                                        <div class="fg-line">
+                                            <input type="text" id="txtClientName" class="form-control" placeholder="Name">
                                         </div>
                                     </div>
                                     
@@ -58,97 +35,93 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Product Code">
+                                            <input type="text" id="txtClientAddress"  class="form-control" placeholder="Address">
                                         </div>
                                     </div>
                                     
                                     <br>
-                                    
-                                    <div class="input-group">
+
+
+                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Product Name ">
+                                            <input type="text" id="txtClientTelNo"  class="form-control" placeholder="Tel. Number">
+                                        </div>
+                                    </div>
+                                    
+                                    <br>
+                                     <div class="input-group">
+                                        <span class="input-group-addon"></span>
+                                        <div class="fg-line">
+                                            <input type="text" id="txtClientFaxNo"  class="form-control" placeholder="Fax Number">
+                                        </div>
+                                    </div>
+                                    
+                                    <br>
+
+                                     <div class="input-group">
+                                        <span class="input-group-addon"></span>
+                                        <div class="fg-line">
+                                            <input type="text" id="txtClientEmail"  class="form-control" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    
+                                    <br>
+                                     <div class="input-group">
+                                        <span class="input-group-addon"></span>
+                                        <div class="fg-line">
+                                            <input type="text" id="txtClientContactPerson" class="form-control" placeholder="Contact Person">
                                         </div>
                                     </div>
                                     
                                     <br>
                                     
-                                    <div class="input-group"> 
-                                        <span  class="input-group-addon"></span>
-                                        <div class="fg-line">
-                                            <select class="selectpicker">
-                                                <option>Category</option>
-                                                <option>Ketchup</option>
-                                                <option>Relish</option>
-                                            </select>
-                                        </div>
-                                            
-                                    </div>
-                                   
-                                    <br/>
-                                    
-                                    <div class="input-group"> 
-                                        <span  class="input-group-addon"></span>
-                                        <div class="fg-line">
-                                            <select class="selectpicker">
-                                                    <option>Supplier Name</option>
-                                                    <option>Ketchup</option>
-                                                    <option>Relish</option>
-                                            </select>
-                                        </div>
-                                            
+                                    <div class="btn-demo col-sm-12">
+                                        <p class="f-500 c-black m-b-20"> &nbsp; </p>
+                                        <button class="btn bgm-lightblue waves-effect"><i class="zmdi zmdi-plus-circle zmdi-hc-fw"></i> Save &nbsp;&nbsp;</button>
+                                        <button class="btn bgm-gray waves-effect"> <i class="zmdi zmdi-tag-close"></i> Clear &nbsp;&nbsp;</button>    
                                     </div>
 
                                 </div>
                                 
-                                <div class="col-sm-6">                       
-                                     <div class="input-group">
-                                        <span class="input-group-addon"></span>
-                                        <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Product Description ">
-                                        </div>
-                                    </div>
-                                    
-                                    <br>
-                                    
-                                    <div class="input-group">
-                                        <span class="input-group-addon"></span>
-                                        <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Base Unit ">
-                                        </div>
-                                    </div>
-                                    
-                                    <br>
-                                    
-                                    <div class="input-group">
-                                        <span class="input-group-addon"></span>
-                                        <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Unit Price ">
-                                        </div>
-                                    </div>
-                                    
-                                    <br>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"></span>
-                                        <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Selling Price ">
-                                        </div>
-                                    </div>
-                                    
-                                    <br>
-                                    
-                                    <div class="input-group">
-                                        <span class="input-group-addon"></span>
-                                        <div class="fg-line">    
-                                            <input type="text" class="form-control" placeholder="Quantity">
-                                        </div>
+                                <div class="col-sm-8">                       
+                                     <div class="table-responsive" tabindex="2" style="overflow: hidden; outline: none;">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Address</th>
+                                                    <th>Tel. No</th>
+                                                    <th>Fax</th>
+                                                    <th>Email</th>
+                                                    <th>Contact Person</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="clientList">
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Address</th>
+                                                    <th>Tel. No</th>
+                                                    <th>Fax</th>
+                                                    <th>Email</th>
+                                                    <th>Contact Person</th>
+                                                    <th>
+                                                        <button class="btn btn-danger waves-effect btnEditClient" 
+                                                                data-client-name='' 
+                                                                data-client-address='' 
+                                                                data-client-telno='' 
+                                                                data-client-faxno='' 
+                                                                data-client-email='' 
+                                                                data-client-contactperson=''  
+                                                                data-client-id=""><i class="zmdi zmdi-edit"></i> Edit</button></td> 
+                                                    </th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <div class="btn-demo col-sm-6">
-                                    <p class="f-500 c-black m-b-20"> &nbsp; </p>
-                                    <button class="btn bgm-lightblue waves-effect"><i class="zmdi zmdi-plus-circle zmdi-hc-fw"></i> Save &nbsp;&nbsp;</button>
-                                    <button class="btn bgm-gray waves-effect"> <i class="zmdi zmdi-tag-close"></i> Clear &nbsp;&nbsp;</button>    
-                                </div>
+                                
                                 
                             </div>
                             <!--End Product Entry -->
