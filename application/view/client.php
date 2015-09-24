@@ -9,7 +9,7 @@
                        <div class="lv-header-alt clearfix m-b-5">
                             
                             <div class="lvh-search" style="display: block;" >
-                                <input type="text" placeholder="Search Client here..." class="lvhs-input">
+                                <input type="text" id="txtSearchClient" placeholder="Search Client here..." class="lvhs-input">
                             </div>
                             
                         </div>
@@ -78,8 +78,9 @@
                                     
                                     <div class="btn-demo col-sm-12">
                                         <p class="f-500 c-black m-b-20"> &nbsp; </p>
-                                        <button class="btn bgm-lightblue waves-effect"><i class="zmdi zmdi-plus-circle zmdi-hc-fw"></i> Save &nbsp;&nbsp;</button>
-                                        <button class="btn bgm-gray waves-effect"> <i class="zmdi zmdi-tag-close"></i> Clear &nbsp;&nbsp;</button>    
+                                        <button class="btn bgm-lightblue waves-effect" id="btnSaveClient"><i class="zmdi zmdi-plus-circle zmdi-hc-fw"></i> Save &nbsp;&nbsp;</button>
+                                        <button class="btn bgm-lightblue waves-effect" id="btnUpdateClient"><i class="zmdi zmdi-edit"></i> Update</button>
+                                        <button class="btn bgm-gray waves-effect" id="btnClearClient"> <i class="zmdi zmdi-tag-close"></i> Clear &nbsp;&nbsp;</button>    
                                     </div>
 
                                 </div>
@@ -99,24 +100,31 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="clientList">
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Address</th>
-                                                    <th>Tel. No</th>
-                                                    <th>Fax</th>
-                                                    <th>Email</th>
-                                                    <th>Contact Person</th>
-                                                    <th>
-                                                        <button class="btn btn-danger waves-effect btnEditClient" 
-                                                                data-client-name='' 
-                                                                data-client-address='' 
-                                                                data-client-telno='' 
-                                                                data-client-faxno='' 
-                                                                data-client-email='' 
-                                                                data-client-contactperson=''  
-                                                                data-client-id=""><i class="zmdi zmdi-edit"></i> Edit</button></td> 
-                                                    </th>
-                                                </tr>
+                                                <?php 
+                                                    foreach ($clients as $client) {
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo $client['name']?></td>
+                                                        <td><?php echo $client['address']?></td>
+                                                        <td><?php echo $client['telphone_number']?></td>
+                                                        <td><?php echo $client['fax_number']?></td>
+                                                        <td><?php echo $client['email']?></td>
+                                                        <td><?php echo $client['contact_person']?></td>
+                                                        <td>
+                                                            <button class="btn btn-danger waves-effect btnEditClient" 
+                                                                    data-client-name='<?php echo $client['name']?>' 
+                                                                    data-client-address='<?php echo $client['address']?>' 
+                                                                    data-client-telno='<?php echo $client['telphone_number']?>' 
+                                                                    data-client-faxno='<?php echo $client['fax_number']?>' 
+                                                                    data-client-email='<?php echo $client['email']?>' 
+                                                                    data-client-contactperson='<?php echo $client['contact_person']?>'  
+                                                                    data-client-id='<?php echo $client['id']?>'><i class="zmdi zmdi-edit"></i> Edit</button></td> 
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                    }
+                                                ?>
+                                                
                                             </tbody>
                                         </table>
                                     </div>

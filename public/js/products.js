@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    /*
+                /*
                  * Notifications
                  */
                 function notify_user(type,msg,title){

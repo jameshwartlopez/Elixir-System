@@ -29,6 +29,7 @@
         
         <script src="<?php echo home_url(); ?>public/js/functions.js"></script>
         <script src="<?php echo home_url(); ?>public/js/products.js"></script>
+        <script src="<?php echo home_url(); ?>public/js/user.js"></script>
 
         
     </body>
