@@ -56,4 +56,26 @@ class userController extends Controller{
 			
 		}
 	}
+
+	public function save_user(){
+		if(isset($_POST['data']) && !empty($_POST['data'])){
+			$result = $this->model->save_user($_POST['data']);
+			foreach ($result as $users) {
+				
+			}
+		}
+	}
+
+	public function update_user(){
+		if(isset($_POST['data']) && !empty($_POST['data']) && isset($_POST['id']) && !empty($_POST['id'])){
+			$result = $this->model->udpate_user($_POST['data'],$_POST['id']);
+			foreach ($result as $users) {
+				
+			}
+		}
+	}
+
+	public function show_user(){
+		
+	}
 }

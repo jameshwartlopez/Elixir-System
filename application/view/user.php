@@ -28,10 +28,10 @@
                 
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
-                                            <a href="#" id="gotoProductEntry">Product Entry</a>
+                                            <a href="#" id="gotoCreateUser">Create New user</a>
                                         </li>
                                         <li>
-                                            <a href="#" id="gotoProductList">Product List</a>
+                                            <a href="#" id="gotUserList">User List</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -40,8 +40,8 @@
                        
                         
                         <div class="card-body card-padding">
-                            <!--Start Product Entry -->
-                            <div class="row product_entry">
+                            <!--Start Create User -->
+                            <div class="row create_user">
                                  <div class="card-header">
                                     <h2>User Management</h2>
                                 </div>
@@ -50,7 +50,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Username">
+                                            <input type="text" id="txtUsername" class="form-control" placeholder="Username">
                                         </div>
                                     </div>
                                     
@@ -59,7 +59,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Password">
+                                            <input type="text" id="txtPassword" class="form-control" placeholder="Password">
                                         </div>
                                     </div>
                                     
@@ -67,7 +67,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Email">
+                                            <input type="text" id="txtEmail" class="form-control" placeholder="Email">
                                         </div>
                                     </div>
                                     
@@ -76,7 +76,8 @@
                                     <div class="input-group"> 
                                         <span  class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <select class="selectpicker">
+                                            <select class="selectpicker" id="cmbGender">
+                                                <option value="">Gender</option>
                                                 <option>Male</option>
                                                 <option>Female</option>
                                             </select>
@@ -93,7 +94,7 @@
                                      <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="First Name">
+                                            <input type="text" id="txtFirstName" class="form-control" placeholder="First Name">
                                         </div>
                                     </div>
                                     
@@ -102,7 +103,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Last Name ">
+                                            <input type="text" id="txtLastName" class="form-control" placeholder="Last Name ">
                                         </div>
                                     </div>
                                     
@@ -111,7 +112,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" class="form-control" placeholder="Contact ">
+                                            <input type="text" id="txtContact" class="form-control" placeholder="Contact ">
                                         </div>
                                     </div>
                                     
@@ -119,8 +120,8 @@
                                     <div class="input-group"> 
                                         <span  class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <select class="selectpicker">
-                                                <option>Usert Type</option>
+                                            <select class="selectpicker" id="cmbUserType">
+                                                <option value="">Usert Type</option>
                                                 <option value="1">Sales Assistant</option>
                                                 <option value="2">Product Specialist</option>
                                                 <option value="3">Technician</option>
@@ -135,16 +136,17 @@
                                 <div class="col-sm-6">
                                      <div class="btn-demo col-sm-6">
                                         <p class="f-500 c-black m-b-20"> &nbsp; </p>
-                                        <button class="btn bgm-lightblue waves-effect"><i class="zmdi zmdi-plus-circle zmdi-hc-fw"></i> Save &nbsp;&nbsp;</button>
-                                        <button class="btn bgm-gray waves-effect"> <i class="zmdi zmdi-tag-close"></i> Clear &nbsp;&nbsp;</button>    
+                                        <button class="btn bgm-lightblue waves-effect" id="btnSaveUser" ><i class="zmdi zmdi-plus-circle zmdi-hc-fw"></i> Save &nbsp;&nbsp;</button>
+                                        <button class="btn bgm-lightblue waves-effect" id="btnUpdateuser"><i class="zmdi zmdi-edit"></i> Update</button>
+                                        <button class="btn bgm-gray waves-effect" id="btnClearUser"> <i class="zmdi zmdi-tag-close"></i> Clear &nbsp;&nbsp;</button>    
                                     </div>
                                 </div>
                                
                                 
                             </div>
-                            <!--End Product Entry -->
-                            <!-- Product List -->
-                            <div class="row product_list">
+                            <!--Create User -->
+                            <!-- User List -->
+                            <div class="row user_list">
                                  <div class="card-header">
                                     <h2>Users List</h2>
                                 </div>
@@ -164,7 +166,7 @@
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="userList">
                                             <tr>
                                                 <td>Benjamin</td>
                                                 <td>Parnell</td>
@@ -174,7 +176,7 @@
                                                 <td>Benjamin</td>
                                                 <td>Parnell</td>
                                                 <td>@wayne234</td>
-                                                <td><button class="btn btn-danger waves-effect btnEditProduct" data-product-id="1"><i class="zmdi zmdi-edit"></i> Edit</button></td>
+                                                <td><button class="btn btn-danger waves-effect btnEditUser" data-user-id="1"><i class="zmdi zmdi-edit"></i> Edit</button></td>
                                             </tr>   
                                         </tbody>
                                     </table>

@@ -36,6 +36,113 @@
                     });
                 };
 
+/*
+	Users Code
+*/
+	clear_userFields();
+	 $("#gotoCreateUser").on('click',function(){
+        $(".user_list").hide();
+        $(".create_user").fadeIn();
+    });
+
+    $("#gotUserList").on('click',function(){
+        $(".create_user").hide();
+        $(".user_list").fadeIn();
+    });
+
+    $(document).on('click','.btnEditUser',function(){
+
+    });
+
+    $("#btnSaveUser").on('click',function(){
+    	save_or_update_user();
+    });
+
+    $("#btnUpdateuser").on('click',function(){
+    	save_or_update_user();
+    });
+
+    $("#btnClearUser").on('click',function(){
+    	clear_userFields();
+    });
+
+
+
+    function save_or_update_user(flag){
+
+    	userName = $.trim($("#txtUsername").val());
+    	uPassword = $.trim($("#txtPassword").val());
+    	uEmail = $.trim($("#txtEmail").val());
+    	uGender = $.trim($("#cmbGender").val());
+    	uFirstName = $.trim($("#txtFirstName").val());
+    	uLastName =$.trim($("#txtLastName").val());
+    	uContact = $.trim($("#txtContact").val());
+    	userType = $.trim($("#cmbUserType").val());
+    	data = {
+            'username':userName,
+            'password':uPassword,
+            'Email':uEmail,
+            'Firstname':uFirstName,
+            'LastName':uLastName,
+            'Contact':uContact,
+            'avatar': (uGender == 'Male')? 'public/img/profile-pics/2.jpg':'public/img/profile-pics/1.jpg',
+            'user_type':userType,
+        }
+
+    	if(userName.length <= 0 || uPassword.length <= 0 || uEmail.length <= 0  || uFirstName.length <= 0 || uLastName.length <= 0 || uContact.length <= 0){
+    		 notify_user('danger','Please fill in all fields!');
+    	}else if(uGender.length <= 0){
+    		notify_user('danger','Please select the users gender!');
+    	}else if(userType.length <= 0){
+    		notify_user('danger','Please select user type!');
+    	}else{
+    		user_data ={
+    			'data':data
+    		}
+
+    		url = 'user/save_user';
+
+    		if(flag == 'update'){
+    			user_data ={
+    				'id':$("#btnUpdateuser").attr('data-user-id'),
+	    			'data':data
+	    		}
+
+	    		url = 'user/update_user';
+    		}
+    		$.post(url,product_data,function(response){
+                    console.log(response);
+                    if(response != ''){
+                        notify_user('info','Products successfully saved!','');
+                        $("#userList").html("");
+                        $("#userList").html(response)
+                        clear_product();        
+                    }
+            });
+    	}
+    	  	 
+    }
+
+    function clear_userFields(){
+    	$("#txtUsername").val("");
+    	$("#txtPassword").val("");
+    	$("#txtEmail").val("");
+    	$("#cmbGender").val("");
+    	$("#txtFirstName").val("");
+    	$("#txtLastName").val("");
+    	$("#txtContact").val("");
+    	$("#cmbUserType").val("");
+    	$("#btnUpdateuser").removeAttr('data-user-id');
+    	$("#btnSaveUser").show();
+    	$("#btnUpdateuser").hide();
+    }
+/*
+	End Users code
+ */
+
+/*
+	Clients Code
+*/
         clear_clientFields();
 
         $(document).on('click','.btnEditClient',function(){
@@ -118,7 +225,7 @@
 				$.post(url,client_data,function(response){
 					console.log(response);
                     if(response != ''){
-                        notify_user('info','Products successfully saved!','');
+                        notify_user('info','Client information successfully saved!','');
                         $("#clientList").html("");
                         $("#clientList").html(response)
                         clear_clientFields();        
@@ -139,6 +246,9 @@
 			$("#txtClientEmail").val("");
 			$("#txtClientContactPerson").val("");
 		}
+/*
+	End Clients Code
+*/
 		function table_search(tblSelector,value){
 	        var rows = $('#'+tblSelector+' tr');
 	       

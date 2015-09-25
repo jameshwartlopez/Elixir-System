@@ -110,7 +110,7 @@ $(document).ready(function(){
         }else{
             $.post('/product/save_category',{'catName':$("#txtCategoryName").val()},function(response){
                 if(response != ''){
-                    notify_user('info','Successfully Saved!','');
+                    notify_user('info','Successfully Saved!');
                     $("#categoryList").append(response)
                     clear_category();        
                 }
@@ -127,7 +127,7 @@ $(document).ready(function(){
             $.post('/product/update_category',{'id':$("#btnUpdateCategory").attr('data-cat-id'),'catName':$("#txtCategoryName").val()},function(response){
               
                 if(response != ''){
-                    notify_user('info','Successfully Updated!','');
+                    notify_user('info','Successfully Updated!');
                     $("#categoryList").html("");
                     $("#categoryList").html(response)
                     clear_category();        
@@ -197,7 +197,7 @@ $(document).ready(function(){
             $.post('/product/save_itemUnit',{'itemUnit':value},function(response){
               
                 if(response != ''){
-                    notify_user('info','Successfully Saved!','');
+                    notify_user('info','Successfully Saved!');
                     $("#itemUnitList").append(response)
                     clear_itemUnit();        
                 }
@@ -215,7 +215,7 @@ $(document).ready(function(){
             $.post('/product/update_itemUnit',{'id':$("#btnUpdateItemUnit").attr('data-itemunit-id'),'itemName':$("#txtItemUnit").val()},function(response){
                 console.log(response);
                 if(response != ''){
-                    notify_user('info','Successfully Updated!','');
+                    notify_user('info','Successfully Updated!');
                     $("#itemUnitList").html("");
                     $("#itemUnitList").html(response)
                     clear_itemUnit();        
@@ -321,7 +321,7 @@ $(document).ready(function(){
             punitPrice.length <= 0 || 
             pSellingPrice.length <= 0 || 
             pQuantity.length <= 0){
-            notify_user('danger','Please fill in all fields!','');
+            notify_user('danger','Please fill in all fields!');
         }else if(punitPrice == 0){
             notify_user('danger','Please Enter Unit Price!','');
         }else if(pSellingPrice == 0){
@@ -345,7 +345,7 @@ $(document).ready(function(){
             $.post(url,product_data,function(response){
                     console.log(response);
                     if(response != ''){
-                        notify_user('info','Products successfully saved!','');
+                        notify_user('info','Products successfully saved!');
                         $("#productList").html("");
                         $("#productList").html(response)
                         clear_product();        

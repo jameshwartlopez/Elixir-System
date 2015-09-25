@@ -2,7 +2,7 @@
 	background: #059D22;	
 }
 
-.product_list{
+.product_list,.user_list{
 	display: none;
 }
 
