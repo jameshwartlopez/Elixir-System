@@ -1,4 +1,40 @@
 $(document).ready(function(){
+    /*
+        number only input type will user the class number(.number)
+     */
+    $(".number").on('keypress',function(evt){
+        return ja_isNumber(evt);
+    });
+    /*
+        Transaction 
+     */
+        $(document).on('click','.btnAddQty',function(){
+            stockinQty = $('#txtQty'+$(this).attr('data-product-id'));
+           
+            date = $("#txtDate").val();
+            data = {
+                'product_id':$(this).attr('data-product-id'),
+                'quantity':stockinQty.val(),
+                'date':date             
+            }
+            if(stockinQty.length <= 0 || stockinQty <= 0){
+                notify_user("danger","Please enter a quantity to stockin!")
+            }else{
+
+                $.post(home_url+'/product/save_stockin',{'data':data},function(response){
+                    if(response == 1){
+                        stockinQty.val("1");
+                        notify_user('info',"Stock in Successful!");
+                    }
+                     
+                });   
+            }
+           
+            
+        });
+    /*
+        End Transaction
+     */
     $("#gotoProductEntry").on('click',function(){
         $(".product_list").hide();
         $(".product_entry").fadeIn();
@@ -206,6 +242,10 @@ $(document).ready(function(){
         $("#btnUpdateProduct").show();
         $("#btnSaveProduct").hide();
         $('.selectpicker').selectpicker('refresh')
+    });
+
+    $("#txtPQuantity").on('keypress',function(evt){
+        return ja_isNumber(evt);
     });
 
     $("#btnSaveProduct").on('click',function(){

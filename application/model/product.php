@@ -90,4 +90,52 @@ class ProductModel extends Model{
 			return $this->db->select($this->tblProducts)->or_where('name LIKE ','%'.$searchKey.'%')->ja_execute();
 		}
 	}
+
+	//transactions
+	
+	public function save_stockin($data){
+		$last_transaction = $this->get_last_inserted_data();
+		
+		$new_transaction_no = $this->new_transaction_no($last_transaction['No']);
+		
+		$product_info = $this->get_product_byId($data['product_id']);
+		
+		$db = $this->db->pdo->prepare("INSERT INTO tbl_stockin(transaction_no,product_id,date,quantity,user) VALUES(:transaction_no,:product_id,:date,:quantity,:user)");
+		$stockin = $db->execute(array(':transaction_no' => $new_transaction_no,':product_id'=>$data['product_id'], ':date'=>$data['date'],':quantity'=>$data['quantity'],':user'=>$_SESSION['user_id']));
+
+		$bal = (int)$product_info['quantity'] + (int)$data['quantity'];
+		
+		$db =  $this->db->pdo->prepare("INSERT INTO tbl_transaction(No,type,product_id,date,balance,user) VALUES(:No,:type,:product_id,:date,:balance,:user)");
+		$transaction = $db->execute(array(':No'=>$new_transaction_no,':type'=>'STOCK IN',':product_id'=>$data['product_id'],':date'=>$data['date'],':balance'=>$bal,':user'=>$_SESSION['user_id']));
+
+		$db =  $this->db->pdo->prepare("UPDATE tbl_products SET quantity = :qty WHERE id = :id ");
+		$product = $db->execute(array(':qty'=>$bal,':id'=>$product_info['id']));
+
+		if($product && $transaction && $stockin){
+			return 1;
+		}
+
+	}
+	public function get_last_inserted_data(){
+		$db = $this->db->pdo->prepare("Select * from tbl_transaction ORDER BY id DESC LIMIT 1");
+		$db->execute();
+		return $db->fetch();
+	}
+
+	public function get_product_byId($id){
+		$db = $this->db->pdo->prepare("Select * from tbl_products where id = ?");
+		$db->execute(array($id));
+		return $db->fetch();
+	}
+
+	public function new_transaction_no($trasno){
+		$str_int=((int)($trasno))+1; // convert string to int
+			$str_id='';   
+			// initialize the return variable
+			for($i=1 ;$i<=(6 - (strlen($str_int)));$i++){   // loop through to 6 minus the length of the string passed...
+				$str_id.="0";		
+			}
+			$str_id.=($str_int);
+			return $str_id;
+	}
 }

@@ -27,9 +27,7 @@ class UserController extends Controller{
 			$this->load_template('home',$data,'profile');
 
 		}else{
-			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
-			$this->load_view('login',$data);	
-			
+			redirect_to(home_url());
 		}
 	}
 
@@ -43,9 +41,7 @@ class UserController extends Controller{
 			$this->load_template('home',$data,'privacy_settings');
 
 		}else{
-			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
-			$this->load_view('login',$data);	
-			
+			redirect_to(home_url());	
 		}
 	}
 
@@ -63,9 +59,7 @@ class UserController extends Controller{
 			$this->load_template('home',$data,'user');
 
 		}else{
-			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
-			$this->load_view('login',$data);	
-			
+			redirect_to(home_url());
 		}
 	}
 

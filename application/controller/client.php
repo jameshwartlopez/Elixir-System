@@ -14,9 +14,7 @@ class ClientController extends Controller{
 			$this->load_template('home',$data,'client');
 
 		}else{
-			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
-			$this->load_view('login',$data);	
-			
+			redirect_to(home_url());	
 		}
 	}
 

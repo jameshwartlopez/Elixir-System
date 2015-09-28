@@ -22,9 +22,7 @@ class ProductController extends Controller{
 			$this->load_template('home',$data);
 
 		}else{
-			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
-			$this->load_view('login',$data);	
-			
+			redirect_to(home_url());	
 		}
 	}
 /*
@@ -44,9 +42,7 @@ class ProductController extends Controller{
 			$this->load_template('home',$data,'category');
 
 		}else{
-			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
-			$this->load_view('login',$data);	
-			
+			redirect_to(home_url());	
 		}
 	}
 	public function save_category(){
@@ -110,8 +106,7 @@ class ProductController extends Controller{
 			$this->load_template('home',$data,'item_unit');
 
 		}else{
-			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
-			$this->load_view('login',$data);	
+			redirect_to(home_url());		
 			
 		}
 	}
@@ -283,9 +278,43 @@ class ProductController extends Controller{
 
 	//transaction stockin page
 	public function stockIn(){
-		echo 'page for stockin';
+		if(isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])){
+			
+			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
+			$data['companyName'] = 'Elixir Industrial Equipment Inc.';
+
+			$product = $this->load_model('product');
+			$data['category'] = $product->show_category();
+
+
+			$data['itemUnit'] = $product->show_item_unit();
+
+			$data['products'] = $product->show_product();
+
+			$user = $this->load_model('user'); 
+			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
+			
+			$p = $this->load_model('product');
+			$data['last_transaction']=$p->get_last_inserted_data();
+
+			$newtransaction = $p->new_transaction_no($data['last_transaction']['No']);
+			echo $newtransaction;
+			$this->load_template('home',$data,'stockin');
+
+		}else{
+			redirect_to(home_url());	
+		}
 	}
 
+	public function save_stockin(){
+		if(isset($_POST['data']) && !empty($_POST['data'])){
+			$product  = $this->load_model('product');
+			$product_info = $product->get_product_byId($_POST['data']['product_id']);
+			
+			echo $product->save_stockin($_POST['data']);
+			
+		}
+	}
 	//transaction Stockout page
 	public function stockOut(){
 		echo 'page for stockout';

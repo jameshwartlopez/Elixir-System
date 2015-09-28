@@ -71,6 +71,28 @@ $(document).ready(function(){
     }
 
     /*
+        checker if number function
+    */
+    window.ja_isNumber = function(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
+        email checker function
+     */
+    window.validateEmail = function (email) { 
+      // http://stackoverflow.com/a/46181/11236
+      
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+    
+    /*
      * Notifications
      */
     window.notify_user = function(type,msg,title){

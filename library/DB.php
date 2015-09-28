@@ -19,11 +19,13 @@ class DB extends DB_config{
 	public $statement;
 	public $result;
 
+	public $pdo;
 	public function __construct(){
 		try{
 
 			$this->dns = 'mysql:host='.$this->host.';dbname='.$this->dbname;
 			$this->db = new PDO($this->dns,$this->username,$this->password);
+			$this->pdo = $this->db;
 			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			//save all table name in our variable;
 			$tables= $this->db->query('SHOW TABLES');
