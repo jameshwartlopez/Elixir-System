@@ -15,6 +15,10 @@ class ProductController extends Controller{
 			$data['itemUnit'] = $product->show_item_unit();
 
 			$data['products'] = $product->show_product();
+
+			$user = $this->load_model('user'); 
+			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
+			
 			$this->load_template('home',$data);
 
 		}else{
@@ -33,6 +37,10 @@ class ProductController extends Controller{
 			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
 			$data['companyName'] = 'Elixir Industrial Equipment Inc.';
 			$data['categories'] = $this->model->show_category(); 
+
+			$user = $this->load_model('user'); 
+			$data['current_user']= $user->show_current_users_info($_SESSION['user_id']);
+			
 			$this->load_template('home',$data,'category');
 
 		}else{
@@ -95,6 +103,10 @@ class ProductController extends Controller{
 			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
 			$data['companyName'] = 'Elixir Industrial Equipment Inc.';
 			$data['itemUnits'] = $this->model->show_item_unit();
+
+			$user =$this->load_model('user'); 
+			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
+
 			$this->load_template('home',$data,'item_unit');
 
 		}else{

@@ -6,49 +6,41 @@
                             <div class="card" id="profile-main">
                                 <div class="pm-overview c-overflow">
                                     <div class="profile-menu">
-                                        <a href="index.html">
+                                        <a href="#">
                                             <div class="profile-pic">
-                                                <img src="<?php echo home_url();?>public/img/profile-pics/1.jpg" alt="">
+                                                <img src="<?php echo $current_user['avatar'];?>" alt="">
                                             </div>
 
                                             <div class="profile-info">
-                                                Malinda Hollaway
+                                                <?php echo $current_user['Firstname'].' '.$current_user['LastName'];?>
                                                 <i class="zmdi zmdi-arrow-drop-down"></i>
                                             </div>
                                         </a>
 
                                         <ul class="main-menu profile-avatar" style="background-color: #edecec;">
                                             <li>
-                                                 <a href="http://localhost/csm/user/settings">
-                                                <img src="<?php echo home_url();?>public/img/profile-pics/1.jpg" alt=""> Simply Beautiful</a>
+                                                <img src="<?php echo home_url();?>/public/img/profile-pics/1.jpg" alt=""> Simply Beautiful
                                             </li>
                                             <li>
-                                                 <a href="http://localhost/csm/user/settings">
-                                                <img src="<?php echo home_url();?>public/img/profile-pics/2.jpg" alt=""> Okay Man</a>
+                                                <img src="<?php echo home_url();?>/public/img/profile-pics/2.jpg" alt=""> Okay Man
                                             </li>
                                             <li>
-                                                 <a href="http://localhost/csm/user/settings">
-                                                <img src="<?php echo home_url();?>public/img/profile-pics/3.jpg" alt=""> Shy Girl</a>
+                                                <img src="<?php echo home_url();?>/public/img/profile-pics/3.jpg" alt=""> Shy Girl
                                             </li>
                                             <li>
-                                                 <a href="http://localhost/csm/user/settings">
-                                                <img src="<?php echo home_url();?>public/img/profile-pics/4.jpg" alt=""> Good Boy</a>
+                                                <img src="<?php echo home_url();?>/public/img/profile-pics/4.jpg" alt=""> Good Boy
                                             </li>
                                             <li>
-                                                 <a href="http://localhost/csm/user/settings">
-                                                <img src="<?php echo home_url();?>public/img/profile-pics/5.jpg" alt=""> Inlove Woman</a>
+                                                <img src="<?php echo home_url();?>/public/img/profile-pics/5.jpg" alt=""> Inlove Woman
                                             </li>
                                             <li>
-                                                 <a href="http://localhost/csm/user/settings">
-                                                <img src="<?php echo home_url();?>public/img/profile-pics/7.jpg" alt=""> Brown Hair</a>
+                                                <img src="<?php echo home_url();?>/public/img/profile-pics/7.jpg" alt=""> Brown Hair
                                             </li>
                                             <li>
-                                                 <a href="http://localhost/csm/user/settings">
-                                                <img src="<?php echo home_url();?>public/img/profile-pics/8.jpg" alt=""> Blue Polo</a>
+                                                <img src="<?php echo home_url();?>/public/img/profile-pics/8.jpg" alt=""> Blue Polo
                                             </li>
                                             <li>
-                                                 <a href="http://localhost/csm/user/settings">
-                                                <img src="<?php echo home_url();?>public/img/profile-pics/9.jpg" alt=""> Pink Shirt</a>
+                                                <img src="<?php echo home_url();?>/public/img/profile-pics/9.jpg" alt=""> Pink Shirt
                                             </li>
                                             
                                         </ul>
@@ -58,16 +50,8 @@
                                         <h2>Contact</h2>
                                         
                                         <ul>
-                                            <li><i class="zmdi zmdi-phone"></i> 00971 12345678 9</li>
-                                            <li><i class="zmdi zmdi-email"></i> malinda-h@gmail.com</li>
-                                            <li>
-                                                <i class="zmdi zmdi-pin"></i>
-                                                <address class="m-b-0">
-                                                    10098 ABC Towers, 
-                                                    Dubai Silicon Oasis, Dubai, 
-                                                    United Arab Emirates
-                                                </address>
-                                            </li>
+                                            <li><i class="zmdi zmdi-phone"></i><?php echo $current_user['Contact'];?></li>
+                                            <li><i class="zmdi zmdi-email"></i><?php echo $current_user['Email'];?></li>
                                         </ul>
                                     </div>
                                     
@@ -76,8 +60,8 @@
                                 
                                 <div class="pm-body clearfix">
                                     <ul class="tab-nav tn-justified">
-                                        <li class="waves-effect"><a href="<?php echo home_url();?>user/profile">Profile</a></li>
-                                        <li class="active waves-effect"><a href="<?php echo home_url();?>user/settings">Settings</a></li>
+                                        <li class="waves-effect"><a href="<?php echo home_url();?>/user/profile">Profile</a></li>
+                                        <li class="active waves-effect"><a href="<?php echo home_url();?>/user/settings">Settings</a></li>
                                     </ul>
                                     
                                     <div class="pmb-block">
@@ -86,13 +70,13 @@
                                             
                                             <ul class="actions">
                                                 <li class="dropdown">
-                                                    <a href="profile-about.html" data-toggle="dropdown">
+                                                    <a href="#" data-toggle="dropdown">
                                                         <i class="zmdi zmdi-more-vert"></i>
                                                     </a>
                                                     
                                                     <ul class="dropdown-menu dropdown-menu-right">
                                                         <li>
-                                                            <a data-pmb-action="edit" href="profile-about.html">Edit</a>
+                                                            <a data-pmb-action="edit" href="#">Edit</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -102,7 +86,7 @@
                                             <div class="pmbb-view">
                                                 <dl class="dl-horizontal">
                                                     <dt>Username</dt>
-                                                    <dd>Jameshwart</dd>
+                                                    <dd><?php echo $current_user['username'];?></dd>
                                                 </dl>
                                                 <dl class="dl-horizontal">
                                                     <dt>Password</dt>
@@ -115,7 +99,7 @@
                                                     <dt class="p-t-10">Username</dt>
                                                     <dd>
                                                         <div class="fg-line">
-                                                            <input type="text" class="form-control" placeholder="Enter your first name here">
+                                                            <input type="text" id="txtCUsername" value="<?php echo $current_user['username'];?>" class="form-control" placeholder="Enter your first name here">
                                                         </div>
                                                         
                                                     </dd>
@@ -124,7 +108,7 @@
                                                     <dt class="p-t-10">Old Password</dt>
                                                     <dd>
                                                         <div class="fg-line">
-                                                            <input type="password" class="form-control" placeholder="Enter your last name here">
+                                                            <input type="password" id="txtCOldpassword" class="form-control" placeholder="Enter your Old password here">
                                                         </div>
                                                         
                                                     </dd>
@@ -133,15 +117,25 @@
                                                     <dt class="p-t-10">New Password</dt>
                                                     <dd>
                                                         <div class="fg-line">
-                                                            <input type="password" class="form-control" placeholder="Enter your last name here">
+                                                            <input type="password" id="txtCNewpassword" class="form-control" placeholder="Enter your New password here">
+                                                        </div>
+                                                        
+                                                    </dd>
+                                                </dl>
+                                                <dl class="dl-horizontal">
+                                                    <dt class="p-t-10">Confirm Password</dt>
+                                                    <dd>
+                                                        <div class="fg-line">
+                                                            <input type="password" id="txtCConfirmpassword" class="form-control" placeholder="Enter your New password here">
                                                         </div>
                                                         
                                                     </dd>
                                                 </dl>
                                                 
                                                 <div class="m-t-30">
-                                                    <button class="btn btn-primary btn-sm">Save</button>
+                                                    <button class="btn btn-primary btn-sm" id="btnSaveLoginCredentials">Save</button>
                                                     <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
+                                                    <div class="errors"></div>
                                                 </div>
                                             </div>
                                         </div>

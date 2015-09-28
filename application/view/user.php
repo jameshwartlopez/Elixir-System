@@ -10,7 +10,7 @@
                             <h2 class="lvh-label hidden-xs">Search User</h2>
                             
                             <div class="lvh-search" style="display: none;">
-                                <input type="text" placeholder="Start typing..." class="lvhs-input">
+                                <input type="text" id="txtSearchUser" placeholder="Start typing..." class="lvhs-input">
                                 
                                 <i class="lvh-search-close">×</i>
                             </div>
@@ -78,8 +78,8 @@
                                         <div class="fg-line">
                                             <select class="selectpicker" id="cmbGender">
                                                 <option value="">Gender</option>
-                                                <option>Male</option>
-                                                <option>Female</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
                                             </select>
                                         </div>
                                             
@@ -119,13 +119,15 @@
                                     <br>
                                     <div class="input-group"> 
                                         <span  class="input-group-addon"></span>
+                                        
                                         <div class="fg-line">
                                             <select class="selectpicker" id="cmbUserType">
                                                 <option value="">Usert Type</option>
-                                                <option value="1">Sales Assistant</option>
-                                                <option value="2">Product Specialist</option>
-                                                <option value="3">Technician</option>
-
+                                                <?php 
+                                                foreach ($user_type as $key => $value) {
+                                                    ?><option value="<?php echo $key;?>"><?php echo $value;?></option><?php    
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                             
@@ -167,17 +169,33 @@
                                             </tr>
                                         </thead>
                                         <tbody id="userList">
-                                            <tr>
-                                                <td>Benjamin</td>
-                                                <td>Parnell</td>
-                                                <td>@wayne234</td>
-                                                <td>Pokie</td>
-                                                <td>6</td>
-                                                <td>Benjamin</td>
-                                                <td>Parnell</td>
-                                                <td>@wayne234</td>
-                                                <td><button class="btn btn-danger waves-effect btnEditUser" data-user-id="1"><i class="zmdi zmdi-edit"></i> Edit</button></td>
+                                           <?php
+                                            foreach ($users as $user) {?>
+                                             <tr>
+                                                <td><?php echo $user['username'];?></td>
+                                                <td><?php echo $user['password'];?></td>
+                                                <td><?php echo $user['Firstname'];?></td>
+                                                <td><?php echo $user['LastName'];?></td>
+                                                <td><?php echo $user['Email'];?></td>
+                                                <td><?php echo $user['Contact'];?></td>
+                                                <td><?php echo $user['gender'];?></td>
+                                                <td><?php echo $user_type[$user['user_type']];?></td>
+                                                <td>
+                                                    <button class="btn btn-danger waves-effect btnEditUser" 
+                                                            data-username='<?php echo $user['username'];?>' 
+                                                            data-password='<?php echo $user['password'];?>' 
+                                                            data-Firstname='<?php echo $user['Firstname'];?>' 
+                                                            data-LastName='<?php echo $user['LastName'];?>' 
+                                                            data-Contact='<?php echo $user['Contact'];?>' 
+                                                            data-Email='<?php echo $user['Email'];?>' 
+                                                            data-user-type='<?php echo $user['user_type'];?>' 
+                                                            data-gender='<?php echo $user['gender'];?>' 
+                                                            data-user-id='<?php echo $user['id'];?>'>
+                                                            <i class="zmdi zmdi-edit"></i> Edit
+                                                    </button>
+                                                </td>
                                             </tr>   
+                                            <?php }?>
                                         </tbody>
                                     </table>
                                 </div>

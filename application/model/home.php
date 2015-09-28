@@ -27,11 +27,6 @@ class HomeModel extends Model{
 		
 		$this->db->insert('tbl_user',$user_insert)->ja_execute();
 		
-
-		// $this->db->update('tbl_user',$user_update)->where('user_id <=',4)->or_where('Firstname =','Jameshwart')->ja_execute();
-
-		// $this->db->delete('tbl_user',$where)->ja_execute();
-
 		$a = $this->db->select('tbl_user')->ja_execute();
 		
 	}	

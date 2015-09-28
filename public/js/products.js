@@ -1,39 +1,4 @@
 $(document).ready(function(){
-                /*
-                 * Notifications
-                 */
-                function notify_user(type,msg,title){
-                    $.growl({
-                        title: title,
-                        message: msg,
-                    },{
-                            element: 'body',
-                            type: type,
-                            allow_dismiss: true,
-                            offset: {
-                                x: 20,
-                                y: 85
-                            },
-                            spacing: 10,
-                            z_index: 1031,
-                            delay: 2500,
-                            timer: 1000,
-                            url_target: '_blank',
-                            mouse_over: false,
-                            icon_type: 'class',
-                            template: '<div data-growl="container" class="alert" role="alert">' +
-                                            '<button type="button" class="close" data-growl="dismiss">' +
-                                                '<span aria-hidden="true">&times;</span>' +
-                                                '<span class="sr-only">Close</span>' +
-                                            '</button>' +
-                                            '<span data-growl="icon"></span>' +
-                                            '<span data-growl="title"></span>' +
-                                            '<span data-growl="message"></span>' +
-                                            '<a href="notification-dialog.html#" data-growl="url"></a>' +
-                                        '</div>'
-                    });
-                };
-
     $("#gotoProductEntry").on('click',function(){
         $(".product_list").hide();
         $(".product_entry").fadeIn();
@@ -79,7 +44,7 @@ $(document).ready(function(){
     });
 
     $("#txtCategorySearch").on('input',function(){
-        search_category();
+        table_search('categoryList',$(this).val());
     });
 
     $("#btnSaveCategory").on('click',function(){
@@ -90,16 +55,6 @@ $(document).ready(function(){
        clear_category();
     });
 
-    function search_category(){
-          $.post('/product/search_category',{'catName':$("#txtCategorySearch").val()},function(response){
-                console.log(response);
-                if(response != ''){
-                    $("#categoryList").html("");
-                    $("#categoryList").html(response)
-                    clear_category();        
-                }
-            });   
-    }
 
     function save_category(){
         var value = $.trim($("#txtCategoryName").val());
@@ -108,7 +63,7 @@ $(document).ready(function(){
              notify_user('danger','Please Enter Category Name','Saving Error ');
 
         }else{
-            $.post('/product/save_category',{'catName':$("#txtCategoryName").val()},function(response){
+            $.post(home_url+'/product/save_category',{'catName':$("#txtCategoryName").val()},function(response){
                 if(response != ''){
                     notify_user('info','Successfully Saved!');
                     $("#categoryList").append(response)
@@ -124,7 +79,7 @@ $(document).ready(function(){
              notify_user('danger','Please Enter Category Name','Saving Error ');
 
         }else{
-            $.post('/product/update_category',{'id':$("#btnUpdateCategory").attr('data-cat-id'),'catName':$("#txtCategoryName").val()},function(response){
+            $.post(home_url+'/product/update_category',{'id':$("#btnUpdateCategory").attr('data-cat-id'),'catName':$("#txtCategoryName").val()},function(response){
               
                 if(response != ''){
                     notify_user('info','Successfully Updated!');
@@ -184,7 +139,7 @@ $(document).ready(function(){
     });
    
     $('#txtSearchItemUnit').on("input",function(){
-        search_itemUnit();
+        table_search('itemUnitList',$(this).val());
     });
 
     function save_itemUnit(){
@@ -194,7 +149,7 @@ $(document).ready(function(){
              notify_user('danger','Please Enter Item Unit','Saving Error ');
 
         }else{
-            $.post('/product/save_itemUnit',{'itemUnit':value},function(response){
+            $.post(home_url+'/product/save_itemUnit',{'itemUnit':value},function(response){
               
                 if(response != ''){
                     notify_user('info','Successfully Saved!');
@@ -212,7 +167,7 @@ $(document).ready(function(){
              notify_user('danger','Please Enter Category Name','Saving Error ');
 
         }else{
-            $.post('/product/update_itemUnit',{'id':$("#btnUpdateItemUnit").attr('data-itemunit-id'),'itemName':$("#txtItemUnit").val()},function(response){
+            $.post(home_url+'/product/update_itemUnit',{'id':$("#btnUpdateItemUnit").attr('data-itemunit-id'),'itemName':$("#txtItemUnit").val()},function(response){
                 console.log(response);
                 if(response != ''){
                     notify_user('info','Successfully Updated!');
@@ -222,17 +177,6 @@ $(document).ready(function(){
                 }
             });    
         }
-    }
-
-    function search_itemUnit(){
-         $.post('/product/search_itemUnit',{'itemUnitName':$("#txtSearchItemUnit").val()},function(response){
-                console.log(response);
-                if(response != ''){
-                    $("#itemUnitList").html("");
-                    $("#itemUnitList").html(response)
-                    clear_itemUnit();        
-                }
-            });   
     }
 
     function clear_itemUnit(){
@@ -342,7 +286,7 @@ $(document).ready(function(){
                 }
             }
 
-            $.post(url,product_data,function(response){
+            $.post(home_url+url,product_data,function(response){
                     console.log(response);
                     if(response != ''){
                         notify_user('info','Products successfully saved!');
@@ -373,17 +317,7 @@ $(document).ready(function(){
         table_search('productList',$(this).val());
     });
 
-    function table_search(tblSelector,value){
-        var rows = $('#'+tblSelector+' tr');
-       
-        var val = $.trim(value).replace(/ +/g, ' ').toLowerCase();
-            
-        rows.show().filter(function() {
-                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-                return !~text.indexOf(val);
-        }).hide();
-       
-    }
+    
 /*
     End Product Entry
  */

@@ -8,6 +8,9 @@ class ClientController extends Controller{
 			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
 			$data['companyName'] = 'Elixir Industrial Equipment Inc.';
 			$data['clients'] = $this->model->show_client();
+
+			$user = $this->load_model('user'); 
+			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
 			$this->load_template('home',$data,'client');
 
 		}else{

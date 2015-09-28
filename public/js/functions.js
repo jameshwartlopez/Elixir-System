@@ -56,6 +56,57 @@ $(document).ready(function(){
     })();
     
     /*
+     * Table Search
+     */
+    window.table_search = function(tblSelector,value){
+        var rows = $('#'+tblSelector+' tr');
+       
+        var val = $.trim(value).replace(/ +/g, ' ').toLowerCase();
+            
+        rows.show().filter(function() {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+        }).hide();
+       
+    }
+
+    /*
+     * Notifications
+     */
+    window.notify_user = function(type,msg,title){
+        $.growl({
+            title: title,
+            message: msg,
+        },{
+            element: 'body',
+            type: type,
+            allow_dismiss: true,
+            offset: {
+                x: 20,
+                y: 85
+            },
+            spacing: 10,
+            z_index: 1031,
+            delay: 2500,
+            timer: 1000,
+            url_target: '_blank',
+            mouse_over: false,
+            icon_type: 'class',
+            template: '<div data-growl="container" class="alert" role="alert">' +
+                            '<button type="button" class="close" data-growl="dismiss">' +
+                                '<span aria-hidden="true">&times;</span>' +
+                                '<span class="sr-only">Close</span>' +
+                            '</button>' +
+                            '<span data-growl="icon"></span>' +
+                            '<span data-growl="title"></span>' +
+                            '<span data-growl="message"></span>' +
+                            '<a href="notification-dialog.html#" data-growl="url"></a>' +
+                        '</div>'
+        });
+    };
+    
+
+    /*
      * Sidebar
      */
     (function(){

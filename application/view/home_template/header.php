@@ -7,22 +7,24 @@
         <title><?php echo $title; ?></title>
 
         <!-- Vendor CSS -->
-        <link href="<?php echo home_url(); ?>public/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
-        <link href="<?php echo home_url(); ?>public/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet">
-        <link href="<?php echo home_url(); ?>public/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
         
-        <link href="<?php echo home_url(); ?>public/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet">
-        <link href="<?php echo home_url(); ?>public/vendors/bower_components/nouislider/distribute/jquery.nouislider.min.css" rel="stylesheet">
-        <link href="<?php echo home_url(); ?>public/vendors/bower_components/summernote/dist/summernote.css" rel="stylesheet">
-        <link href="<?php echo home_url(); ?>public/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-        <link href="<?php echo home_url(); ?>public/vendors/farbtastic/farbtastic.css" rel="stylesheet">
-        <link href="<?php echo home_url(); ?>public/vendors/chosen_v1.4.2/chosen.min.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/vendors/bower_components/nouislider/distribute/jquery.nouislider.min.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/vendors/bower_components/summernote/dist/summernote.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/vendors/farbtastic/farbtastic.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/vendors/chosen_v1.4.2/chosen.min.css" rel="stylesheet">
             
         <!-- CSS -->
-        <link href="<?php echo home_url(); ?>public/css/app.min.1.css" rel="stylesheet">
-        <link href="<?php echo home_url(); ?>public/css/app.min.2.css" rel="stylesheet">
-        <link href="<?php echo home_url(); ?>public/css/style.css" rel="stylesheet">    
-        
+        <link href="<?php echo home_url(); ?>/public/css/app.min.1.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/css/app.min.2.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/css/style.css" rel="stylesheet">    
+        <script type="text/javascript">
+            var home_url = '<?php echo home_url();?>';
+        </script>
     </head>
     <body>
         <header id="header" data-date-today="<?php echo date('Y-m-d'); ?>">
@@ -36,7 +38,7 @@
                 </li>
             
                 <li class="logo hidden-xs">
-                    <a href="index.html">Elixir Industrial Equipment Inc. </a>
+                    <a href="<?php echo home_url();?>"><?php echo $companyName;?> </a>
                 </li>
                 
                 <li class="pull-right">
@@ -67,7 +69,7 @@
                                     <a class="lv-item" href="index.html">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo home_url();?>public/img/profile-pics/1.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo home_url();?>/public/img/profile-pics/1.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">David Belle</div>
@@ -78,7 +80,7 @@
                                     <a class="lv-item" href="index.html">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo home_url();?>public/img/profile-pics/2.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo home_url();?>/public/img/profile-pics/2.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">Jonathan Morris</div>
@@ -88,7 +90,7 @@
                                     </a> 
                                 </div>
                     
-                                <a class="lv-footer" href="<?php echo home_url()?>user/profile">View Previous</a>
+                                <a class="lv-footer" href="<?php echo home_url()?>/user/profile">View Previous</a>
                             </div>
                     
                         </div>
@@ -98,16 +100,16 @@
                         <a data-toggle="dropdown" class="tm-task" href="#"></a>
                         <ul class="dropdown-menu dm-icon pull-right">
                             <li>
-                                <a href="<?php echo home_url()?>user/profile"><i class="zmdi zmdi-account"></i> View Profile</a>
+                                <a href="<?php echo home_url()?>/user/profile"><i class="zmdi zmdi-account"></i> View Profile</a>
                             </li>
                             <li>
-                                <a href="<?php echo home_url()?>user/settings"><i class="zmdi zmdi-settings"></i> Privacy Settings</a>
+                                <a href="<?php echo home_url()?>/user/settings"><i class="zmdi zmdi-settings"></i> Privacy Settings</a>
                             </li>
                             <li>
-                                <a href="<?php echo home_url();?>user/logout"><i class="zmdi zmdi-storage "></i> Backup and Restore</a>
+                                <a href="<?php echo home_url();?>/user/logout"><i class="zmdi zmdi-storage "></i> Backup and Restore</a>
                             </li>
                             <li>
-                                <a href="<?php echo home_url();?>user/logout"><i class="zmdi zmdi-power"></i> Log out</a>
+                                <a href="<?php echo home_url();?>/user/logout"><i class="zmdi zmdi-power"></i> Log out</a>
                             </li>
                         </ul>
                     </li>
@@ -128,21 +130,21 @@
                     <div class="profile-menu">
                         <a href="index.html">
                             <div class="profile-pic">
-                                <img src="<?php echo home_url();?>public/img/profile-pics/1.jpg" alt="">
+                                <img src="<?php echo $current_user['avatar'];?>" alt="">
                             </div>
 
                             <div class="profile-info">
-                                Malinda Hollaway
+                                <?php echo $current_user['Firstname'].' '.$current_user['LastName'];?>
                                 <i class="zmdi zmdi-arrow-drop-down"></i>
                             </div>
                         </a>
 
                         <ul class="main-menu">
                             <li>
-                                <a href="<?php echo home_url()?>user/profile"><i class="zmdi zmdi-account"></i> View Profile</a>
+                                <a href="<?php echo home_url()?>/user/profile"><i class="zmdi zmdi-account"></i> View Profile</a>
                             </li>
                             <li>
-                                <a href="<?php echo home_url()?>user/settings"><i class="zmdi zmdi-input-antenna"></i> Privacy Settings</a>
+                                <a href="<?php echo home_url()?>/user/settings"><i class="zmdi zmdi-input-antenna"></i> Privacy Settings</a>
                             </li>
                             
                         </ul>
@@ -155,37 +157,37 @@
 
                             <ul>
                                 <li>
-                                    <a class="active" href="<?php echo home_url()?>product">
+                                    <a class="active" href="<?php echo home_url()?>/product">
                                         Products Profile
                                     </a>
                                 </li>
 
-                                <li><a href="<?php echo home_url();?>product/itemUnit">Item Unit</a></li>
-                                <li><a  href="<?php echo home_url()?>product/category">Category</a></li>
+                                <li><a href="<?php echo home_url();?>/product/itemUnit">Item Unit</a></li>
+                                <li><a  href="<?php echo home_url()?>/product/category">Category</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
                             <a href="#"><i class="zmdi zmdi-rotate-cw"></i> Transaction </a>
 
                             <ul>
-                                <li><a href="<?php echo home_url(); ?>product/stockIn"></i> Stock In Items</a></li>
-                                <li><a href="<?php echo home_url(); ?>product/stockOut">Stock Out Items</a></li>
-                                <li><a href="<?php echo home_url();?>product/returnedItems">Returned Items</a></li>
+                                <li><a href="<?php echo home_url(); ?>/product/stockIn"></i> Stock In Items</a></li>
+                                <li><a href="<?php echo home_url(); ?>/product/stockOut">Stock Out Items</a></li>
+                                <li><a href="<?php echo home_url(); ?>/product/returnedItems">Returned Items</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
                             <a href="#"><i class="zmdi zmdi-widgets"></i> Reports </a>
 
                             <ul>
-                                <li><a href="<?php echo home_url(); ?>report/stockPile"></i> Stockpile </a></li>
-                                <li><a href="<?php echo home_url();?>report/stockIn">Stock In Items</a></li>
-                                <li><a href="<?php echo home_url(); ?>report/stockOut">Stock Out Items</a></li>
-                                <li><a href="<?php echo home_url();?>report/service">Service Report</a></li>
+                                <li><a href="<?php echo home_url(); ?>/report/stockPile"></i> Stockpile </a></li>
+                                <li><a href="<?php echo home_url();?>/report/stockIn">Stock In Items</a></li>
+                                <li><a href="<?php echo home_url(); ?>/report/stockOut">Stock Out Items</a></li>
+                                <li><a href="<?php echo home_url();?>/report/service">Service Report</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?php echo home_url();?>service"><i class="zmdi zmdi-truck"></i> Service Report</a></li>
-                        <li><a href="<?php echo home_url();?>client"><i class="zmdi zmdi-account-add"></i> Clients Profile</a></li>
-                        <li><a href="<?php echo home_url();?>user/all"><i class="zmdi zmdi-assignment-account"></i> System Users</a></li>
+                        <li><a href="<?php echo home_url();?>/service"><i class="zmdi zmdi-truck"></i> Service Report</a></li>
+                        <li><a href="<?php echo home_url();?>/client"><i class="zmdi zmdi-account-add"></i> Clients Profile</a></li>
+                        <li><a href="<?php echo home_url();?>/user/all"><i class="zmdi zmdi-assignment-account"></i> System Users</a></li>
                 
                     </ul>
                 </div>

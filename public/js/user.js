@@ -1,46 +1,144 @@
 (function($) {
 	$(document).ready(function(){
 
-		/*
-                 * Notifications
-                 */
-                function notify_user(type,msg,title){
-                    $.growl({
-                        title: title,
-                        message: msg,
-                    },{
-                            element: 'body',
-                            type: type,
-                            allow_dismiss: true,
-                            offset: {
-                                x: 20,
-                                y: 85
-                            },
-                            spacing: 10,
-                            z_index: 1031,
-                            delay: 2500,
-                            timer: 1000,
-                            url_target: '_blank',
-                            mouse_over: false,
-                            icon_type: 'class',
-                            template: '<div data-growl="container" class="alert" role="alert">' +
-                                            '<button type="button" class="close" data-growl="dismiss">' +
-                                                '<span aria-hidden="true">&times;</span>' +
-                                                '<span class="sr-only">Close</span>' +
-                                            '</button>' +
-                                            '<span data-growl="icon"></span>' +
-                                            '<span data-growl="title"></span>' +
-                                            '<span data-growl="message"></span>' +
-                                            '<a href="notification-dialog.html#" data-growl="url"></a>' +
-                                        '</div>'
-                    });
-                };
+    /*
+        Current User
+    */
+        //users avatar 
+        $(".user_avatar").on("click",function(){
+            user_avatar = $(this).attr("data-user-avatar");
 
-/*
-	Users Code
-*/
+            $.post(home_url+'/user/update_user_avatar',{'avatar':user_avatar},function(response){
+                if(response){
+                    $(".profile-pic img").attr('src',user_avatar);
+                }
+            });
+        });
+
+        //basic Information
+        $("#btnSaveBasicInformation").on('click',function(){
+            save_basic_information();
+        });
+
+        $("#txtCFname, #txtCLname , #cmbCgender").on('keypress',function(e){
+            if(e.which == 13){
+                save_basic_information();
+            }
+        });
+
+        function save_basic_information(){
+            uFName = $.trim($("#txtCFname").val());
+            uLName =$.trim($("#txtCLname").val());
+            uGender = $.trim($("#cmbCgender").val());
+
+            data={
+                'Firstname':uFName,
+                'LastName':uLName,
+                'gender':uGender
+            }
+
+            if(uFName.length <= 0 || uLName.length <= 0){
+                notify_user('danger',"Please fill up empty fields!","Saving Error! ");
+            }else if(uGender.length <= 0){
+                notify_user('danger',"Please select a gender","Saving Error! ");
+            }else{
+                $.post(home_url+'/user/update_current_user',{'data':data},function(response){
+                    if(response == 1){
+                        alert("User information successfully saved!\n System will reload!");
+                        window.location.reload();
+                    }
+                });    
+            } 
+        }
+        //end basic information
+
+        //Contact Information
+        $("#btnSaveCContact").on('click',function(){
+            save_contact_information();
+        });
+
+        $("#txtCContact, #txtCEmail").on('keypress',function(e){
+            if(e.which == 13){
+                save_contact_information();
+            }
+        });
+        function save_contact_information(){
+            cNumber = $("#txtCContact").val();
+            cEmailAddress = $("#txtCEmail").val();
+
+            if(cNumber.length <= 0 || cEmailAddress.length <= 0 ){
+                notify_user('danger',"Please fill up empty fields!","Saving Error! ");
+            }else{
+                data={
+                    'Contact':cNumber,
+                    'Email':cEmailAddress
+                }
+
+                $.post(home_url+'/user/update_current_user',{'data':data},function(response){
+                    if(response == 1){
+                        alert("User information successfully saved!\n System will reload!");
+                        window.location.reload();
+                    }
+                });    
+            }
+        }
+        //End Contact Information
+
+        //Login Credentials
+
+        $("#btnSaveLoginCredentials").on('click',function(){
+            save_login_credentials();
+        });
+
+        $("#txtCUsername, #txtCOldpassword, #txtCNewpassword, #txtCConfirmpassword").on('keypress',function(e){
+            if(e.which == 13){
+                save_login_credentials();
+            }
+        });
+
+        function save_login_credentials(){
+            userName = $.trim($("#txtCUsername").val());
+            oldPassword =  $.trim($("#txtCOldpassword").val());
+            newPassword = $.trim($("#txtCNewpassword").val());
+            confirmPassword = $.trim($("#txtCConfirmpassword").val());
+
+            if(userName.length <= 0 || oldPassword.length <= 0 || newPassword.length <=0 || confirmPassword.length <= 0){
+
+               notify_user('danger',"Please fill up empty fields!","Saving Error! "); 
+
+            }else if(confirmPassword != newPassword){
+                notify_user('danger',"New password and confirm password dont match","Saving Error! ");
+            }else{
+               data={
+                    'username':userName,
+                    'oldPassword':oldPassword,
+                    'password':newPassword
+                }
+
+                $.post(home_url+'/user/update_login_credential',{'data':data},function(response){
+                    $(".errors").html("").html('<pre>'+response+'</pre>');
+                    if(response == 3){
+                        notify_user('danger','Your password is incorrect!');
+                    }else if(response == 2){
+                        notify_user('danger','Username is already in use!');
+                    }else if(response == 1){
+                        alert("User information successfully saved!\n System will reload!");
+                        window.location.reload();
+                    }
+
+                });     
+            }
+        }
+        //End Login Credentials
+    /*
+        End Current User
+    */
+
+    /*
+    	Users Code
+    */
 	clear_userFields();
-	 $("#gotoCreateUser").on('click',function(){
+	$("#gotoCreateUser").on('click',function(){
         $(".user_list").hide();
         $(".create_user").fadeIn();
     });
@@ -50,8 +148,31 @@
         $(".user_list").fadeIn();
     });
 
-    $(document).on('click','.btnEditUser',function(){
+    $("#txtUsername ,#txtPassword ,#txtEmail ,#cmbGender ,#txtFirstName ,#txtLastName ,#txtContact ,#cmbUserType ").on('keypress',function(e){
+        if(e.which == 13){
+            var attr = $("#btnUpdateuser").attr("data-user-id");
+            if(typeof attr != typeof undefined && attr !== false){
+                 save_or_update_user('update');
+            }else{
+                save_or_update_user();
+            }
+        }
+    });
 
+    $(document).on('click','.btnEditUser',function(){
+       
+        $("#txtUsername").val($(this).attr('data-username'));
+        $("#txtPassword").val($(this).attr('data-password'));
+        $("#txtEmail").val($(this).attr('data-Email'));
+        $("#cmbGender").val($(this).attr('data-gender'));
+        $("#txtFirstName").val($(this).attr('data-Firstname'));
+        $("#txtLastName").val($(this).attr('data-LastName'));
+        $("#txtContact").val($(this).attr('data-Contact'));
+        $("#cmbUserType").val($(this).attr('data-user-type'));
+        $("#btnUpdateuser").attr('data-user-id',$(this).attr('data-user-id'));
+        $("#btnSaveUser,.user_list").hide();
+        $("#btnUpdateuser,.create_user").fadeIn();
+        $('.selectpicker').selectpicker('refresh');
     });
 
     $("#btnSaveUser").on('click',function(){
@@ -59,13 +180,16 @@
     });
 
     $("#btnUpdateuser").on('click',function(){
-    	save_or_update_user();
+    	save_or_update_user('update');
     });
 
     $("#btnClearUser").on('click',function(){
     	clear_userFields();
     });
 
+    $("#txtSearchUser").on('input',function(){
+        table_search('userList',$(this).val());
+    });
 
 
     function save_or_update_user(flag){
@@ -85,7 +209,8 @@
             'Firstname':uFirstName,
             'LastName':uLastName,
             'Contact':uContact,
-            'avatar': (uGender == 'Male')? 'public/img/profile-pics/2.jpg':'public/img/profile-pics/1.jpg',
+            'gender':uGender,
+            'avatar': (uGender == 'Male')? home_url+'/public/img/profile-pics/2.jpg':home_url+'/public/img/profile-pics/1.jpg',
             'user_type':userType,
         }
 
@@ -100,7 +225,7 @@
     			'data':data
     		}
 
-    		url = 'user/save_user';
+    		url = '/user/save_user';
 
     		if(flag == 'update'){
     			user_data ={
@@ -108,15 +233,15 @@
 	    			'data':data
 	    		}
 
-	    		url = 'user/update_user';
+	    		url = '/user/update_user';
     		}
-    		$.post(url,product_data,function(response){
+    		$.post(home_url+url,user_data,function(response){
                     console.log(response);
                     if(response != ''){
-                        notify_user('info','Products successfully saved!','');
+                        notify_user('info','User successfully saved!','');
                         $("#userList").html("");
                         $("#userList").html(response)
-                        clear_product();        
+                        clear_userFields();        
                     }
             });
     	}
@@ -135,6 +260,7 @@
     	$("#btnUpdateuser").removeAttr('data-user-id');
     	$("#btnSaveUser").show();
     	$("#btnUpdateuser").hide();
+        $('.selectpicker').selectpicker('refresh');
     }
 /*
 	End Users code
@@ -222,7 +348,7 @@
 				}
 				
 
-				$.post(url,client_data,function(response){
+				$.post(home_url+url,client_data,function(response){
 					console.log(response);
                     if(response != ''){
                         notify_user('info','Client information successfully saved!','');
@@ -249,17 +375,5 @@
 /*
 	End Clients Code
 */
-		function table_search(tblSelector,value){
-	        var rows = $('#'+tblSelector+' tr');
-	       
-	        var val = $.trim(value).replace(/ +/g, ' ').toLowerCase();
-	            
-	        rows.show().filter(function() {
-	                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-	                return !~text.indexOf(val);
-	        }).hide();
-	       
-	    }
-
 	});
 })(jQuery);

@@ -17,6 +17,11 @@ class HomeController extends Controller{
 
 			
 			$data['products'] = $product->show_product();
+
+			$user = $this->load_model('user'); 
+			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
+			
+			
 			$this->load_template('home',$data);
 
 		}else{

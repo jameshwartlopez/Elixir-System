@@ -20,14 +20,17 @@
     <body class="login-content">
         <!-- Login -->
         <div class="lc-block toggled" id="l-login">
-            <div class="input-group m-b-20">
+            <div class="input-group m-b-10">
+               <img src="<?php echo home_url()?>/public/img/bgwhite.png">
+            </div>
+            <div class="input-group m-b-20" id="unameContainer">
                 <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
                 <div class="fg-line">
                     <input type="text" id="txtUsername" class="form-control" placeholder="Username">
                 </div>
             </div>
             
-            <div class="input-group m-b-20">
+            <div class="input-group m-b-20" id="pwordContainer">
                 <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
                 <div class="fg-line">
                     <input type="password" id="txtPassword" class="form-control" placeholder="Password">
@@ -36,22 +39,16 @@
             
             <div class="clearfix"></div>
             
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="">
-                    <i class="input-helper"></i>
-                    Keep me signed in
+            <div class="form-group has-error">
+                <label id="loginError" style="color: red;">
+                  
                 </label>
             </div>
             
-            <p href="#" id="btnLogin" class="btn btn-login btn-danger btn-float">
-                <i class="zmdi zmdi-arrow-forward"></i>
-            </p>
-            
-           <!--  <ul class="login-navigation">
-                <li data-block="#l-register" class="bgm-red">Register</li>
-                <li data-block="#l-forget-password" class="bgm-orange">Forgot Password?</li>
-            </ul> -->
+            <div class="col-sm-6"> 
+                <button class="btn bgm-lightblue waves-effect" id="btnLogin"> Login</button>                
+                <button class="btn bgm-gray waves-effect" id="btnCancel">  Clear</button>    
+            </div>
         </div>
         
         
@@ -133,13 +130,17 @@
             
                     if(uname.length <= 0){
                         nType = 'danger';
-                        notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut,'Username is empty','Login Error! ');
-
+                        //notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut,'Username is empty','Login Error! ');
+                        $("#loginError").html("").html("Login Error! Username is empty");
+                        $("#unameContainer").addClass('has-error');
+                        $("#pwordContainer").removeClass('has-error');
                     }else if(pword.length <= 0){
 
                         nType = 'danger';
-                        notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut,'Password is empty','Login Error! ');
-
+                        //notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut,'Password is empty','Login Error! ');
+                        $("#loginError").html("").html("Login Error! Password is empty");
+                        $("#unameContainer").removeClass('has-error');
+                        $("#pwordContainer").addClass('has-error');
                     }else{
                         $.post('<?php echo home_url();?>/home/user_login',user_credentials,function(response){
                             console.log(response);
@@ -149,8 +150,10 @@
                             }else if(response == 0){
                                
                                 nType = 'danger';
-                                notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut,'Invalid Username and Password','Login Error! ');
-
+                                //notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut,'Invalid Username and Password','Login Error! ');
+                                $("#loginError").html("").html("Login Error! Invalid Username and Password ");
+                                $("#unameContainer").addClass('has-error');
+                                $("#pwordContainer").addClass('has-error');
                             }
                         });    
                     }
@@ -173,6 +176,14 @@
                     if(keycode=='13'){
                         login();
                     }
+                });
+
+                $("#btnCancel").on('click',function(){
+                   $('#txtUsername').val("");
+                   $('#txtPassword').val("");
+                   $("#unameContainer").removeClass('has-error');
+                   $("#pwordContainer").removeClass('has-error');
+                   $("#loginError").html("");
                 });
             });
         </script>

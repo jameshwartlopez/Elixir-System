@@ -16,3 +16,11 @@
 	border: 3px solid rgba(0, 0, 0, 0.14);
 	box-sizing: content-box;
 }
+
+#btnUpdateuser,
+#btnUpdateClient,
+#btnUpdateCategory,
+#btnUpdateItemUnit,
+#btnUpdateProduct{
+	display: none;
+}

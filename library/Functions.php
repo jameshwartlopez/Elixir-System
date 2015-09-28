@@ -54,14 +54,14 @@ if(! function_exists('home_url')){
 		
 			$homeFolder = pathinfo(dirname(dirname(__FILE__)));
 			return sprintf(
-			    "%s://%s/%s/",
+			    "%s://%s/%s",
 			    isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
 			    $_SERVER['SERVER_NAME'],
 			    $homeFolder['filename']
 			  );		
 		}else{
 			return sprintf(
-		    "%s://%s/",
+		    "%s://%s",
 		    isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
 		    $_SERVER['SERVER_NAME']
 		  );
@@ -85,4 +85,14 @@ if(!function_exists('redirect_to')){
 
 }
 
+/*
+	Programmers Usages only
+*/
 
+if(!function_exists('print_array')){
+	function print_array(Array $data){
+		echo '<pre>';
+		print_r($data);
+		echo '</pre>';
+	}
+}
