@@ -1,3 +1,6 @@
+<?php 
+    $usertype = $current_user['user_type'];
+?>
 <!DOCTYPE html>
 <!--[if IE 9 ]><html class="ie9"><![endif]-->
     <head>

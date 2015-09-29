@@ -45,7 +45,7 @@
                                      <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" id="txtClientTelNo"  class="form-control" placeholder="Tel. Number">
+                                            <input type="text" id="txtClientTelNo"  class="form-control number" placeholder="Tel. Number">
                                         </div>
                                     </div>
                                     

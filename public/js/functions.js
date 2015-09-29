@@ -55,6 +55,7 @@ $(document).ready(function(){
         });
     })();
     
+
     /*
      * Table Search
      */
@@ -70,6 +71,18 @@ $(document).ready(function(){
        
     }
 
+     /*
+        number only input type will user the class number(.number)
+     */
+    $(".number").on('keypress',function(evt){
+        return ja_isNumber(evt);
+    });
+
+    /*
+        Money format
+     */
+    $(".money").maskMoney();
+    
     /*
         checker if number function
     */

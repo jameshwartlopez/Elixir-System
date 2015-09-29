@@ -68,6 +68,8 @@
 
             if(cNumber.length <= 0 || cEmailAddress.length <= 0 ){
                 notify_user('danger',"Please fill up empty fields!","Saving Error! ");
+            }else if(!validateEmail($("#txtCEmail").val())){
+                 notify_user('danger',"Invalid Email Address!","Saving Error! ");
             }else{
                 data={
                     'Contact':cNumber,
@@ -220,7 +222,11 @@
     		notify_user('danger','Please select the users gender!');
     	}else if(userType.length <= 0){
     		notify_user('danger','Please select user type!');
-    	}else{
+    	}else if(!validateEmail($("#txtEmail").val())){
+            notify_user('danger',"Invalid Email Address!","Saving Error! ");
+        }else if(uContact.length< 13){
+            notify_user('danger',"Invalid Contact Number!","Saving Error! ");
+        }else{
     		user_data ={
     			'data':data
     		}
@@ -323,7 +329,9 @@
  			
  				notify_user('danger','Please fill up all the empty fields','Saving Error! ');
 			
-			}else{
+			}else if(!validateEmail($("#txtClientEmail").val())){
+                 notify_user('danger',"Invalid Email Address!","Saving Error! ");
+            }else{
 				data = {
 					'name':cname,
 					'address':caddres,

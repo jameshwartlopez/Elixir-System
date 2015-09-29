@@ -116,7 +116,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" id="txtPUnitPrice" class="form-control" placeholder="Unit Price ">
+                                            <input type="text" id="txtPUnitPrice" class="form-control money" placeholder="Unit Price ">
                                         </div>
                                     </div>
                                     
@@ -124,7 +124,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" id="txtPSellingPrice" class="form-control" placeholder="Selling Price ">
+                                            <input type="text" id="txtPSellingPrice" class="form-control money" placeholder="Selling Price ">
                                         </div>
                                     </div>
                                     

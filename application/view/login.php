@@ -63,7 +63,7 @@
         <!--[if IE 9 ]>
             <script src="vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
         <![endif]-->
-        
+        <script src="<?php echo home_url(); ?>/public/js/jquery.maskMoney.min.js"></script>
         <script src="js/functions.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){

@@ -2,7 +2,7 @@
 	background: #059D22;	
 }
 
-.product_list,.user_list{
+.product_list,.user_list,#btnUpdateService{
 	display: none;
 }
 

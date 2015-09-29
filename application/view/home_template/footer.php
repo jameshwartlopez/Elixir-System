@@ -26,11 +26,11 @@
         <script src="<?php echo home_url(); ?>/public/vendors/input-mask/input-mask.min.js"></script>
         <script src="<?php echo home_url(); ?>/public/vendors/farbtastic/farbtastic.min.js"></script>
         
-        
+        <script src="<?php echo home_url(); ?>/public/js/jquery.maskMoney.min.js"></script>
         <script src="<?php echo home_url(); ?>/public/js/functions.js"></script>
         <script src="<?php echo home_url(); ?>/public/js/products.js"></script>
         <script src="<?php echo home_url(); ?>/public/js/user.js"></script>
-
+        <script src="<?php echo home_url(); ?>/public/js/service.js"></script>
         
     </body>
   </html>

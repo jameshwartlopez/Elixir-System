@@ -112,7 +112,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" id="txtContact" class="form-control" placeholder="Contact ">
+                                            <input type="text" id="txtContact" data-mask="(00) 0000-0000" class="form-control input-mask" placeholder="Contact ">
                                         </div>
                                     </div>
                                     
