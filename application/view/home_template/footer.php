@@ -31,6 +31,6 @@
         <script src="<?php echo home_url(); ?>/public/js/products.js"></script>
         <script src="<?php echo home_url(); ?>/public/js/user.js"></script>
         <script src="<?php echo home_url(); ?>/public/js/service.js"></script>
-        
+        <script src="<?php echo home_url(); ?>/public/js/report.js"></script>
     </body>
   </html>

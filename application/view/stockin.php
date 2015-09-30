@@ -34,7 +34,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <span>&nbsp;</span>
+                                    <span class="clearfix">&nbsp;<br/><br/><br/></span>
                                     
                                 </div>
 

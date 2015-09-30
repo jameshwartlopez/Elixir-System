@@ -270,7 +270,6 @@ class ProductController extends Controller{
 
 	}
 
-	
 
 /*
 	Transaction 
@@ -297,8 +296,8 @@ class ProductController extends Controller{
 			$p = $this->load_model('product');
 			$data['last_transaction']=$p->get_last_inserted_data();
 
-			$newtransaction = $p->new_transaction_no($data['last_transaction']['No']);
-			echo $newtransaction;
+			$data['newtransaction'] = $p->new_transaction_no($data['last_transaction']['No']);
+			
 			$this->load_template('home',$data,'stockin');
 
 		}else{
@@ -317,7 +316,24 @@ class ProductController extends Controller{
 	}
 	//transaction Stockout page
 	public function stockOut(){
-		echo 'page for stockout';
+		if(isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])){
+			
+			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
+			$data['companyName'] = 'Elixir Industrial Equipment Inc.';
+			
+			$client = $this->load_model('client');
+			$data['clients'] = $client->show_client();
+
+			$user = $this->load_model('user'); 
+			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
+
+			
+
+			$this->load_template('home',$data,'stockout');
+
+		}else{
+			redirect_to(home_url());	
+		}
 	}
 
 	//transaction retuned items page

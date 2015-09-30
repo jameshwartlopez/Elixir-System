@@ -24,3 +24,60 @@
 #btnUpdateProduct{
 	display: none;
 }
+
+@media print{
+	/*
+     * INVOICE
+     */
+
+	.hide-in-print{
+		display: none;
+	}
+
+  .invoice {
+    padding: 30px !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+
+  .invoice .card-header {
+    background: rgb(0,0,0,0) !important;
+    margin: -60px -30px 25px -30px;
+  }
+
+  .invoice .block-header {
+    display: none;
+  }
+
+  .invoice .highlight {
+    background: #eee !important;
+  }
+
+  .card-header{
+	margin: 0px !important;
+  }
+
+  .report-title{
+
+  }
+  .text-muted{
+
+  }
+
+}
+.card-header{
+	padding-bottom: 0px !important;
+}
+.report-title{
+ 	margin:0px; 	
+}
+.report-view-container{
+	  margin-top: 20px;
+}
+.report-view-container > div > .input-group{
+  margin-top: 17px;
+  margin-bottom: -9px
+}
+.report-view-container > div > .input-group > span{
+	 vertical-align: middle;
+}
+

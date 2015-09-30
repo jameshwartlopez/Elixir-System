@@ -138,4 +138,33 @@ class ProductModel extends Model{
 			$str_id.=($str_int);
 			return $str_id;
 	}
+
+	public function stockin_report($dateFrom='',$dateTo=''){
+		$query = "SELECT 
+						tbl_stockin.id,
+						tbl_stockin.transaction_no,
+						tbl_stockin.product_id,
+						tbl_stockin.quantity,
+						tbl_stockin.date as stockinDate,
+						tbl_products.code,
+						tbl_products.name,
+						tbl_products.item_unit,
+						tbl_products.unit_price,
+						tbl_products.selling_price,
+						tbl_products.quantity as pqty,
+						tbl_user.username,
+						tbl_user.Firstname,
+						tbl_user.LastName,
+						tbl_user.id
+				FROM tbl_stockin 
+				INNER JOIN tbl_products ON tbl_products.id = tbl_stockin.product_id 
+				INNER JOIN tbl_user ON tbl_user.id = tbl_stockin.user 
+						";
+			if($dateFrom != '' && $dateTo != ''){
+				$query .= " WHERE (tbl_stockin.date BETWEEN '".$dateFrom."' AND '".$dateTo."') ";
+			}
+		$db = $this->db->pdo->prepare($query);
+		$db->execute();
+		return $db->fetchAll();
+	}
 }
