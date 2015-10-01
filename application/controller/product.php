@@ -347,6 +347,13 @@ class ProductController extends Controller{
 			redirect_to(home_url());	
 		}
 	}
+	public function save_stockOutList(){
+
+		if(isset($_POST['data']) && !empty($_POST['data'])){
+			print_r($_POST);
+		}
+
+	}
 
 	//transaction retuned items page
 	public function returnedItems(){

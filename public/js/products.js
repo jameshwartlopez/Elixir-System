@@ -37,6 +37,30 @@ $(document).ready(function(){
             $(".stock-out-card-header").show();
             window.print();
             $(".stock-out-card-header").hide();
+            var sList = JSON.parse(localStorage.getItem('stockOut'));
+            data = {
+                    'data':sList,
+                    'terms':$("#cmbTerms").val(),
+                    'cash':$("#txtCash").val(),
+                    'vattype':$("input:radio[name=rdbVat]:checked").val(),
+                    'client_id':$("#cmbClient").val()
+                }
+
+            // var radios = $('input:radio[name=rdbstatus]');
+        
+
+            // for(i=0 ; i< radios.length; i++){
+            //     if(radios[i]['defaultValue'] === $(this).data('service-status') ){
+            //         radios[i]['checked'] = true;
+            //     }else{
+            //         radios[i]['checked'] = false;
+            //     }
+            // }
+
+
+            $.post(home_url+'/product/save_stockOutList',data,function(response){
+                alert(response);
+            });
         });
         
         $("#btnClearService").on('click',function(){

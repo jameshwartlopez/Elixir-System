@@ -121,7 +121,7 @@
                                             <div class="col-sm-6 " style="padding-left: 20px;">
                                                 <div class="radio m-b-15">
                                                     <label>
-                                                        <input type="radio" name="rdbstatus" checked value="Vatable">
+                                                        <input type="radio" name="rdbVat" checked value="Vatable">
                                                         <i class="input-helper"></i>
                                                         Vatable
                                                     </label>
@@ -131,7 +131,7 @@
                                             <div class="col-sm-6 " style="padding-left: 20px;">
                                                 <div class="radio m-b-15">
                                                     <label>
-                                                        <input type="radio" name="rdbstatus"  value="None Vatable">
+                                                        <input type="radio" name="rdbVat"  value="None Vatable">
                                                         <i class="input-helper"></i>
                                                         None Vatable
                                                     </label>
@@ -143,7 +143,7 @@
                                             <div class="input-group hide-in-print">
                                                 <span class="input-group-addon"></span>
                                                 <div class="fg-line">
-                                                    <input type="text" id="txtStockOutSearchProduct"  class="form-control" placeholder="Discount">
+                                                    <input type="text" id="txtStockOutSearchProduct"  class="money form-control" placeholder="Discount">
                                                 </div>
                                             </div>
                                         </div>
@@ -191,7 +191,7 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"></span>
                                                 <div class="fg-line">
-                                                    <input type="text" id="txtStockOutSearchProduct"  class="form-control" placeholder="Enter Money Here">
+                                                    <input type="text" id="txtCash"  class="money form-control" placeholder="Enter Money Here">
                                                 </div>
                                             </div>
                                         </div>
@@ -200,7 +200,7 @@
                                             <div class="input-group"> 
                                                 <span  class="input-group-addon"></span>
                                                 <div class="fg-line">
-                                                    <select class="selectpicker" id="cmbPcategory">
+                                                    <select class="selectpicker" id="cmbTerms">
                                                         <option value="">Terms In Days</option>
                                                         <option value="30">30</option>
                                                         <option value="60">60</option>
