@@ -26,6 +26,193 @@ $(document).ready(function(){
            
             
         });
+
+        $(document).on('keypress','.txtStockOutQty',function(){
+            if(e.which == 13){
+
+            }
+        });
+
+        $("#btnSaveStockOutList").on('click',function(){
+            $(".stock-out-card-header").show();
+            window.print();
+            $(".stock-out-card-header").hide();
+        });
+        
+        $("#btnClearService").on('click',function(){
+            localStorage.removeItem('stockOut');
+            $("#stockGrandTotal").html("");
+            $("#stockOutList").html("");
+        });
+
+        $("#txtStockOutSearchProduct").on('input',function(){
+            table_search("pList",$(this).val());
+        });
+
+        $(document).on('click','.bntRemoveStockOutRow',function(){
+            remove_stockOutData($(this).data('p-id'));
+            current_StockOutList();
+            
+        });
+
+        $(document).on('click','.btnStockOutProduct',function(){
+            quantity = $("#txtQty"+$(this).data('product-id')).val()
+
+            newqty = $(this).data('product-quantity') - quantity;
+
+            //$(this).removeAttr('data-product-quantity');
+            // $(this).attr('data-product-quantity',newqty);
+            
+            client_id = $("#cmbClient").val();
+            product_id = $(this).data('product-id');
+            
+            product_name = $(this).data('product-name');
+            product_itemUnit = $(this).attr('data-product-ritemunit');
+
+            price = $(this).data('product-selling-price');
+            categoryName = $(this).data('product-category-name');
+
+            total = quantity * price;
+            total = total.toFixed(2);
+
+
+            if(quantity > $(this).data('product-quantity')){
+                notify_user('danger','Quantity Entered is greater than the available Quantity. Available quantity is '+ $(this).data('product-quantity'));
+            }else{
+                
+                stockOut_data = {
+                    'product_id':product_id,
+                    'quantity':quantity,
+                    'price':price,
+                    'total':total,
+                    'product_name':product_name,
+                    'product_itemUnit':product_itemUnit,
+                    'categoryName':categoryName
+                }
+               
+                stockOutlist = []
+                stockOutlist.push(stockOut_data);
+                
+                if(localStorage.getItem('stockOut') !== null){
+                   
+                   slist = JSON.parse(localStorage.getItem('stockOut'));
+                  
+                  
+                   if(stockOutChecker(product_id) != null){
+                        rowStockList = stockOutChecker(product_id);
+
+                        quantity = parseInt(quantity) + parseInt(rowStockList.quantity);
+                        
+                        total = quantity * price;
+                        total = total.toFixed(2);
+
+                        stockOut_data = {
+                            'product_id':product_id,
+                            'quantity':quantity,
+                            'price':price,
+                            'total':total,
+                            'product_name':product_name,
+                            'product_itemUnit':product_itemUnit,
+                            'categoryName':categoryName
+                        }
+                        
+                        remove_stockOutData(product_id);
+
+                        k = JSON.parse(localStorage.getItem('stockOut'));
+                        k.push(stockOut_data);
+                        localStorage.setItem('stockOut',JSON.stringify(k));
+
+                   }else{
+                         slist.push(stockOut_data);
+                         localStorage.setItem('stockOut',JSON.stringify(slist));
+                   }
+
+                   
+
+                }else if(localStorage.getItem('stockOut') === null){
+                    localStorage.setItem('stockOut',JSON.stringify(stockOutlist));
+                }
+
+                current_StockOutList();
+            }
+           
+        });
+
+        current_StockOutList();
+
+        function stockOutChecker(productId){
+            
+            var stockOutList;
+            if(localStorage.getItem('stockOut') !== null){
+                 stockOutList = JSON.parse(localStorage.getItem('stockOut'));
+            }
+            var stockoutRowData = null;
+            for(i = 0 ; i < stockOutList.length ; i++){
+                if(stockOutList[i].product_id == productId){
+                    stockoutRowData = stockOutList[i]; 
+                }
+            }
+            return stockoutRowData;
+
+        }
+
+        function remove_stockOutData(productId){
+              var stockOutList;
+            if(localStorage.getItem('stockOut') !== null){
+                 stockOutList = JSON.parse(localStorage.getItem('stockOut'));
+            }
+            var stockoutRowData = null;
+            for(i = 0 ; i < stockOutList.length ; i++){
+                if(stockOutList[i].product_id == productId){
+                    stockOutList.splice(i,1);
+                }
+            }
+            localStorage.setItem('stockOut',JSON.stringify(stockOutList));
+            console.log(stockOutList);
+        }
+        function update_stockOutData(key,value){
+             var stockOutList;
+            if(localStorage.getItem('stockOut') !== null){
+                 stockOutList = JSON.parse(localStorage.getItem('stockOut'));
+            }
+            var stockoutRowData = null;
+            for(i = 0 ; i < stockOutList.length ; i++){
+                if(i){
+
+                }
+            }
+            return stockoutRowData;
+        }
+
+        function current_StockOutList(){
+            var stockOutList;
+            if(localStorage.getItem('stockOut') !== null){
+                 stockOutList = JSON.parse(localStorage.getItem('stockOut'));
+
+                $("#stockOutList").html("");
+                if(stockOutList.length > 0){
+                    htmlData= '';
+                    grandTotal = 0.00;
+                    for(i = 0 ; i < stockOutList.length ; i++){
+                        grandTotal += parseFloat(stockOutList[i].total);
+                        htmlData +="<tr>"+
+                                        "<td><strong>"+stockOutList[i].product_name+"</strong>("+stockOutList[i].product_itemUnit+")<br/>"+stockOutList[i].categoryName+"</td>"+
+                                        "<td>"+stockOutList[i].quantity+"</td>"+
+                                        "<td>"+stockOutList[i].price+"</td>"+
+                                        "<td>"+stockOutList[i].total+"</td>"+
+                                        "<td class='hide-in-print'>"+
+                                        "    <button data-p-id='"+stockOutList[i].product_id+"' data-r-id='"+i+"'class='bntRemoveStockOutRow btn btn-danger btn-icon waves-effect waves-circle waves-float waves-effect waves-circle waves-float'>"+
+                                        "        <i class='zmdi zmdi-close'></i>"+
+                                        "    </button>"+
+                                        "</td></tr>";
+                      
+                    }
+                    grandTotal = grandTotal.toFixed(2);
+                    $("#stockGrandTotal").html("Php: "+grandTotal);
+                    $("#stockOutList").html(htmlData);
+                }
+            }
+        }
     /*
         End Transaction
      */

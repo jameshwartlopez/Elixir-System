@@ -324,10 +324,22 @@ class ProductController extends Controller{
 			$client = $this->load_model('client');
 			$data['clients'] = $client->show_client();
 
+			
+			$product = $this->load_model('product');
+			$data['category'] = $product->show_category();
+
+
+			$data['itemUnit'] = $product->show_item_unit();
+
+			$data['products'] = $product->show_product();
+
 			$user = $this->load_model('user'); 
 			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
-
 			
+			$p = $this->load_model('product');
+			$data['last_transaction']=$p->get_last_inserted_data();
+
+			$data['newtransaction'] = $p->new_transaction_no($data['last_transaction']['No']);
 
 			$this->load_template('home',$data,'stockout');
 

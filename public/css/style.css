@@ -29,8 +29,11 @@
 	/*
      * INVOICE
      */
+  .stockoutList{
+    padding-right:15px; 
+  }
 
-	.hide-in-print{
+	.bntRemoveStockOutRow, .hide-in-print{
 		display: none;
 	}
 
@@ -79,5 +82,9 @@
 }
 .report-view-container > div > .input-group > span{
 	 vertical-align: middle;
+}
+
+.stock-out-card-header{
+  display: none;
 }
 
