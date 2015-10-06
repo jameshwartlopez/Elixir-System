@@ -25,6 +25,7 @@
         <script src="<?php echo home_url(); ?>/public/vendors/fileinput/fileinput.min.js"></script>
         <script src="<?php echo home_url(); ?>/public/vendors/input-mask/input-mask.min.js"></script>
         <script src="<?php echo home_url(); ?>/public/vendors/farbtastic/farbtastic.min.js"></script>
+         <script src="<?php echo home_url(); ?>/public/vendors/bower_components/lightgallery/light-gallery/js/lightGallery.min.js"></script>
         
         <script src="<?php echo home_url(); ?>/public/js/jquery.maskMoney.min.js"></script>
         <script src="<?php echo home_url(); ?>/public/js/functions.js"></script>

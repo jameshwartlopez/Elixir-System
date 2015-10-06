@@ -41,6 +41,7 @@
                         
                         <div class="card-body card-padding">
                             <!--Start Product Entry -->
+
                             <div class="row product_entry">
                                  <div class="card-header">
                                     <h2>Product Entry</h2>
@@ -88,6 +89,19 @@
                                             
                                     </div>
                                    
+                                   <div class="col-sm-12">
+                                       
+                                         <p class="f-500 c-black m-b-20"></p>
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <span class="btn btn-primary btn-file m-r-10">
+                                                <span class="fileinput-new">Select Image</span>
+                                                <span class="fileinput-exists">Change</span>
+                                                <input type="file" name="productImage"  id="fileProductImage" accept="image/*">
+                                            </span>
+                                            <span class="fileinput-filename"></span>
+                                            <a href="#" class="imgclose close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                                        </div>
+                                    </div>
                                     <br/>
                                     
                                     
@@ -164,13 +178,15 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-sm-6"> 
+                                        <p class="f-500 c-black m-b-20"> &nbsp; </p>
+                                        <button class="btn bgm-lightblue waves-effect" id="btnSaveProduct"><i class="zmdi zmdi-plus-circle"></i> Save</button>
+                                        <button class="btn bgm-lightblue waves-effect" id="btnUpdateProduct"><i class="zmdi zmdi-edit"></i> Update</button>
+                                        <button class="btn bgm-gray waves-effect" id="btnClearProduct"> <i class="zmdi zmdi-tag-close"></i> Clear</button>    
+                                    </div>
                                 </div>
-                                <div class="col-sm-6"> 
-                                    <p class="f-500 c-black m-b-20"> &nbsp; </p>
-                                    <button class="btn bgm-lightblue waves-effect" id="btnSaveProduct"><i class="zmdi zmdi-plus-circle"></i> Save</button>
-                                    <button class="btn bgm-lightblue waves-effect" id="btnUpdateProduct"><i class="zmdi zmdi-edit"></i> Update</button>
-                                    <button class="btn bgm-gray waves-effect" id="btnClearProduct"> <i class="zmdi zmdi-tag-close"></i> Clear</button>    
-                                </div>
+                                
                             </div>
                             <!--End Product Entry -->
                             <!-- Product List -->
@@ -183,6 +199,7 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
+                                                <th>Image</th>
                                                 <th>Code</th>
                                                 <th>Name</th>
                                                 <th>Category</th>
@@ -200,6 +217,7 @@
                                             foreach ($products as $product) {
                                                 ?>
                                                 <tr>
+                                                    <td><img height="50" width="50" src="<?php echo 'img/products/'.$product['image_url'];?>"></td>
                                                     <td><?php echo $product['code']; ?></td>
                                                     <td><?php echo $product['name']; ?></td>
                                                     <td><?php  
@@ -221,6 +239,7 @@
                                                     <td><?php echo $product['vat_type']; ?></td>
                                                     <td>
                                                         <button class='btn btn-danger waves-effect btnEditProduct' 
+                                                                data-product-image="<?php echo $product['image_url'];?>" 
                                                                 data-product-code='<?php echo $product['code']; ?>' 
                                                                 data-product-name='<?php echo $product['name']; ?>' 
                                                                 data-product-category='<?php echo $product['category']; ?>' 

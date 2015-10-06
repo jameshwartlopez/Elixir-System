@@ -640,6 +640,9 @@ $(document).ready(function(){
         $("#btnUpdateProduct").attr("data-product-id",$(this).attr('data-product-id'));
         $("#btnUpdateProduct").show();
         $("#btnSaveProduct").hide();
+        $("#fileProductImage").parent('span').parent('div').removeClass('fileinput-new').addClass('fileinput-exists');
+        $(".fileinput-filename").html(""+$(this).data('product-image'));
+        $('.imgclose').hide();
         $('.selectpicker').selectpicker('refresh')
     });
 
@@ -684,20 +687,13 @@ $(document).ready(function(){
          pSellingPrice = $.trim($("#txtPSellingPrice").val());
          pQuantity = $.trim($("#txtPQuantity").val());
          pDate = $.trim($("#txtDate").val());
-         pvatType = $("input:radio[name=rdbVat]:checked").val()
-         data = {
-            'code':pcode,
-            'name':pname,
-            'category':pcategory,
-            'item_unit':pitemUnit,
-            'unit_price':punitPrice,
-            'selling_price':pSellingPrice,
-            'quantity':pQuantity,
-            'date':pDate,
-            'vat_type':pvatType
-        }
+         pvatType = $("input:radio[name=rdbVat]:checked").val();
 
-        
+         p_img = $("#fileProductImage").prop('files')[0];
+         
+        console.log(p_img);
+
+       
         if(
             pDate.length <= 0 ||
             pcode.length <=0 || 
@@ -709,34 +705,87 @@ $(document).ready(function(){
             pQuantity.length <= 0){
             notify_user('danger','Please fill in all fields!');
         }else if(punitPrice == 0){
-            notify_user('danger','Please Enter Unit Price!','');
+            notify_user('danger','Please Enter Unit Price!');
         }else if(pSellingPrice == 0){
-            notify_user('danger','Please Enter Selling Price!','');
+            notify_user('danger','Please Enter Selling Price!');
         }else if(pQuantity == 0){
-            notify_user('danger','Please Enter Quantity!','');
+            notify_user('danger','Please Enter Quantity!');
         }else{
             url = '/product/save_product';
-            product_data = {
-                'data':data
-            }
+         
+            product_data = new FormData();
+            product_data.append('code',pcode);
+            product_data.append('name',pname);
+            product_data.append('category',pcategory);
+            product_data.append('item_unit',pitemUnit);
+            product_data.append('unit_price',punitPrice);
+            product_data.append('selling_price',pSellingPrice);
+            product_data.append('quantity',pQuantity);
+            product_data.append('date',pDate);
+            product_data.append('vat_type',pvatType);
+            product_data.append('p_image',p_img);
 
             if(flag == 'update'){
                 url = '/product/update_product';
-                product_data = {
-                    'id':$("#btnUpdateProduct").attr("data-product-id"),
-                    'data':data
+               
+
+                product_data = new FormData();
+                product_data.append('id',$("#btnUpdateProduct").attr("data-product-id"));
+                product_data.append('code',pcode);
+                product_data.append('name',pname);
+                product_data.append('category',pcategory);
+                product_data.append('item_unit',pitemUnit);
+                product_data.append('unit_price',punitPrice);
+                product_data.append('selling_price',pSellingPrice);
+                product_data.append('quantity',pQuantity);
+                product_data.append('date',pDate);
+                product_data.append('vat_type',pvatType);
+               
+
+                if(typeof p_img !== 'undefined'){
+                    product_data.append('p_image',p_img);   
+                }
+
+                $.ajax({
+                     type:'POST',
+                     processData: false, // important
+                     contentType: false, // important
+                     data: product_data,
+                     url: url,
+                    success: function(response){
+                        console.log(response);
+                       if(response != ''){
+                            notify_user('info','Products successfully saved!');
+                            $("#productList").html("");
+                            $("#productList").html(response)
+                            clear_product();        
+                        }
+                    }
+                });
+            }else if(flag != 'update'){
+                
+
+                if(typeof p_img === 'undefined'){
+                    notify_user('danger','Please select an image');
+                }else{
+                     $.ajax({
+                         type:'POST',
+                         processData: false, // important
+                         contentType: false, // important
+                         data: product_data,
+                         url: url,
+                        success: function(response){
+                            console.log(response);
+                           if(response != ''){
+                                notify_user('info','Products successfully saved!');
+                                $("#productList").html("");
+                                $("#productList").html(response)
+                                clear_product();        
+                            }
+                        }
+                    });
                 }
             }
-
-            $.post(home_url+url,product_data,function(response){
-                
-                    if(response != ''){
-                        notify_user('info','Products successfully saved!');
-                        $("#productList").html("");
-                        $("#productList").html(response)
-                        clear_product();        
-                    }
-            });    
         }
     }
 
@@ -752,6 +801,9 @@ $(document).ready(function(){
          $("#btnUpdateProduct").removeAttr('data-product-id');
          $("#btnUpdateProduct").hide();
          $("#btnSaveProduct").show();
+         $("#fileProductImage").val('');
+         $("#fileProductImage").parent('span').parent('div').removeClass('fileinput-exists').addClass('fileinput-new');
+         $(".fileinput-filename").html("");
          $('.selectpicker').selectpicker('refresh');
     }
     

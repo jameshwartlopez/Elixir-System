@@ -191,9 +191,20 @@ class ProductController extends Controller{
 	}
 
 	public function save_product(){
-		if(isset($_POST['data']) && !empty($_POST['data'])){
-			$result = $this->model->save_product($_POST['data']);
-			print_r($_POST['data']);
+		
+		
+		if(isset($_POST['code']) && !empty($_POST['code'])){
+			
+			$uploads_dir = 'img/products/';
+			$temp = explode(".", $_FILES["p_image"]["name"]);
+			$newfilename = round(microtime(true)) . '.' . end($temp);
+			$newfile = $uploads_dir.$newfilename;
+			$_POST['image_url'] = $newfilename;
+		
+			move_uploaded_file($_FILES['p_image']['tmp_name'],$newfile);
+
+			$result = $this->model->save_product($_POST);
+
 			$product = $this->load_model('product');
 			$category = $product->show_category();
 
@@ -203,6 +214,7 @@ class ProductController extends Controller{
                                             foreach ($result as $product) {
                                                 ?>
                                                 <tr>
+                                                	<td><img height="50" width="50" src="<?php echo 'img/products/'.$product['image_url'];?>"></td>
                                                     <td><?php echo $product['code']; ?></td>
                                                     <td><?php echo $product['name']; ?></td>
                                                     <td><?php  
@@ -224,6 +236,7 @@ class ProductController extends Controller{
                                                     <td><?php echo $product['vat_type']; ?></td>
                                                     <td>
                                                         <button class='btn btn-danger waves-effect btnEditProduct' 
+                                                        		data-product-image="<?php echo $product['image_url'];?>" 
                                                                 data-product-code='<?php echo $product['code']; ?>' 
                                                                 data-product-name='<?php echo $product['name']; ?>' 
                                                                 data-product-category='<?php echo $product['category']; ?>' 
@@ -243,8 +256,27 @@ class ProductController extends Controller{
 	}
 
 	public function update_product(){
-		if(isset($_POST['data']) && !empty($_POST['data']) && isset($_POST['id']) && !empty($_POST['id'])){
-			$result = $this->model->update_product($_POST['data'],$_POST['id']);
+		if(isset($_POST['code']) && !empty($_POST['code']) && isset($_POST['id']) && !empty($_POST['id'])){
+			$id = $_POST['id'];
+			unset($_POST['id']);
+
+			if(isset($_FILES['p_image']['tmp_name'])){
+				$uploads_dir = 'img/products/';
+				$temp = explode(".", $_FILES["p_image"]["name"]);
+				$newfilename = round(microtime(true)) . '.' . end($temp);
+				$newfile = $uploads_dir.$newfilename;
+				$_POST['image_url'] = $newfilename;
+				
+				$p_model = $this->load_model('product');
+				$product_details = array_shift($p_model->show_product($id));
+				print_r($product_details);
+				
+				unlink($uploads_dir.$product_details['image_url']);
+
+				move_uploaded_file($_FILES['p_image']['tmp_name'],$newfile);
+			}
+
+			$result = $this->model->update_product($_POST,$id);
 			$product = $this->load_model('product');
 			$category = $product->show_category();
 
@@ -254,6 +286,7 @@ class ProductController extends Controller{
                                             foreach ($result as $product) {
                                                 ?>
                                                 <tr>
+                                                	<td><img height="50" width="50" src="<?php echo 'img/products/'.$product['image_url'];?>"></td>
                                                     <td><?php echo $product['code']; ?></td>
                                                     <td><?php echo $product['name']; ?></td>
                                                     <td><?php  
@@ -275,6 +308,7 @@ class ProductController extends Controller{
                                                     <td><?php echo $product['vat_type']; ?></td>
                                                     <td>
                                                         <button class='btn btn-danger waves-effect btnEditProduct' 
+                                                        		data-product-image="<?php echo $product['image_url'];?>" 
                                                                 data-product-code='<?php echo $product['code']; ?>' 
                                                                 data-product-name='<?php echo $product['name']; ?>' 
                                                                 data-product-category='<?php echo $product['category']; ?>' 

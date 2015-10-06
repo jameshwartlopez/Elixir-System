@@ -22,6 +22,7 @@
         <link href="<?php echo home_url(); ?>/public/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
         <link href="<?php echo home_url(); ?>/public/vendors/farbtastic/farbtastic.css" rel="stylesheet">
         <link href="<?php echo home_url(); ?>/public/vendors/chosen_v1.4.2/chosen.min.css" rel="stylesheet">
+        <link href="<?php echo home_url(); ?>/public/vendors/bower_components/lightgallery/light-gallery/css/lightGallery.css" rel="stylesheet">
             
         <!-- CSS -->
         <link href="<?php echo home_url(); ?>/public/css/app.min.1.css" rel="stylesheet">
