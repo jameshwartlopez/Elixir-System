@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="<?php echo home_url(); ?>/public/img/logo.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="<?php echo home_url(); ?>/public/img/logo.ico" type="image/x-icon" />
-        <title>Material Admin</title>
+        <title>Elixir Industrial Equipment Inc.</title>
         
         <!-- Vendor CSS -->
         <link href="vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
@@ -17,9 +17,24 @@
         <!-- CSS -->
         <link href="css/app.min.1.css" rel="stylesheet">
         <link href="css/app.min.2.css" rel="stylesheet">
+        <style type="text/css">
+            .system-text{ 
+                position: absolute;
+            }
+            
+            .system-text h2{ 
+                  color: white;
+                  font-weight: bolder;
+                  left: 14%;
+                  font-size: 33px;
+            }
+        </style>
     </head>
     
     <body class="login-content">
+            <div class=" col-sm-12 system-text">
+                <h2>Assisted Credit Sales Monitoring with Stockpile Itemization</h2> 
+            </div>
         <!-- Login -->
         <div class="lc-block toggled" id="l-login">
             <div class="input-group m-b-10">
@@ -69,51 +84,6 @@
         <script src="js/functions.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
-                /*
-                 * Notifications
-                 */
-                function notify(from, align, icon, type, animIn, animOut,msg,title){
-                    $.growl({
-                        icon: icon,
-                        title: title,
-                        message: msg,
-                        url: ''
-                    },{
-                            element: 'body',
-                            type: type,
-                            allow_dismiss: true,
-                            placement: {
-                                    from: from,
-                                    align: align
-                            },
-                            offset: {
-                                x: 20,
-                                y: 85
-                            },
-                            spacing: 10,
-                            z_index: 1031,
-                            delay: 2500,
-                            timer: 1000,
-                            url_target: '_blank',
-                            mouse_over: false,
-                            animate: {
-                                    enter: animIn,
-                                    exit: animOut
-                            },
-                            icon_type: 'class',
-                            template: '<div data-growl="container" class="alert" role="alert">' +
-                                            '<button type="button" class="close" data-growl="dismiss">' +
-                                                '<span aria-hidden="true">&times;</span>' +
-                                                '<span class="sr-only">Close</span>' +
-                                            '</button>' +
-                                            '<span data-growl="icon"></span>' +
-                                            '<span data-growl="title"></span>' +
-                                            '<span data-growl="message"></span>' +
-                                            '<a href="notification-dialog.html#" data-growl="url"></a>' +
-                                        '</div>'
-                    });
-                };
-
                 function login(){
                     var uname = $('#txtUsername').val();
                     var pword = $('#txtPassword').val();

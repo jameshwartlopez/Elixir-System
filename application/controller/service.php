@@ -15,7 +15,18 @@ class ServiceController extends Controller{
 
 			$data['services'] = $this->model->get_service_byId($_SESSION['user_id']);
 
-			$this->load_template('home',$data,'service');
+			$product = $this->load_model('product');
+			$data['category'] = $product->show_category();
+			$data['itemUnit'] = $product->show_item_unit();
+
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
+			
+			if($data['current_user']['user_type'] == 3 || $data['current_user']['user_type'] ==0){
+				$this->load_template('home',$data,'service');
+			}else{
+				redirect_to(home_url());
+			}
 
 		}else{
 			redirect_to(home_url());	

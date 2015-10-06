@@ -122,7 +122,7 @@
                                         
                                         <div class="fg-line">
                                             <select class="selectpicker" id="cmbUserType">
-                                                <option value="">Usert Type</option>
+                                                <option value="">User Type</option>
                                                 <?php 
                                                 foreach ($user_type as $key => $value) {
                                                     ?><option value="<?php echo $key;?>"><?php echo $value;?></option><?php    

@@ -3,6 +3,42 @@ $(document).ready(function(){
     /*
         Transaction 
      */
+        $("#txtSOdiscout").on('keypress input',function(){
+            //$("#stockOutDiscount").html($(this).val());
+            current_StockOutList();
+        });
+        //return items event handler
+        $(document).on('click','.btnReturnItems',function(){
+            data = {
+                'client_id':$(this).data('client-id'),
+                'transaction_no':$(this).data('transaction-no'),
+                'stockout_id':$(this).data('stockout-id')
+            }
+            $.post(home_url+'/product/save_return',{'data':data},function(response){
+                console.log(response);
+                if(response == 1){
+                    window.location.reload();
+                }
+            });
+        });
+
+        //paid handler
+        $(document).on('click','.btnStockOutStatus',function(){
+            data = {'transaction_no':$(this).data('transaction-no'),'client_id':$(this).data('client-id')};
+
+            p = confirm("Is this client already paid?");
+            console.log(p);
+            if(p){
+                $.post(home_url+'/product/so_paid_save',data,function(response){
+                    console.log(response);
+                    if(response == 1){
+                        window.location.reload();
+                    }
+                });
+            }
+            
+        });
+
         $(document).on('click','.btnAddQty',function(){
             stockinQty = $('#txtQty'+$(this).attr('data-product-id'));
             date = $("#txtDate").val();
@@ -34,39 +70,59 @@ $(document).ready(function(){
         });
 
         $("#btnSaveStockOutList").on('click',function(){
-            $(".stock-out-card-header").show();
-            window.print();
-            $(".stock-out-card-header").hide();
+           
             var sList = JSON.parse(localStorage.getItem('stockOut'));
+            discount = $.trim($("#txtSOdiscout").val());
+            
+            if(discount.length <= 0){
+                discount = 0.00;
+            }else if(typeof discount === 'undefined'){
+                discount = 0.00;
+            }
+
             data = {
                     'data':sList,
                     'terms':$("#cmbTerms").val(),
-                    'cash':$("#txtCash").val(),
-                    'vattype':$("input:radio[name=rdbVat]:checked").val(),
-                    'client_id':$("#cmbClient").val()
-                }
+                    'client_id':$("#cmbClient").val(),
+                    'date':$("#txtDate").val(),
+                    'discount':discount
+            }
+            if($("#cmbClient").val().length <= 0){
+                notify_user("danger","Please select a customer for this transaction");
+            }else if($("#cmbTerms").val().length <= 0){
+                notify_user("danger","Please select the terms in days");
+            }else{
 
-            // var radios = $('input:radio[name=rdbstatus]');
-        
+                $.post(home_url+'/product/save_stockOutList',data,function(response){
+                    
+                   
 
-            // for(i=0 ; i< radios.length; i++){
-            //     if(radios[i]['defaultValue'] === $(this).data('service-status') ){
-            //         radios[i]['checked'] = true;
-            //     }else{
-            //         radios[i]['checked'] = false;
-            //     }
-            // }
-
-
-            $.post(home_url+'/product/save_stockOutList',data,function(response){
-                alert(response);
-            });
+                    //clear the stockout list 
+                    if(response == 'hashold'){
+                         console.log(response);
+                         notify_user("danger","Stockout cannot proceed because the client selected has a hold order.");
+                    }else{
+                        $("#lblDate").text($("#txtDate").val());
+                        $("#lblClient").text($("#cmbClient option[value='"+$("#cmbClient").val()+"']").html());
+                    
+                        $("#lblTerm").text($("#cmbTerms option[value='"+$("#cmbTerms").val()+"']").html());
+                        $(".stock-out-card-header,.clientDateContainer").show();
+                        
+                        window.print();
+                        window.location.reload();
+                        localStorage.removeItem('stockOut');
+                        $("#stockGrandTotal,#stockVatTotal ,#stockOutList").html("");
+                        $(".stock-out-card-header,.clientDateContainer").hide();         
+                    }
+                    
+                });   
+            }
         });
         
         $("#btnClearService").on('click',function(){
             localStorage.removeItem('stockOut');
-            $("#stockGrandTotal").html("");
-            $("#stockOutList").html("");
+            $("#stockGrandTotal,#stockVatTotal ,#stockOutList").html("");
+            window.location.reload();
         });
 
         $("#txtStockOutSearchProduct").on('input',function(){
@@ -79,14 +135,106 @@ $(document).ready(function(){
             
         });
 
+        $(document).on('keypress','.txtQty_so',function(e){
+            if(e.which == 13){
+                 quantity = $(this).val();
+
+                newqty = $(this).data('product-quantity') - quantity;
+        
+                client_id = $("#cmbClient").val();
+                product_id = $(this).data('product-id');
+                
+                product_name = $(this).data('product-name');
+                product_itemUnit = $(this).attr('data-product-ritemunit');
+
+                price = $(this).data('product-selling-price');
+                categoryName = $(this).data('product-category-name');
+
+                total = quantity * price;
+                total = total.toFixed(2);
+
+
+                if(quantity > $(this).data('product-quantity')){
+                    notify_user('danger','Quantity Entered is greater than the available Quantity. Available quantity is '+ $(this).data('product-quantity'));
+                }else{
+                    
+                    stockOut_data = {
+                        'product_id':product_id,
+                        'quantity':quantity,
+                        'price':price,
+                        'total':total,
+                        'product_name':product_name,
+                        'product_itemUnit':product_itemUnit,
+                        'categoryName':categoryName
+                    }
+                   
+                    stockOutlist = []
+                    stockOutlist.push(stockOut_data);
+                    
+                    if(localStorage.getItem('stockOut') !== null){
+                       
+                       slist = JSON.parse(localStorage.getItem('stockOut'));
+                      
+                      
+                       if(stockOutChecker(product_id) != null){
+                            rowStockList = stockOutChecker(product_id);
+                            //get remaining quantity here after the summation
+                            quantity = parseInt(quantity) + parseInt(rowStockList.quantity);
+                            
+                            $.post(home_url+'/product/getProductInfo',{'id':product_id},function(response){
+                              
+                                if(response != ''){
+                                    result = JSON.parse(response);
+                                    console.log(result.quantity+" "+quantity);
+
+                                    qty = result.quantity
+                                    if(quantity > qty){
+                                        notify_user('danger','Quantity('+qty+') Entered is greater than the available Quantity. Available quantity is '+ result.quantity);
+                                    }else if(quantity <= qty){
+                                        total = quantity * price;
+                                        total = total.toFixed(2);
+
+                                        stockOut_data = {
+                                            'product_id':product_id,
+                                            'quantity':quantity,
+                                            'price':price,
+                                            'total':total,
+                                            'product_name':product_name,
+                                            'product_itemUnit':product_itemUnit,
+                                            'categoryName':categoryName
+                                        }
+                                        
+                                        remove_stockOutData(product_id);
+
+                                        k = JSON.parse(localStorage.getItem('stockOut'));
+                                        k.push(stockOut_data);
+                                        localStorage.setItem('stockOut',JSON.stringify(k));
+                                    }
+                                }
+                            });
+                            
+
+                       }else{
+                             slist.push(stockOut_data);
+                             localStorage.setItem('stockOut',JSON.stringify(slist));
+                       }
+
+                       
+
+                    }else if(localStorage.getItem('stockOut') === null){
+                        localStorage.setItem('stockOut',JSON.stringify(stockOutlist));
+                    }
+
+                    current_StockOutList();
+                }
+            }
+        })
+
         $(document).on('click','.btnStockOutProduct',function(){
             quantity = $("#txtQty"+$(this).data('product-id')).val()
 
             newqty = $(this).data('product-quantity') - quantity;
-
-            //$(this).removeAttr('data-product-quantity');
-            // $(this).attr('data-product-quantity',newqty);
-            
+    
             client_id = $("#cmbClient").val();
             product_id = $(this).data('product-id');
             
@@ -99,6 +247,13 @@ $(document).ready(function(){
             total = quantity * price;
             total = total.toFixed(2);
 
+            vat = 0;
+            console.log($(this).attr('data-vatype'));
+            if($(this).data('vatype') == 'Vatable'){
+                vat = total * 0.12;
+                console.log(vat);
+            }
+            vat = vat.toFixed(2);
 
             if(quantity > $(this).data('product-quantity')){
                 notify_user('danger','Quantity Entered is greater than the available Quantity. Available quantity is '+ $(this).data('product-quantity'));
@@ -111,7 +266,8 @@ $(document).ready(function(){
                     'total':total,
                     'product_name':product_name,
                     'product_itemUnit':product_itemUnit,
-                    'categoryName':categoryName
+                    'categoryName':categoryName,
+                    'vatsubtot':vat
                 }
                
                 stockOutlist = []
@@ -124,27 +280,49 @@ $(document).ready(function(){
                   
                    if(stockOutChecker(product_id) != null){
                         rowStockList = stockOutChecker(product_id);
-
+                        //get remaining quantity here after the summation
                         quantity = parseInt(quantity) + parseInt(rowStockList.quantity);
                         
-                        total = quantity * price;
-                        total = total.toFixed(2);
+                        $.post(home_url+'/product/getProductInfo',{'id':product_id},function(response){
+                          
+                            if(response != ''){
+                                result = JSON.parse(response);
+                                // console.log(result.quantity+" "+quantity);
 
-                        stockOut_data = {
-                            'product_id':product_id,
-                            'quantity':quantity,
-                            'price':price,
-                            'total':total,
-                            'product_name':product_name,
-                            'product_itemUnit':product_itemUnit,
-                            'categoryName':categoryName
-                        }
+                                qty = result.quantity
+                                if(quantity > qty){
+                                    notify_user('danger','Quantity('+qty+') Entered is greater than the available Quantity. Available quantity is '+ result.quantity);
+                                }else if(quantity <= qty){
+                                    total = quantity * price;
+                                    total = total.toFixed(2);
+
+                                     vat = 0;
+                                    
+                                    if(result.vat_type == 'Vatable'){
+                                        vat = total * 0.12;
+                                        console.log(vat);
+                                    }
+                                    vat = vat.toFixed(2);
+                                    stockOut_data = {
+                                        'product_id':product_id,
+                                        'quantity':quantity,
+                                        'price':price,
+                                        'total':total,
+                                        'product_name':product_name,
+                                        'product_itemUnit':product_itemUnit,
+                                        'categoryName':categoryName,
+                                        'vatsubtot':vat
+                                    }
+                                    
+                                    remove_stockOutData(product_id);
+
+                                    k = JSON.parse(localStorage.getItem('stockOut'));
+                                    k.push(stockOut_data);
+                                    localStorage.setItem('stockOut',JSON.stringify(k));
+                                }
+                            }
+                        });
                         
-                        remove_stockOutData(product_id);
-
-                        k = JSON.parse(localStorage.getItem('stockOut'));
-                        k.push(stockOut_data);
-                        localStorage.setItem('stockOut',JSON.stringify(k));
 
                    }else{
                          slist.push(stockOut_data);
@@ -192,7 +370,7 @@ $(document).ready(function(){
                 }
             }
             localStorage.setItem('stockOut',JSON.stringify(stockOutList));
-            console.log(stockOutList);
+            
         }
         function update_stockOutData(key,value){
              var stockOutList;
@@ -217,8 +395,13 @@ $(document).ready(function(){
                 if(stockOutList.length > 0){
                     htmlData= '';
                     grandTotal = 0.00;
+                    vatTotal = 0.00;
+
+                   
+
                     for(i = 0 ; i < stockOutList.length ; i++){
                         grandTotal += parseFloat(stockOutList[i].total);
+                        vatTotal += parseFloat(stockOutList[i].vatsubtot);
                         htmlData +="<tr>"+
                                         "<td><strong>"+stockOutList[i].product_name+"</strong>("+stockOutList[i].product_itemUnit+")<br/>"+stockOutList[i].categoryName+"</td>"+
                                         "<td>"+stockOutList[i].quantity+"</td>"+
@@ -232,7 +415,18 @@ $(document).ready(function(){
                       
                     }
                     grandTotal = grandTotal.toFixed(2);
-                    $("#stockGrandTotal").html("Php: "+grandTotal);
+
+                    discount = $("#txtSOdiscout").val();
+                    if(typeof discount === 'undefined'){
+                        discount = 0.00;
+                    }
+
+                    gTotal = grandTotal - discount;
+                    gTotal.toFixed(2);
+
+                    $("#stockOutDiscount").html("Php "+discount);
+                    $("#stockGrandTotal").html("Php "+gTotal.toFixed(2));
+                    $("#stockVatTotal").html("Php "+vatTotal.toFixed(2));
                     $("#stockOutList").html(htmlData);
                 }
             }
@@ -409,7 +603,7 @@ $(document).ready(function(){
 
         }else{
             $.post(home_url+'/product/update_itemUnit',{'id':$("#btnUpdateItemUnit").attr('data-itemunit-id'),'itemName':$("#txtItemUnit").val()},function(response){
-                console.log(response);
+              
                 if(response != ''){
                     notify_user('info','Successfully Updated!');
                     $("#itemUnitList").html("");
@@ -490,6 +684,7 @@ $(document).ready(function(){
          pSellingPrice = $.trim($("#txtPSellingPrice").val());
          pQuantity = $.trim($("#txtPQuantity").val());
          pDate = $.trim($("#txtDate").val());
+         pvatType = $("input:radio[name=rdbVat]:checked").val()
          data = {
             'code':pcode,
             'name':pname,
@@ -498,9 +693,11 @@ $(document).ready(function(){
             'unit_price':punitPrice,
             'selling_price':pSellingPrice,
             'quantity':pQuantity,
-            'date':pDate
+            'date':pDate,
+            'vat_type':pvatType
         }
 
+        
         if(
             pDate.length <= 0 ||
             pcode.length <=0 || 
@@ -532,7 +729,7 @@ $(document).ready(function(){
             }
 
             $.post(home_url+url,product_data,function(response){
-                    console.log(response);
+                
                     if(response != ''){
                         notify_user('info','Products successfully saved!');
                         $("#productList").html("");

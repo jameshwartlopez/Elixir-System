@@ -54,52 +54,65 @@
                             <label for="tw-switch" class="ts-helper"></label>
                         </div>
                     </li>
-                   
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="tm-notification" href="index.html"><i class="tmn-counts">9</i></a>
-                        <div class="dropdown-menu dropdown-menu-lg pull-right">
-                            <div class="listview" id="notifications">
-                                <div class="lv-header">
-                                    Notification
-                    
-                                    <ul class="actions">
-                                        <li class="dropdown">
-                                            <a href="index.html" data-clear="notification">
-                                                <i class="zmdi zmdi-check-all"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
+                   <?php 
+                    if($usertype != 3 ){
+                            $numberOfLowQty = count($notification);
+                        ?>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="tm-notification" href="index.html">
+                                
+                            <?php echo ($numberOfLowQty > 0 )?'<i class="tmn-counts">'.$numberOfLowQty.'</i>':'';?>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-lg pull-right">
+                                <div class="listview" id="notifications">
+                                    <div class="lv-header">
+                                        Low Quantity
+                        
+                                        <ul class="actions">
+                                            <li class="dropdown">
+                                                <a href="#" >
+                                                    <i class="zmdi zmdi-check-all"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="lv-body table-responsive" style="height: 50px;">
+                                        <?php 
+                                              foreach ($notification as $lowProduct) {
+                                                $item_u = '';
+                                                foreach ($itemUnit as $key) {
+                                                    if($key['id'] == $lowProduct['item_unit'])
+                                                        $item_u = $key['name'];
+                                                }
+                                                $item_c= '';
+                                                foreach ($category as $key) {
+                                                    if($key['id'] == $lowProduct['category'])
+                                                        $item_c = $key['name'];
+                                                }
+                                            ?>
+                                                <a class="lv-item" href="<?php echo home_url()?>/product/stockIn<?php echo '?id='.$lowProduct['id'];?>">
+                                                    <div class="media">
+                                                        <div class="media-body">
+                                                            <div class="lv-title"><?php echo $lowProduct['name'];?> <?php echo ' ('.$item_u.') '.$item_c; ?></div>
+                                                            <small class="lv-small">Remaining quantity is <?php echo $lowProduct['quantity'];?></small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            <?php
+                                            }
+                                        ?>
+                                    </div>
+                        
+                                    <a class="lv-footer" href="<?php echo home_url()?>/product/stockIn<?php echo '?all';?>">View All</a>
                                 </div>
-                                <div class="lv-body">
-                                    <a class="lv-item" href="index.html">
-                                        <div class="media">
-                                            <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo home_url();?>/public/img/profile-pics/1.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="lv-title">David Belle</div>
-                                                <small class="lv-small">Cum sociis natoque penatibus et magnis dis parturient montes</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="lv-item" href="index.html">
-                                        <div class="media">
-                                            <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo home_url();?>/public/img/profile-pics/2.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="lv-title">Jonathan Morris</div>
-                                                <small class="lv-small">Nunc quis diam diamurabitur at dolor elementum, dictum turpis vel</small>
-                                            </div>
-                                        </div>
-                                    </a> 
-                                </div>
-                    
-                                <a class="lv-footer" href="<?php echo home_url()?>/user/profile">View Previous</a>
+                        
                             </div>
+                        </li>
+    
+                        <?php 
+                    }
+                   ?>
                     
-                        </div>
-                    </li>
                     
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="tm-task" href="#"></a>
@@ -110,9 +123,7 @@
                             <li>
                                 <a href="<?php echo home_url()?>/user/settings"><i class="zmdi zmdi-settings"></i> Privacy Settings</a>
                             </li>
-                            <li>
-                                <a href="<?php echo home_url();?>/user/logout"><i class="zmdi zmdi-storage "></i> Backup and Restore</a>
-                            </li>
+                            
                             <li>
                                 <a href="<?php echo home_url();?>/user/logout"><i class="zmdi zmdi-power"></i> Log out</a>
                             </li>
@@ -154,47 +165,149 @@
                             
                         </ul>
                     </div>
+                    <?php 
+                        //admin
+                        if($usertype == 0){
+                        ?>
 
-                    <ul class="main-menu">
-                        <li class="active"><a href="<?php home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
-                        <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi-assignment"></i> Products </a>
+                        <ul class="main-menu">
+                            <li class="active"><a href="<?php home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
+                            <li class="sub-menu">
+                                <a href="#"><i class="zmdi zmdi-assignment"></i> Products </a>
 
-                            <ul>
-                                <li>
-                                    <a class="active" href="<?php echo home_url()?>/product">
-                                        Products Profile
-                                    </a>
-                                </li>
+                                <ul>
+                                    <li>
+                                        <a class="active" href="<?php echo home_url()?>/product">
+                                            Products Profile
+                                        </a>
+                                    </li>
 
-                                <li><a href="<?php echo home_url();?>/product/itemUnit">Item Unit</a></li>
-                                <li><a  href="<?php echo home_url()?>/product/category">Category</a></li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi-rotate-cw"></i> Transaction </a>
+                                    <li><a href="<?php echo home_url();?>/product/itemUnit">Item Unit</a></li>
+                                    <li><a  href="<?php echo home_url()?>/product/category">Category</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu">
+                                <a href="#"><i class="zmdi zmdi-rotate-cw"></i> Transaction </a>
 
-                            <ul>
-                                <li><a href="<?php echo home_url(); ?>/product/stockIn"></i> Stock In Items</a></li>
-                                <li><a href="<?php echo home_url(); ?>/product/stockOut">Stock Out Items</a></li>
-                                <li><a href="<?php echo home_url(); ?>/product/returnedItems">Returned Items</a></li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi-widgets"></i> Reports </a>
+                                <ul>
+                                    <li><a href="<?php echo home_url(); ?>/product/stockIn"></i> Stock In Items</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/product/stockOut">Stock Out Items</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/product/returnedItems">Return Items</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu">
+                                <a href="#"><i class="zmdi zmdi-widgets"></i> Reports </a>
 
-                            <ul>
-                                <li><a href="<?php echo home_url(); ?>/report/stockPile"></i> Stockpile </a></li>
-                                <li><a href="<?php echo home_url();?>/report/stockIn">Stock In Items</a></li>
-                                <li><a href="<?php echo home_url(); ?>/report/stockOut">Stock Out Items</a></li>
-                                <li><a href="<?php echo home_url();?>/report/service">Service Report</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="<?php echo home_url();?>/service"><i class="zmdi zmdi-truck"></i> Service Report</a></li>
-                        <li><a href="<?php echo home_url();?>/client"><i class="zmdi zmdi-account-add"></i> Clients Profile</a></li>
-                        <li><a href="<?php echo home_url();?>/user/all"><i class="zmdi zmdi-assignment-account"></i> System Users</a></li>
-                
-                    </ul>
+                                <ul>
+                                    <li><a href="<?php echo home_url(); ?>/report/stockPile"></i> Stockpile </a></li>
+                                    <li><a href="<?php echo home_url();?>/report/stockIn">Stock In Items</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/report/stockOut">Stock Out Items</a></li>
+                                    <li><a href="<?php echo home_url();?>/report/service">Service Report</a></li>
+                                    <li><a href="<?php echo home_url();?>/report/returned_item_list">Returned Items List</a></li>
+                                </ul>
+                            </li>
+                           
+                            <li><a href="<?php echo home_url();?>/client"><i class="zmdi zmdi-account-add"></i> Clients Profile</a></li>
+                            <li><a href="<?php echo home_url();?>/user/all"><i class="zmdi zmdi-assignment-account"></i> System Users</a></li>
+                    
+                        </ul>
+                        <?php
+
+                        }
+
+                        if($usertype == 1 ){
+                            ?>
+                        <ul class="main-menu">
+                            <li class="active"><a href="<?php home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
+                            <li class="sub-menu">
+                                <a href="#"><i class="zmdi zmdi-rotate-cw"></i> Transaction </a>
+
+                                <ul>
+                                    <li><a href="<?php echo home_url(); ?>/product/stockIn"></i> Stock In Items</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/product/stockOut">Stock Out Items</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/product/returnedItems">Return Items</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu">
+                                <a href="#"><i class="zmdi zmdi-widgets"></i> Reports </a>
+
+                                <ul>
+                                    <li><a href="<?php echo home_url(); ?>/report/stockPile"></i> Stockpile </a></li>
+                                    <li><a href="<?php echo home_url();?>/report/stockIn">Stock In Items</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/report/stockOut">Stock Out Items</a></li>
+                                    <li><a href="<?php echo home_url();?>/report/service">Service Report</a></li>
+                                    <li><a href="<?php echo home_url();?>/report/returned_item_list">Returned Items List</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                        <?php
+                        }
+
+                        if( $usertype == 2){
+                        ?>
+                        <ul class="main-menu">
+                            <li class="active"><a href="<?php home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
+                            <li class="sub-menu">
+                                <a href="#"><i class="zmdi zmdi-assignment"></i> Products </a>
+
+                                <ul>
+                                    <li>
+                                        <a class="active" href="<?php echo home_url()?>/product">
+                                            Products Profile
+                                        </a>
+                                    </li>
+
+                                    <li><a href="<?php echo home_url();?>/product/itemUnit">Item Unit</a></li>
+                                    <li><a  href="<?php echo home_url()?>/product/category">Category</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="sub-menu">
+                                <a href="#"><i class="zmdi zmdi-rotate-cw"></i> Transaction </a>
+
+                                <ul>
+                                    <li><a href="<?php echo home_url(); ?>/product/stockIn"></i> Stock In Items</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/product/stockOut">Stock Out Items</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/product/returnedItems">Return Items</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu">
+                                <a href="#"><i class="zmdi zmdi-widgets"></i> Reports </a>
+
+                                <ul>
+                                    <li><a href="<?php echo home_url(); ?>/report/stockPile"></i> Stockpile </a></li>
+                                    <li><a href="<?php echo home_url();?>/report/stockIn">Stock In Items</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/report/stockOut">Stock Out Items</a></li>
+                                    <li><a href="<?php echo home_url();?>/report/service">Service Report</a></li>
+                                    <li><a href="<?php echo home_url();?>/report/returned_item_list">Returned Items List</a></li>
+                                </ul>
+                            </li>
+                             <li><a href="<?php echo home_url();?>/client"><i class="zmdi zmdi-account-add"></i> Clients Profile</a></li>
+                        </ul>
+                        <?php
+                        }
+                        
+                        if($usertype == 3){
+                        ?>
+                        <ul class="main-menu">
+                            <li class="active"><a href="<?php home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
+                            
+                           
+                            <li class="sub-menu">
+                                <a href="#"><i class="zmdi zmdi-widgets"></i> Reports </a>
+
+                                <ul>
+                                    <li><a href="<?php echo home_url();?>/report/service">Service Report</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/report/stockOut">Stock Out Items</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <?php
+                        }
+
+                    ?>
                 </div>
             </aside>
             

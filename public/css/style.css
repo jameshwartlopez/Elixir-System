@@ -21,7 +21,7 @@
 #btnUpdateClient,
 #btnUpdateCategory,
 #btnUpdateItemUnit,
-#btnUpdateProduct{
+#btnUpdateProduct,.csm{
 	display: none;
 }
 
@@ -84,7 +84,9 @@
 	 vertical-align: middle;
 }
 
-.stock-out-card-header{
+.stock-out-card-header,.clientDateContainer{
   display: none;
 }
+.clientDateContainer{
 
+}

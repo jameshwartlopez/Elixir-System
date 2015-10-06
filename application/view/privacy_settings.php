@@ -135,7 +135,7 @@
                                                 <div class="m-t-30">
                                                     <button class="btn btn-primary btn-sm" id="btnSaveLoginCredentials">Save</button>
                                                     <button data-pmb-action="reset" class="btn btn-link btn-sm">Cancel</button>
-                                                    <div class="errors"></div>
+                                                    <div class="errors csm"></div>
                                                 </div>
                                             </div>
                                         </div>

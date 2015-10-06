@@ -53,7 +53,7 @@
                                      <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" id="txtClientFaxNo"  class="form-control" placeholder="Fax Number">
+                                            <input type="text" id="txtClientFaxNo"  class="form-control number" placeholder="Fax Number">
                                         </div>
                                     </div>
                                     

@@ -51,45 +51,136 @@
                                         </thead>
                                         <tbody id="productList">
                                             <?php 
-                                            foreach ($products as $product) {
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo $product['code']; ?></td>
-                                                    <td><?php 
-                                                        $items_unit ='';
-                                                        foreach ($itemUnit as $key) {
-                                                                if($key['id'] == $product['item_unit'])
-                                                                    $items_unit = $key['name'];
-                                                        }
+                                           
+                                            if(isset($_GET['id']) && !empty($_GET['id'])){
+                                                foreach ($products as $product) {
+                                                    if($product['id'] == $_GET['id']){
+                                                            ?>
+                                                        <tr class="alert alert-danger">
+                                                            <td><?php echo $product['code']; ?></td>
+                                                            <td><?php 
+                                                                $items_unit ='';
+                                                                foreach ($itemUnit as $key) {
+                                                                        if($key['id'] == $product['item_unit'])
+                                                                            $items_unit = $key['name'];
+                                                                }
 
-                                                        echo '<strong>'.$product['name'].'</strong> ('.$items_unit.')<br/>'; 
-                                                            foreach ($category as $key) {
-                                                                if($key['id'] == $product['category'])
-                                                                    echo $key['name'];
-                                                            }
-                                                    ?></td>
-                                                    <td><?php echo $product['selling_price']; ?></td>
-                                                    <td>
-                                                        <button class='btn btn-info waves-effect btnAddQty' 
-                                                                data-product-code='<?php echo $product['code']; ?>' 
-                                                                data-product-name='<?php echo $product['name']; ?>' 
-                                                                data-product-category='<?php echo $product['category']; ?>' 
-                                                                data-product-item-unit='<?php echo $product['item_unit']; ?>'
-                                                                data-product-unit-price='<?php echo $product['unit_price']; ?>'
-                                                                data-product-selling-price='<?php echo $product['selling_price']; ?>'
-                                                                data-product-quantity='<?php echo $product['quantity']; ?>' 
-                                                                data-product-date='<?php echo $product['date']; ?>' 
-                                                                data-product-id='<?php echo $product['id']; ?>'  >
-                                                            <i class="zmdi zmdi-plus"></i> Add
-                                                        </button>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="txtQty<?php echo $product['id']; ?>" class="number" value="1" />
-                                                    </td>
+                                                                echo '<strong>'.$product['name'].'</strong> ('.$items_unit.')<br/>'; 
+                                                                    foreach ($category as $key) {
+                                                                        if($key['id'] == $product['category'])
+                                                                            echo $key['name'];
+                                                                    }
+                                                            ?></td>
+                                                            <td><?php echo $product['selling_price']; ?></td>
+                                                            <td>
+                                                                <button class='btn btn-info waves-effect btnAddQty' 
+                                                                        data-product-code='<?php echo $product['code']; ?>' 
+                                                                        data-product-name='<?php echo $product['name']; ?>' 
+                                                                        data-product-category='<?php echo $product['category']; ?>' 
+                                                                        data-product-item-unit='<?php echo $product['item_unit']; ?>'
+                                                                        data-product-unit-price='<?php echo $product['unit_price']; ?>'
+                                                                        data-product-selling-price='<?php echo $product['selling_price']; ?>'
+                                                                        data-product-quantity='<?php echo $product['quantity']; ?>' 
+                                                                        data-product-date='<?php echo $product['date']; ?>' 
+                                                                        data-product-id='<?php echo $product['id']; ?>'  >
+                                                                    <i class="zmdi zmdi-plus"></i> Add
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" id="txtQty<?php echo $product['id']; ?>" class="number" value="1" />
+                                                            </td>
+                                                            
+                                                        </tr>
+                                                        <?php
+                                                        break;
+                                                    }
                                                     
-                                                </tr>
-                                                <?php
-                                            } ?>
+                                                }//end loop
+
+                                            }else if(isset($_GET['all'])){
+                                                foreach ($notification as $product) {
+                                                     ?>
+                                                    <tr class="alert alert-danger">
+                                                        <td><?php echo $product['code']; ?></td>
+                                                        <td><?php 
+                                                            $items_unit ='';
+                                                            foreach ($itemUnit as $key) {
+                                                                    if($key['id'] == $product['item_unit'])
+                                                                        $items_unit = $key['name'];
+                                                            }
+
+                                                            echo '<strong>'.$product['name'].'</strong> ('.$items_unit.')<br/>'; 
+                                                                foreach ($category as $key) {
+                                                                    if($key['id'] == $product['category'])
+                                                                        echo $key['name'];
+                                                                }
+                                                        ?></td>
+                                                        <td><?php echo $product['selling_price']; ?></td>
+                                                        <td>
+                                                            <button class='btn btn-info waves-effect btnAddQty' 
+                                                                    data-product-code='<?php echo $product['code']; ?>' 
+                                                                    data-product-name='<?php echo $product['name']; ?>' 
+                                                                    data-product-category='<?php echo $product['category']; ?>' 
+                                                                    data-product-item-unit='<?php echo $product['item_unit']; ?>'
+                                                                    data-product-unit-price='<?php echo $product['unit_price']; ?>'
+                                                                    data-product-selling-price='<?php echo $product['selling_price']; ?>'
+                                                                    data-product-quantity='<?php echo $product['quantity']; ?>' 
+                                                                    data-product-date='<?php echo $product['date']; ?>' 
+                                                                    data-product-id='<?php echo $product['id']; ?>'  >
+                                                                <i class="zmdi zmdi-plus"></i> Add
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="txtQty<?php echo $product['id']; ?>" class="number" value="1" />
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                    <?php 
+                                                }
+                                            }else{
+
+                                                foreach ($products as $product) {
+
+                                                    ?>
+                                                    <tr class="<?php echo ($product['quantity']<10)?'alert alert-danger':'';?>">
+                                                        <td><?php echo $product['code']; ?></td>
+                                                        <td><?php 
+                                                            $items_unit ='';
+                                                            foreach ($itemUnit as $key) {
+                                                                    if($key['id'] == $product['item_unit'])
+                                                                        $items_unit = $key['name'];
+                                                            }
+
+                                                            echo '<strong>'.$product['name'].'</strong> ('.$items_unit.')<br/>'; 
+                                                                foreach ($category as $key) {
+                                                                    if($key['id'] == $product['category'])
+                                                                        echo $key['name'];
+                                                                }
+                                                        ?></td>
+                                                        <td><?php echo $product['selling_price']; ?></td>
+                                                        <td>
+                                                            <button class='btn btn-info waves-effect btnAddQty' 
+                                                                    data-product-code='<?php echo $product['code']; ?>' 
+                                                                    data-product-name='<?php echo $product['name']; ?>' 
+                                                                    data-product-category='<?php echo $product['category']; ?>' 
+                                                                    data-product-item-unit='<?php echo $product['item_unit']; ?>'
+                                                                    data-product-unit-price='<?php echo $product['unit_price']; ?>'
+                                                                    data-product-selling-price='<?php echo $product['selling_price']; ?>'
+                                                                    data-product-quantity='<?php echo $product['quantity']; ?>' 
+                                                                    data-product-date='<?php echo $product['date']; ?>' 
+                                                                    data-product-id='<?php echo $product['id']; ?>'  >
+                                                                <i class="zmdi zmdi-plus"></i> Add
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="txtQty<?php echo $product['id']; ?>" class="number" value="1" />
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
                                             
                                         </tbody>
                                     </table>

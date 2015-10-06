@@ -11,8 +11,21 @@ class ClientController extends Controller{
 
 			$user = $this->load_model('user'); 
 			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
-			$this->load_template('home',$data,'client');
+			
+			$product = $this->load_model('product');
+			$data['category'] = $product->show_category();
+			$data['itemUnit'] = $product->show_item_unit();
 
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
+
+			if($data['current_user']['user_type'] == 2){
+				$this->load_template('home',$data,'client');
+			}else if($data['current_user']['user_type'] != 0){
+				redirect_to(home_url());
+			}else{
+				$this->load_template('home',$data,'client');
+			}
 		}else{
 			redirect_to(home_url());	
 		}

@@ -243,7 +243,9 @@
     		}
     		$.post(home_url+url,user_data,function(response){
                     console.log(response);
-                    if(response != ''){
+                    if(response == 1){
+                        notify_user('danger','Username is already in used.');
+                    }else if(response != ''){
                         notify_user('info','User successfully saved!','');
                         $("#userList").html("");
                         $("#userList").html(response)

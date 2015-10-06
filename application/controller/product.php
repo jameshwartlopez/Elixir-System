@@ -10,8 +10,6 @@ class ProductController extends Controller{
 
 			$product = $this->load_model('product');
 			$data['category'] = $product->show_category();
-
-
 			$data['itemUnit'] = $product->show_item_unit();
 
 			$data['products'] = $product->show_product();
@@ -19,8 +17,14 @@ class ProductController extends Controller{
 			$user = $this->load_model('user'); 
 			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
 			
-			$this->load_template('home',$data);
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
 
+			if($data['current_user']['user_type'] == 3){
+				redirect_to(home_url());
+			}else{
+				$this->load_template('home',$data);	
+			}
 		}else{
 			redirect_to(home_url());	
 		}
@@ -39,7 +43,18 @@ class ProductController extends Controller{
 			$user = $this->load_model('user'); 
 			$data['current_user']= $user->show_current_users_info($_SESSION['user_id']);
 			
-			$this->load_template('home',$data,'category');
+			$product = $this->load_model('product');
+			$data['category'] = $product->show_category();
+			$data['itemUnit'] = $product->show_item_unit();
+
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
+
+			if($data['current_user']['user_type'] == 3){
+				redirect_to(home_url());
+			}else{
+				$this->load_template('home',$data,'category');
+			}
 
 		}else{
 			redirect_to(home_url());	
@@ -103,8 +118,18 @@ class ProductController extends Controller{
 			$user =$this->load_model('user'); 
 			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
 
-			$this->load_template('home',$data,'item_unit');
+			$product = $this->load_model('product');
+			$data['category'] = $product->show_category();
+			$data['itemUnit'] = $product->show_item_unit();
 
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
+
+			if($data['current_user']['user_type'] == 3){
+				redirect_to(home_url());
+			}else{
+				$this->load_template('home',$data,'item_unit');
+			}
 		}else{
 			redirect_to(home_url());		
 			
@@ -168,7 +193,7 @@ class ProductController extends Controller{
 	public function save_product(){
 		if(isset($_POST['data']) && !empty($_POST['data'])){
 			$result = $this->model->save_product($_POST['data']);
-
+			print_r($_POST['data']);
 			$product = $this->load_model('product');
 			$category = $product->show_category();
 
@@ -196,6 +221,7 @@ class ProductController extends Controller{
                                                     <td><?php echo $product['selling_price']; ?></td>
                                                     <td><?php echo $product['quantity']; ?></td>
                                                     <td><?php echo $product['date']; ?></td>
+                                                    <td><?php echo $product['vat_type']; ?></td>
                                                     <td>
                                                         <button class='btn btn-danger waves-effect btnEditProduct' 
                                                                 data-product-code='<?php echo $product['code']; ?>' 
@@ -246,6 +272,7 @@ class ProductController extends Controller{
                                                     <td><?php echo $product['selling_price']; ?></td>
                                                     <td><?php echo $product['quantity']; ?></td>
                                                     <td><?php echo $product['date']; ?></td>
+                                                    <td><?php echo $product['vat_type']; ?></td>
                                                     <td>
                                                         <button class='btn btn-danger waves-effect btnEditProduct' 
                                                                 data-product-code='<?php echo $product['code']; ?>' 
@@ -298,7 +325,15 @@ class ProductController extends Controller{
 
 			$data['newtransaction'] = $p->new_transaction_no($data['last_transaction']['No']);
 			
-			$this->load_template('home',$data,'stockin');
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
+
+			if($data['current_user']['user_type'] == 3){
+				redirect_to(home_url());
+			}else{
+				$this->load_template('home',$data,'stockin');
+			}
+
 
 		}else{
 			redirect_to(home_url());	
@@ -312,6 +347,13 @@ class ProductController extends Controller{
 			
 			echo $product->save_stockin($_POST['data']);
 			
+		}
+	}
+
+	public function so_paid_save(){
+		if(isset($_POST['transaction_no']) && !empty($_POST['transaction_no'])){
+			$tran = $this->load_model('product');
+			echo $tran->update_stockout_to_paid($_POST['transaction_no'],$_POST['client_id']);
 		}
 	}
 	//transaction Stockout page
@@ -341,7 +383,16 @@ class ProductController extends Controller{
 
 			$data['newtransaction'] = $p->new_transaction_no($data['last_transaction']['No']);
 
-			$this->load_template('home',$data,'stockout');
+
+
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
+			
+			if($data['current_user']['user_type'] == 3){
+				redirect_to(home_url());
+			}else{
+				$this->load_template('home',$data,'stockout');
+			}
 
 		}else{
 			redirect_to(home_url());	
@@ -350,14 +401,61 @@ class ProductController extends Controller{
 	public function save_stockOutList(){
 
 		if(isset($_POST['data']) && !empty($_POST['data'])){
-			print_r($_POST);
+			$product  = $this->load_model('product');
+			$check_client = $product->check_client_order($_POST['client_id'],'hold');
+			
+			if(count($check_client) >= 1){
+				echo "hashold";
+			}else if(count($check_client) < 1){
+				$product_info = $product->save_stockOutList($_POST['data'],$_POST['terms'],$_POST['client_id'],$_POST['date'],$_POST['discount']);	
+			}
+			
 		}
 
 	}
-
+	public function getProductInfo(){
+		if(isset($_POST['id']) && !empty($_POST['id'])){
+			echo json_encode($this->model->get_product_byId($_POST['id']));
+			die();
+		}
+	}
 	//transaction retuned items page
 	public function returnedItems(){
-		echo 'page for returned items';
+		if(isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])){
+			
+			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
+			$data['companyName'] = 'Elixir Industrial Equipment Inc.';
+
+			$clients = $this->load_model('client');
+			$data['clients'] = $clients->show_client();
+
+			$user = $this->load_model('user'); 
+			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
+
+			$product = $this->load_model('product');
+			$data['category'] = $product->show_category();
+			$data['itemUnit'] = $product->show_item_unit();
+
+			
+
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
+
+			$data['stockoutList'] = $notification->unreturned_so_item();
+			$data['transaction_data'] =  $notification->transaction_data();
+			
+			$this->load_template('home',$data,'returnitems');
+
+		}else{
+			redirect_to(home_url());	
+		}
 	}
 
+	public function save_return(){
+		if(isset($_POST['data']) && !empty($_POST['data'])){
+			if($this->model->save_return_item($_POST['data']['stockout_id'])){
+				echo 1;
+			}
+		}
+	}
 }

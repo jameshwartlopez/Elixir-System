@@ -24,4 +24,47 @@ $(document).ready(function(){
 		});
 
 	});
+
+	$(".btnViewStockOut").on('click',function(){
+		dateFrom = $("#txtDateFrom").val();
+		dateTo = $("#txtDateTo").val();
+
+		data = {'dateFrom':dateFrom,'dateTo':dateTo};
+		$.post(home_url+'/report/stockOut_DateFromTo',data,function(response){
+			// console.log(data);
+			console.log(response);
+
+			$("#reportList").html("").html(response);
+		});
+
+	});
+	//btnViewStockPilde
+	$(".btnViewStockPilde").on('click',function(){
+		dateFrom = $("#txtDateFrom").val();
+		dateTo = $("#txtDateTo").val();
+
+		data = {'dateFrom':dateFrom,'dateTo':dateTo};
+		$.post(home_url+'/report/stokPile_report',data,function(response){
+			// console.log(data);
+			console.log(response);
+
+			$("#reportList").html("").html(response);
+		});
+
+	});
+
+	//btnViewReturndList
+	$(".btnViewReturndList").on('click',function(){
+		dateFrom = $("#txtDateFrom").val();
+		dateTo = $("#txtDateTo").val();
+
+		data = {'dateFrom':dateFrom,'dateTo':dateTo};
+		$.post(home_url+'/report/returned_list',data,function(response){
+			// console.log(data);
+			console.log(response);
+
+			$("#reportList").html("").html(response);
+		});
+
+	});	
 });

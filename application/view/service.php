@@ -129,13 +129,20 @@
                                                         <td><?php echo $service['remarks']; ?></td>
                                                         <td><?php echo $service['status']; ?></td>
                                                         <td>
-                                                            <button class="btn btn-danger waves-effect btnEditService" 
-                                                                    data-service-date='<?php echo $service['date'];?>' 
-                                                                    data-service-client-id='<?php echo $service['client_id']; ?>' 
-                                                                    data-service-printer-model='<?php echo $service['printer_model']; ?>' 
-                                                                    data-service-remarks='<?php echo $service['remarks']; ?>' 
-                                                                    data-service-status='<?php echo $service['status']; ?>'  
-                                                                    data-service-id='<?php echo $service['id']; ?>'><i class="zmdi zmdi-edit"></i> Edit</button></td> 
+                                                            <?php 
+                                                                if($usertype == 3){
+                                                                ?>
+                                                                    <button class="btn btn-danger waves-effect btnEditService" 
+                                                                        data-service-date='<?php echo $service['date'];?>' 
+                                                                        data-service-client-id='<?php echo $service['client_id']; ?>' 
+                                                                        data-service-printer-model='<?php echo $service['printer_model']; ?>' 
+                                                                        data-service-remarks='<?php echo $service['remarks']; ?>' 
+                                                                        data-service-status='<?php echo $service['status']; ?>'  
+                                                                        data-service-id='<?php echo $service['id']; ?>'><i class="zmdi zmdi-edit"></i> Edit</button></td> 
+                                                                <?php
+                                                                }
+                                                            ?>
+                                                            
                                                         </td>
                                                     </tr>
                                                     <?php

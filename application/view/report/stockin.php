@@ -48,6 +48,7 @@
         <div class="card">
             <div class="card-header  text-center">
                 <img  src="<?php echo home_url()?>/public/img/bgwhite.png" alt="">
+                <h6 class="csm_address" style="margin-top: -22px;margin-bottom: 15px;">Door A NPBC M.C. Briones St.<br/> Highway Maguikay, Mandaue City</h6>
             </div>
             
             <div class="card-body card-padding">

@@ -71,9 +71,45 @@ $(document).ready(function(){
        
     }
 
+    /*
+        Function to disable some input keys
+    */
+      window.disableCtrlKeyCombination = function(e){
+                //list all CTRL + key combinations to disable
+                var forbiddenKeys = new Array("a", "c", "s", "u","v", "x");
+                var key;
+                var isCtrl;
+
+                if(window.event){
+                        key = window.event.keyCode;     //IE
+                        if(window.event.ctrlKey)
+                                isCtrl = true;
+                        else
+                                isCtrl = false;
+                }
+                else{
+                        key = e.which;     //firefox
+                        if(e.ctrlKey)
+                                isCtrl = true;
+                        else
+                                isCtrl = false;
+                }
+
+                //if ctrl is pressed check if other key is in forbidenKeys array
+                if(isCtrl){
+                    for (i = 0; i < forbiddenKeys.length; i++){
+                            //case-insensitive comparation
+                            if (forbiddenKeys[i].toLowerCase() == String.fromCharCode(key).toLowerCase()){ return false; }
+                        }
+                }
+                return true;
+        }
      /*
         number only input type will user the class number(.number)
      */
+    $(".number").on('keydown',function(e){
+        return disableCtrlKeyCombination(e);
+    });
     $(".number").on('keypress',function(evt){
         return ja_isNumber(evt);
     });
@@ -422,7 +458,7 @@ $(document).ready(function(){
     /*
      * Custom Scrollbars
      */
-    function scrollbar(className, color, cursorWidth) {
+    scrollbar = function (className, color, cursorWidth) {
         $(className).niceScroll({
             cursorcolor: color,
             cursorborder: 0,
@@ -439,7 +475,6 @@ $(document).ready(function(){
         if (!$('.login-content')[0]) {
             scrollbar('html', 'rgba(0,0,0,0.3)', '5px');
         }
-        
         //Scrollbar Tables
         if ($('.table-responsive')[0]) {
             scrollbar('.table-responsive', 'rgba(0,0,0,0.5)', '5px');

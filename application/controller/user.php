@@ -24,6 +24,14 @@ class UserController extends Controller{
 			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
 			$data['companyName'] = 'Elixir Industrial Equipment Inc.';
 			$data['current_user'] = $this->model->show_current_users_info($_SESSION['user_id']);
+			
+			$product = $this->load_model('product');
+			$data['category'] = $product->show_category();
+			$data['itemUnit'] = $product->show_item_unit();
+
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
+
 			$this->load_template('home',$data,'profile');
 
 		}else{
@@ -37,6 +45,13 @@ class UserController extends Controller{
 			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';
 			$data['companyName'] = 'Elixir Industrial Equipment Inc.';
 			$data['current_user'] = $this->model->show_current_users_info($_SESSION['user_id']);
+
+			$product = $this->load_model('product');
+			$data['category'] = $product->show_category();
+			$data['itemUnit'] = $product->show_item_unit();
+
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
 
 			$this->load_template('home',$data,'privacy_settings');
 
@@ -56,7 +71,19 @@ class UserController extends Controller{
 			$data['current_user'] = $this->model->show_current_users_info($_SESSION['user_id']);
 
 			$data['user_type'] = $this->user_type;
-			$this->load_template('home',$data,'user');
+			
+			$product = $this->load_model('product');
+			$data['category'] = $product->show_category();
+			$data['itemUnit'] = $product->show_item_unit();
+
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
+			
+			if($data['current_user']['user_type'] ==0){
+				$this->load_template('home',$data,'user');
+			}else{
+				redirect_to(home_url());
+			}
 
 		}else{
 			redirect_to(home_url());
@@ -65,80 +92,143 @@ class UserController extends Controller{
 
 	public function save_user(){
 		if(isset($_POST['data']) && !empty($_POST['data'])){
-			$result = $this->model->save_user($_POST['data']);
-			if($result){
-				$result = $this->model->show_users_info($_SESSION['user_id']);
-				foreach ($result as $user) {
-				?>
-				 <tr>
-	                <td><?php echo $user['username'];?></td>
-	                <td><?php echo $user['password'];?></td>
-	                <td><?php echo $user['Firstname'];?></td>
-	                <td><?php echo $user['LastName'];?></td>
-	                <td><?php echo $user['Email'];?></td>
-	                <td><?php echo $user['Contact'];?></td>
-	                <td><?php echo $user['gender'];?></td>
-	                <td><?php echo $this->user_type[$user['user_type']];?></td>
-	                <td>
-	                    <button class="btn btn-danger waves-effect btnEditUser" 
-	                            data-username='<?php echo $user['username'];?>' 
-	                            data-password='<?php echo $user['password'];?>' 
-	                            data-Firstname='<?php echo $user['Firstname'];?>' 
-	                            data-LastName='<?php echo $user['LastName'];?>' 
-	                            data-Contact='<?php echo $user['Contact'];?>' 
-	                            data-Email='<?php echo $user['Email'];?>' 
-	                            data-user-type='<?php echo $user['user_type'];?>' 
-	                            data-gender='<?php echo $user['gender'];?>' 
-	                            data-user-id='<?php echo $user['id'];?>'>
-	                            <i class="zmdi zmdi-edit"></i> Edit
-	                    </button>
-	                </td>
-	            </tr>   
-				<?php	
+			$_POST['data']['username'] = strtolower($_POST['data']['username']);
+			$_POST['data']['password'] = strtolower($_POST['data']['password']);
+			$check_username = $this->model->check_username($_POST['data']['username']);
+			
+			if(count($check_username) <= 0){
+				$result = $this->model->save_user($_POST['data']);
+				if($result){
+					$result = $this->model->show_users_info($_SESSION['user_id']);
+					foreach ($result as $user) {
+					?>
+					 <tr>
+		                <td><?php echo $user['username'];?></td>
+		                <td><?php echo $user['password'];?></td>
+		                <td><?php echo $user['Firstname'];?></td>
+		                <td><?php echo $user['LastName'];?></td>
+		                <td><?php echo $user['Email'];?></td>
+		                <td><?php echo $user['Contact'];?></td>
+		                <td><?php echo $user['gender'];?></td>
+		                <td><?php echo $this->user_type[$user['user_type']];?></td>
+		                <td>
+		                    <button class="btn btn-danger waves-effect btnEditUser" 
+		                            data-username='<?php echo $user['username'];?>' 
+		                            data-password='<?php echo $user['password'];?>' 
+		                            data-Firstname='<?php echo $user['Firstname'];?>' 
+		                            data-LastName='<?php echo $user['LastName'];?>' 
+		                            data-Contact='<?php echo $user['Contact'];?>' 
+		                            data-Email='<?php echo $user['Email'];?>' 
+		                            data-user-type='<?php echo $user['user_type'];?>' 
+		                            data-gender='<?php echo $user['gender'];?>' 
+		                            data-user-id='<?php echo $user['id'];?>'>
+		                            <i class="zmdi zmdi-edit"></i> Edit
+		                    </button>
+		                </td>
+		            </tr>   
+					<?php	
+					}
 				}
+			}else if(count($check_username) > 0){
+				echo 1;
 			}
+			
 		}
 	}
 
 	public function update_user(){
 		if(isset($_POST['data']) && !empty($_POST['data']) && isset($_POST['id']) && !empty($_POST['id'])){
-			$result = $this->model->udpate_user($_POST['data'],$_POST['id']);
-			if($result){
-				
-				$user_info = $this->load_model('user');
 
-				$result =$user_info->show_users_info($_SESSION['user_id']);
-				
-				foreach ($result as $user) {
-				?>
-				 <tr>
-	                <td><?php echo $user['username'];?></td>
-	                <td><?php echo $user['password'];?></td>
-	                <td><?php echo $user['Firstname'];?></td>
-	                <td><?php echo $user['LastName'];?></td>
-	                <td><?php echo $user['Email'];?></td>
-	                <td><?php echo $user['Contact'];?></td>
-	                <td><?php echo $user['gender'];?></td>
-	                <td><?php echo $this->user_type[$user['user_type']];?></td>
-	                <td>
-	                    <button class="btn btn-danger waves-effect btnEditUser" 
-	                            data-username='<?php echo $user['username'];?>' 
-	                            data-password='<?php echo $user['password'];?>' 
-	                            data-Firstname='<?php echo $user['Firstname'];?>' 
-	                            data-LastName='<?php echo $user['LastName'];?>' 
-	                            data-Contact='<?php echo $user['Contact'];?>' 
-	                            data-Email='<?php echo $user['Email'];?>' 
-	                            data-user-type='<?php echo $user['user_type'];?>' 
-	                            data-gender='<?php echo $user['gender'];?>' 
-	                            data-user-id='<?php echo $user['id'];?>'>
-	                            <i class="zmdi zmdi-edit"></i> Edit
-	                    </button>
-	                </td>
-	            </tr>   
-				<?php	
-				}
-			}
+			$check_username = $this->model->check_username($_POST['data']['username']);
 			
+			if(count($check_username) <= 0){
+				$okUser = $this->load_model('user');
+				$result = $okUser->udpate_user($_POST['data'],$_POST['id']);
+				if($result){
+					
+					$user_info = $this->load_model('user');
+
+					$result =$user_info->show_users_info($_SESSION['user_id']);
+					
+					foreach ($result as $user) {
+					?>
+					 <tr>
+		                <td><?php echo $user['username'];?></td>
+		                <td><?php echo $user['password'];?></td>
+		                <td><?php echo $user['Firstname'];?></td>
+		                <td><?php echo $user['LastName'];?></td>
+		                <td><?php echo $user['Email'];?></td>
+		                <td><?php echo $user['Contact'];?></td>
+		                <td><?php echo $user['gender'];?></td>
+		                <td><?php echo $this->user_type[$user['user_type']];?></td>
+		                <td>
+		                    <button class="btn btn-danger waves-effect btnEditUser" 
+		                            data-username='<?php echo $user['username'];?>' 
+		                            data-password='<?php echo $user['password'];?>' 
+		                            data-Firstname='<?php echo $user['Firstname'];?>' 
+		                            data-LastName='<?php echo $user['LastName'];?>' 
+		                            data-Contact='<?php echo $user['Contact'];?>' 
+		                            data-Email='<?php echo $user['Email'];?>' 
+		                            data-user-type='<?php echo $user['user_type'];?>' 
+		                            data-gender='<?php echo $user['gender'];?>' 
+		                            data-user-id='<?php echo $user['id'];?>'>
+		                            <i class="zmdi zmdi-edit"></i> Edit
+		                    </button>
+		                </td>
+		            </tr>   
+					<?php	
+					}
+				}
+			}else if(count($check_username) > 0){
+			
+				$getUserbyid = $this->model->get_user_byID($_POST['id']);
+				print_r($getUserbyid);
+				
+				if($_POST['data']['username'] == $getUserbyid[0]['username']){
+					$usermodel = $this->load_model('user');
+					$result = $usermodel ->udpate_user($_POST['data'],$_POST['id']);
+					
+					if($result){
+						
+						$user_info = $this->load_model('user');
+
+						$result =$user_info->show_users_info($_SESSION['user_id']);
+						
+						foreach ($result as $user) {
+						?>
+						 <tr>
+			                <td><?php echo $user['username'];?></td>
+			                <td><?php echo $user['password'];?></td>
+			                <td><?php echo $user['Firstname'];?></td>
+			                <td><?php echo $user['LastName'];?></td>
+			                <td><?php echo $user['Email'];?></td>
+			                <td><?php echo $user['Contact'];?></td>
+			                <td><?php echo $user['gender'];?></td>
+			                <td><?php echo $this->user_type[$user['user_type']];?></td>
+			                <td>
+			                    <button class="btn btn-danger waves-effect btnEditUser" 
+			                            data-username='<?php echo $user['username'];?>' 
+			                            data-password='<?php echo $user['password'];?>' 
+			                            data-Firstname='<?php echo $user['Firstname'];?>' 
+			                            data-LastName='<?php echo $user['LastName'];?>' 
+			                            data-Contact='<?php echo $user['Contact'];?>' 
+			                            data-Email='<?php echo $user['Email'];?>' 
+			                            data-user-type='<?php echo $user['user_type'];?>' 
+			                            data-gender='<?php echo $user['gender'];?>' 
+			                            data-user-id='<?php echo $user['id'];?>'>
+			                            <i class="zmdi zmdi-edit"></i> Edit
+			                    </button>
+			                </td>
+			            </tr>   
+						<?php	
+						}
+					}	
+				}else{
+					echo 1;	
+				}
+				
+			}
+
 		}
 	}
 

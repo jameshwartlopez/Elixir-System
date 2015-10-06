@@ -34,7 +34,7 @@
                         <div  class=""> 
                             <div class="input-group">
                                 <div class="dtp-container fg-line">
-                                    <button class="btn bgm-lightblue waves-effect waves-effect btnViewStockin"> VIEW</button>
+                                    <button class="btn bgm-lightblue waves-effect waves-effect btnViewStockOut"> VIEW</button>
                                 </div>
                             </div>
                             
@@ -48,13 +48,14 @@
         <div class="card">
             <div class="card-header  text-center">
                 <img  src="<?php echo home_url()?>/public/img/bgwhite.png" alt="">
+                <h6 class="csm_address" style="margin-top: -22px;margin-bottom: 15px;">Door A NPBC M.C. Briones St.<br/> Highway Maguikay, Mandaue City</h6>
             </div>
             
             <div class="card-body card-padding">
                 <div class="row m-b-25">
                     <div class="col-xs-12">
                         <div class="text-center">
-                            <h3 class="report-title">StockIn Report</h3>
+                            <h3 class="report-title">Stockout Report</h3>
 
                         </div>
                     </div>
@@ -63,30 +64,88 @@
                 <div class="clearfix"></div>
                 
                 <div class="clearfix"></div>
-                
                 <table class="table i-table m-t-25 m-b-25">
                     <thead class="t-uppercase">
+                        <th class="c-gray"><strong>TRANSACTION NO</strong></th>
                         <th class="c-gray"><strong>ITEM DESCRIPTION</strong></th>
+                        <th class="c-gray"><strong>CLIENT</strong></th>
+                        <th class="c-gray"><strong>PRICE</strong></th>
                         <th class="c-gray"><strong>QUANTITY</strong></th>
+                        <th class="c-gray"><strong>DISCOUNT</strong></th>
+                        <th class="c-gray"><strong>TOTAL</strong></th>
                         <th class="c-gray"><strong>DATE</strong></th>
                         <th class="c-gray"><strong>USER</strong></th>
+                        <th class="c-gray"><strong>&nbsp;</th>
                     </thead>
                     
                     <tbody>
                         <thead id="reportList">
                             <?php
-                                foreach ($stockin_data as $stockin) {
-                                   ?>
+                                foreach ($transaction_data as $transaction) {
+                                    $status_t = '';
+                                    foreach ($stockoutList as $stockout) {
+                                       
+                                        
+                                        if($stockout['transaction_no'] == $transaction['No']){
+                                             $status_t = $stockout['status'];
+                                             //clients
+                                                $items_unit ='';
+                                                foreach ($itemUnit as $key) {
+                                                        if($key['id'] == $stockout['item_unit'])
+                                                            $items_unit = $key['name'];
+                                                }
+                                                
+                                               ?>
+                                                <tr>
+
+                                                   <td><?php echo $stockout['transaction_no']; ?></td>
+                                                   <td><?php 
+                                                        echo '<strong>'.$stockout['name'].'</strong> ('.$items_unit.')<br/>'; 
+                                                        foreach ($category as $key) {
+                                                            if($key['id'] == $stockout['category']){
+                                                                echo $key['name'];
+                                                            }
+                                                        }
+                                                   ?></td>
+                                                   <td>
+                                                       <?php 
+                                                        foreach ($clients as $client) {
+                                                            if($stockout['c_id']== $client['id']){
+                                                                echo $client['name'];
+                                                                break;
+                                                            }
+                                                        }
+                                                       ?>
+                                                   </td>
+                                                   <td><?php echo $stockout['selling_price'];?></td>
+                                                   <td><?php echo $stockout['quantity'];?></td>
+                                                   <td><?php echo $stockout['discount']; ?></td>
+                                                   <td><?php echo $stockout['total']; ?></td>
+                                                   <td><?php echo $stockout['date'];?></td>
+                                                   <td><?php echo $stockout['Firstname']." ".$stockout['LastName'];?></td>
+                                                   <td>
+                                                      
+                                                   </td>
+                                                </tr>
+                                               <?php
+                                            
+                                        }
+                                    }?>
                                     <tr>
-                                        <td width="50%">
-                                            <p class="text-muted c-gray"><?php echo $stockin['name'];?></p>
-                                            <h5 class="t-uppercase f-400"><?php echo $stockin['name'].'( '.$stockin['item_unit'].' )'; ?> </h5>
+                                        <td colspan="8">
+                                            <?php 
+                                                if($status_t == 'unpaid'){
+                                                    ?>
+                                                        <button class="btn btn-danger waves-effect waves-effect btnStockOutStatus" data-client-id='<?php echo $transaction['client_id'];?>' data-transaction-no="<?php echo $transaction['No'];?>" ><?php echo ucfirst($status_t);?></button>
+                                                    <?php 
+                                                }else if($status_t != 'unpaid' || $status_t != 'hold'){
+                                                    echo '<strong style="color:red;">'.ucfirst($status_t).'</strong>';
+                                                }else{
+                                                }
+                                            ?>
                                         </td>
-                                        <td><?php echo $stockin['quantity']; ?></td>
-                                        <td ><?php echo $stockin['stockinDate']; ?></td>
-                                        <td><?php echo $stockin['Firstname'].' '.$stockin['LastName']; ?></td>
                                     </tr>
-                                   <?php
+                                    <?php     
                                 }
                             ?>
                         </thead> 

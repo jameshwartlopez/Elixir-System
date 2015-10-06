@@ -113,32 +113,57 @@
                                     
                                     <br>
                                     
-                                    <div class="input-group">
+                                    <div class="input-group <?php echo ($usertype != 0)?'csm':'';?>" style="<?php echo ($usertype != 0)?'display:none':'';?>">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" id="txtPUnitPrice" class="form-control money" placeholder="Unit Price ">
+                                            <input type="text" style="<?php echo ($usertype != 0)?'display:none':'';?>" id="txtPUnitPrice" class="form-control money" placeholder="Unit Price ">
                                         </div>
                                     </div>
                                     
                                     <br>
-                                    <div class="input-group">
+                                    <div class="input-group <?php echo ($usertype != 0)?'csm':'';?>" style="<?php echo ($usertype != 0)?'display:none':'';?>">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" id="txtPSellingPrice" class="form-control money" placeholder="Selling Price ">
+                                            <input type="text" style="<?php echo ($usertype != 0)?'display:none':'';?>"  id="txtPSellingPrice" class="form-control money" placeholder="Selling Price ">
                                         </div>
                                     </div>
                                     
                                     <br>
                                     
-                                    <div class="input-group">
+                                    <div class="input-group <?php echo ($usertype != 0)?'csm':'';?>" style="<?php echo ($usertype != 0)?'display:none':'';?>">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">    
-                                            <input type="text" id="txtPQuantity" class="form-control" placeholder="Quantity">
+                                            <input type="text" style="<?php echo ($usertype != 0)?'display:none':'';?>" id="txtPQuantity" class="form-control number" placeholder="Quantity">
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-sm-6">
-                                    &nbsp;
+                                    <div class="col-sm-12">
+                                        <br/>
+                                        <div class="col-sm-12 hide-in-print">
+                                            <div class="col-sm-6 " style="padding-left: 20px;">
+                                                <div class="radio m-b-15">
+                                                    <label>
+                                                        <input type="radio" name="rdbVat" checked value="Vatable">
+                                                        <i class="input-helper"></i>
+                                                        Vatable
+                                                    </label>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-sm-6 " style="padding-left: 20px;">
+                                                <div class="radio m-b-15">
+                                                    <label>
+                                                        <input type="radio" name="rdbVat"  value="None Vatable">
+                                                        <i class="input-helper"></i>
+                                                        None Vatable
+                                                    </label>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-6"> 
                                     <p class="f-500 c-black m-b-20"> &nbsp; </p>
@@ -166,6 +191,7 @@
                                                 <th>Selling Price</th>
                                                 <th>Quantity</th>
                                                 <th>Date</th>
+                                                <th>Type</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -192,6 +218,7 @@
                                                     <td><?php echo $product['selling_price']; ?></td>
                                                     <td><?php echo $product['quantity']; ?></td>
                                                     <td><?php echo $product['date']; ?></td>
+                                                    <td><?php echo $product['vat_type']; ?></td>
                                                     <td>
                                                         <button class='btn btn-danger waves-effect btnEditProduct' 
                                                                 data-product-code='<?php echo $product['code']; ?>' 

@@ -22,7 +22,21 @@ class HomeController extends Controller{
 			$data['current_user'] = $user->show_current_users_info($_SESSION['user_id']);
 			
 			
-			$this->load_template('home',$data);
+			$notification = $this->load_model('product');
+			$data['notification'] = $notification->product_lowItems();
+
+			$client = $this->load_model('client');
+			$data['clients'] = $client->show_client();
+			
+			if($data['current_user']['user_type'] == 3){
+				$service = $this->load_model('service');
+				$data['services'] = $service->get_service_byId($_SESSION['user_id']);
+				$this->load_template('home',$data,'service');
+
+			}else if($data['current_user']['user_type'] != 3){
+				$this->load_template('home',$data);	
+			}
+			
 
 		}else{
 			$data['title'] = 'Elixir Industrial Equipment Inc. Cebu-Branch';

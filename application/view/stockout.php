@@ -79,8 +79,21 @@
                                                                 <td><?php echo $product['selling_price']; ?></td>
                                                                 <td>
                                                                     <div class="btn-demo">
-                                                                        <input type="text" id="txtQty<?php echo $product['id']; ?>" class=" number" style="width: 56px;margin-right: 12px" value="1" >
+                                                                        <input type="text" id="txtQty<?php echo $product['id']; ?>" class="txtQty_so number" style="width: 56px;margin-right: 12px" value="1"
+                                                                                data-vatype= '<?php echo $product['vat_type'];?>'
+                                                                                data-product-code='<?php echo $product['code']; ?>' 
+                                                                                data-product-name='<?php echo $product['name']; ?>' 
+                                                                                data-product-category='<?php echo $product['category']; ?>' 
+                                                                                data-product-category-name = '<?php echo $category_name;?>'
+                                                                                data-product-item-unit='<?php echo $product['item_unit']; ?>'
+                                                                                data-product-rItemUnit ='<?php echo $items_unit;?>'
+                                                                                data-product-unit-price='<?php echo $product['unit_price']; ?>'
+                                                                                data-product-selling-price='<?php echo $product['selling_price']; ?>'
+                                                                                data-product-quantity='<?php echo $product['quantity']; ?>' 
+                                                                                data-product-date='<?php echo $product['date']; ?>' 
+                                                                                data-product-id='<?php echo $product['id']; ?>'>
                                                                         <button class="btnStockOutProduct btn btn-primary btn-icon waves-effect waves-circle waves-float"
+                                                                                data-vatype= '<?php echo $product['vat_type'];?>'
                                                                                 data-product-code='<?php echo $product['code']; ?>' 
                                                                                 data-product-name='<?php echo $product['name']; ?>' 
                                                                                 data-product-category='<?php echo $product['category']; ?>' 
@@ -117,36 +130,43 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
-                                        <div class="col-sm-12 hide-in-print">
-                                            <div class="col-sm-6 " style="padding-left: 20px;">
-                                                <div class="radio m-b-15">
-                                                    <label>
-                                                        <input type="radio" name="rdbVat" checked value="Vatable">
-                                                        <i class="input-helper"></i>
-                                                        Vatable
-                                                    </label>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="col-sm-6 " style="padding-left: 20px;">
-                                                <div class="radio m-b-15">
-                                                    <label>
-                                                        <input type="radio" name="rdbVat"  value="None Vatable">
-                                                        <i class="input-helper"></i>
-                                                        None Vatable
-                                                    </label>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
                                         <div class="col-sm-12">
                                             <div class="input-group hide-in-print">
                                                 <span class="input-group-addon"></span>
                                                 <div class="fg-line">
-                                                    <input type="text" id="txtStockOutSearchProduct"  class="money form-control" placeholder="Discount">
+                                                   <?php 
+                                                        if($usertype== 0){
+                                                            ?><input type="text" id="txtSOdiscout"  class="money form-control" placeholder="Discount"><?php
+                                                        }
+                                                   ?> 
+                                                    
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-sm-12">
+                                            <div class="input-group hide-in-print">
+                                                <br/>
+                                                <span class="input-group-addon"></span>
+                                                <div class="fg-line">
+                                                <h2><?php echo "Transaction No. ".$newtransaction; ?> </h2>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 clientDateContainer">
+                                            <table class="">
+                                                <tr>
+                                                    <td><h4>Date:</h4></td>
+                                                    <td><h4 id="lblDate">date</h4></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h4>Transaction No:</h4></td>
+                                                    <td><h4 ><?php echo $newtransaction;?></h4></td>
+                                                </tr>
+                                                
+                                            </table>
+                                        </div>
+                                        
                                          
                                     </div> 
                                     <div class="col-sm-12">
@@ -177,9 +197,17 @@
                                                         
                                                     </tbody>
                                                     <tfoot>
+                                                        <tr style="<?php echo ($usertype != 0)?'display:none':'';?>">
+                                                            <td colspan="3">Discount</td>
+                                                            <td colspan="3" id="stockOutDiscount"></td>
+                                                        </tr>
                                                         <tr>
                                                             <td colspan="3">Grand Total</td>
                                                             <td colspan="3" id="stockGrandTotal"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="3">Vat Total</td>
+                                                            <td colspan="3" id="stockVatTotal"></td>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
@@ -187,17 +215,8 @@
                                         </div>
 
                                         <div class="col-sm-12">
-                                         <br/><br/>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"></span>
-                                                <div class="fg-line">
-                                                    <input type="text" id="txtCash"  class="money form-control" placeholder="Enter Money Here">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
                                         <br/>
-                                            <div class="input-group"> 
+                                            <div class="input-group hide-in-print"> 
                                                 <span  class="input-group-addon"></span>
                                                 <div class="fg-line">
                                                     <select class="selectpicker" id="cmbTerms">
@@ -209,6 +228,18 @@
                                                 </div>
                                                     
                                             </div>
+                                        </div>
+                                        <div class="col-sm-12 clientDateContainer">
+                                            <table class="">
+                                                <tr>
+                                                    <td><h4>Terms In Days:</h4></td>
+                                                    <td><h4 id="lblTerm">date</h4></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h4>Client: </h4></td>
+                                                    <td><h4 id="lblClient">adf</h4></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                         <div class="col-sm-12 hide-in-print">
                                              <div class="btn-demo col-sm-12">
