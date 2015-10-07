@@ -75,7 +75,33 @@
                                     </div>
                                     
                                     <br>
-                                    
+
+                                    <div class="col-sm-12">
+                                        <br/>
+                                        <div class="col-sm-12 hide-in-print">
+                                            <div class="col-sm-6 " style="padding-left: 20px;">
+                                                <div class="radio m-b-15">
+                                                    <label>
+                                                        <input type="radio" name="rdbVat" checked value="Vatable">
+                                                        <i class="input-helper"></i>
+                                                        Vatable
+                                                    </label>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-sm-6 " style="padding-left: 20px;">
+                                                <div class="radio m-b-15">
+                                                    <label>
+                                                        <input type="radio" name="rdbVat"  value="None Vatable">
+                                                        <i class="input-helper"></i>
+                                                        None Vatable
+                                                    </label>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
                                     <div class="btn-demo col-sm-12">
                                         <p class="f-500 c-black m-b-20"> &nbsp; </p>
                                         <button class="btn bgm-lightblue waves-effect" id="btnSaveClient"><i class="zmdi zmdi-plus-circle zmdi-hc-fw"></i> Save &nbsp;&nbsp;</button>
@@ -96,6 +122,7 @@
                                                     <th>Fax</th>
                                                     <th>Email</th>
                                                     <th>Contact Person</th>
+                                                    <th>Type</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -110,8 +137,10 @@
                                                         <td><?php echo $client['fax_number']?></td>
                                                         <td><?php echo $client['email']?></td>
                                                         <td><?php echo $client['contact_person']?></td>
+                                                        <td><?php echo $client['vat_type'];?></td>
                                                         <td>
                                                             <button class="btn btn-danger waves-effect btnEditClient" 
+                                                                    data-client-vat-type="<?php echo $client['vat_type'];?>" 
                                                                     data-client-name='<?php echo $client['name']?>' 
                                                                     data-client-address='<?php echo $client['address']?>' 
                                                                     data-client-telno='<?php echo $client['telphone_number']?>' 

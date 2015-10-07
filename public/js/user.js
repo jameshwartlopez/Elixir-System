@@ -289,7 +289,20 @@
 			$("#txtClientTelNo").val($(this).attr('data-client-telno'));
 			$("#txtClientFaxNo").val($(this).attr('data-client-faxno'));
 			$("#txtClientEmail").val($(this).attr('data-client-email'));
-			$("#txtClientContactPerson").val($(this).attr('data-client-contactperson'));
+           
+            var radios = $('input:radio[name=rdbVat]');
+        
+            console.log(radios);
+            for(i=0 ; i< radios.length; i++){
+                if(radios[i]['defaultValue'] === $(this).data('client-vat-type') ){
+                    radios[i]['checked'] = true;
+                }else{
+                    radios[i]['checked'] = false;
+                }
+            }
+
+            $("#txtClientContactPerson").val($(this).attr('data-client-contactperson'));
+
         });
 
         $("#txtSearchClient").on('input',function(){
@@ -327,6 +340,8 @@
 			cemail = $.trim($("#txtClientEmail").val());
 			ccontact = $.trim($("#txtClientContactPerson").val());
 
+            cpvatType = $("input:radio[name=rdbVat]:checked").val();
+            console.log(cpvatType);
 			if(cname.length <= 0 || caddres.length <= 0 || ctelno.length <= 0 || cfaxno.length <= 0 || cemail.length <= 0 || ccontact.length <= 0){
  			
  				notify_user('danger','Please fill up all the empty fields','Saving Error! ');
@@ -341,6 +356,7 @@
 					'fax_number':cfaxno,
 					'email':cemail,
 					'contact_person':ccontact,
+                    'vat_type':cpvatType
 				}
 
 				client_data ={

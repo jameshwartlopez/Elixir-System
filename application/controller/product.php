@@ -233,7 +233,6 @@ class ProductController extends Controller{
                                                     <td><?php echo $product['selling_price']; ?></td>
                                                     <td><?php echo $product['quantity']; ?></td>
                                                     <td><?php echo $product['date']; ?></td>
-                                                    <td><?php echo $product['vat_type']; ?></td>
                                                     <td>
                                                         <button class='btn btn-danger waves-effect btnEditProduct' 
                                                         		data-product-image="<?php echo $product['image_url'];?>" 
@@ -271,16 +270,23 @@ class ProductController extends Controller{
 				$product_details = array_shift($p_model->show_product($id));
 				print_r($product_details);
 				
-				unlink($uploads_dir.$product_details['image_url']);
+				
+				if(file_exists($uploads_dir.$product_details['image_url'])){
+					unlink($uploads_dir.$product_details['image_url']);
+				}
 
 				move_uploaded_file($_FILES['p_image']['tmp_name'],$newfile);
 			}
-
-			$result = $this->model->update_product($_POST,$id);
+			
+			$_POST['unit_price'] = str_replace(",","",$_POST['unit_price']);
+			$_POST['selling_price'] = str_replace(",","",$_POST['selling_price']);
+		
+			
+			$update = $this->load_model('product');
+			$result = $update->update_product($_POST,$id);
 			$product = $this->load_model('product');
 			$category = $product->show_category();
-
-
+			
 			$itemUnit = $product->show_item_unit();
 
                                             foreach ($result as $product) {
@@ -305,7 +311,6 @@ class ProductController extends Controller{
                                                     <td><?php echo $product['selling_price']; ?></td>
                                                     <td><?php echo $product['quantity']; ?></td>
                                                     <td><?php echo $product['date']; ?></td>
-                                                    <td><?php echo $product['vat_type']; ?></td>
                                                     <td>
                                                         <button class='btn btn-danger waves-effect btnEditProduct' 
                                                         		data-product-image="<?php echo $product['image_url'];?>" 
@@ -441,7 +446,8 @@ class ProductController extends Controller{
 			if(count($check_client) >= 1){
 				echo "hashold";
 			}else if(count($check_client) < 1){
-				$product_info = $product->save_stockOutList($_POST['data'],$_POST['terms'],$_POST['client_id'],$_POST['date'],$_POST['discount']);	
+				print_r($_POST['data']);
+				$product_info = $product->save_stockOutList($_POST['data'],$_POST['terms'],$_POST['client_id'],$_POST['date'],$_POST['discount'],$_POST['type']);	
 			}
 			
 		}

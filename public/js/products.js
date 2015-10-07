@@ -3,6 +3,10 @@ $(document).ready(function(){
     /*
         Transaction 
      */
+        $("#cmbClient").on('change',function(){
+            current_StockOutList();
+        });
+
         $("#txtSOdiscout").on('keypress input',function(){
             //$("#stockOutDiscount").html($(this).val());
             current_StockOutList();
@@ -85,8 +89,11 @@ $(document).ready(function(){
                     'terms':$("#cmbTerms").val(),
                     'client_id':$("#cmbClient").val(),
                     'date':$("#txtDate").val(),
-                    'discount':discount
+                    'discount':discount,
+                    'type':$("input:radio[name=rdbStatus]:checked").val()
+
             }
+            console.log(data);
             if($("#cmbClient").val().length <= 0){
                 notify_user("danger","Please select a customer for this transaction");
             }else if($("#cmbTerms").val().length <= 0){
@@ -96,7 +103,7 @@ $(document).ready(function(){
                 $.post(home_url+'/product/save_stockOutList',data,function(response){
                     
                    
-
+                    console.log(response);
                     //clear the stockout list 
                     if(response == 'hashold'){
                          console.log(response);
@@ -247,13 +254,7 @@ $(document).ready(function(){
             total = quantity * price;
             total = total.toFixed(2);
 
-            vat = 0;
-            console.log($(this).attr('data-vatype'));
-            if($(this).data('vatype') == 'Vatable'){
-                vat = total * 0.12;
-                console.log(vat);
-            }
-            vat = vat.toFixed(2);
+            
 
             if(quantity > $(this).data('product-quantity')){
                 notify_user('danger','Quantity Entered is greater than the available Quantity. Available quantity is '+ $(this).data('product-quantity'));
@@ -267,7 +268,7 @@ $(document).ready(function(){
                     'product_name':product_name,
                     'product_itemUnit':product_itemUnit,
                     'categoryName':categoryName,
-                    'vatsubtot':vat
+                    
                 }
                
                 stockOutlist = []
@@ -401,7 +402,6 @@ $(document).ready(function(){
 
                     for(i = 0 ; i < stockOutList.length ; i++){
                         grandTotal += parseFloat(stockOutList[i].total);
-                        vatTotal += parseFloat(stockOutList[i].vatsubtot);
                         htmlData +="<tr>"+
                                         "<td><strong>"+stockOutList[i].product_name+"</strong>("+stockOutList[i].product_itemUnit+")<br/>"+stockOutList[i].categoryName+"</td>"+
                                         "<td>"+stockOutList[i].quantity+"</td>"+
@@ -417,12 +417,22 @@ $(document).ready(function(){
                     grandTotal = grandTotal.toFixed(2);
 
                     discount = $("#txtSOdiscout").val();
-                    if(typeof discount === 'undefined'){
+                    if(typeof discount === 'undefined' || discount <= 0){
                         discount = 0.00;
                     }
-
+                    discount = discount.toString();
+                    discount = discount.replace(/[,]/g,'');
+                    console.log(discount);
                     gTotal = grandTotal - discount;
                     gTotal.toFixed(2);
+                    
+                    clientType = $('#cmbClient option:selected').data('vat-type');
+                    vatTotal = 0.00;
+                    if(typeof clientType === 'undefined' || clientType != 'Vatable'){
+                        vatTotal = gTotal * 0.00;
+                    }else if(clientType == 'Vatable'){
+                        vatTotal = gTotal * 0.12;
+                    }
 
                     $("#stockOutDiscount").html("Php "+discount);
                     $("#stockGrandTotal").html("Php "+gTotal.toFixed(2));
@@ -687,11 +697,11 @@ $(document).ready(function(){
          pSellingPrice = $.trim($("#txtPSellingPrice").val());
          pQuantity = $.trim($("#txtPQuantity").val());
          pDate = $.trim($("#txtDate").val());
-         pvatType = $("input:radio[name=rdbVat]:checked").val();
+        
 
          p_img = $("#fileProductImage").prop('files')[0];
          
-        console.log(p_img);
+        console.log(pSellingPrice);
 
        
         if(
@@ -706,8 +716,12 @@ $(document).ready(function(){
             notify_user('danger','Please fill in all fields!');
         }else if(punitPrice == 0){
             notify_user('danger','Please Enter Unit Price!');
+        }else if(punitPrice < 1000){
+             notify_user('danger','Unit Price is less than 1000');
         }else if(pSellingPrice == 0){
             notify_user('danger','Please Enter Selling Price!');
+        }else if(pSellingPrice < 1000){
+             notify_user('danger','Selling Price is less than 1000');
         }else if(pQuantity == 0){
             notify_user('danger','Please Enter Quantity!');
         }else{
@@ -722,7 +736,6 @@ $(document).ready(function(){
             product_data.append('selling_price',pSellingPrice);
             product_data.append('quantity',pQuantity);
             product_data.append('date',pDate);
-            product_data.append('vat_type',pvatType);
             product_data.append('p_image',p_img);
 
             if(flag == 'update'){
@@ -739,7 +752,6 @@ $(document).ready(function(){
                 product_data.append('selling_price',pSellingPrice);
                 product_data.append('quantity',pQuantity);
                 product_data.append('date',pDate);
-                product_data.append('vat_type',pvatType);
                
 
                 if(typeof p_img !== 'undefined'){

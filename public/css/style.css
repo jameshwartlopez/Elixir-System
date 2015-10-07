@@ -90,3 +90,19 @@
 .clientDateContainer{
 
 }
+
+.products-photos{
+  padding: 3px;
+  margin:5px;
+  width:150px;
+  height: 150px;
+}
+.products-photos img{
+   width:140px;
+  height: 130px;
+}
+
+
+.products-photos span{
+  font-weight: bolder;
+}

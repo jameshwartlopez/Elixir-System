@@ -43,8 +43,10 @@ class ClientController extends Controller{
                 <td><?php echo $client['fax_number']?></td>
                 <td><?php echo $client['email']?></td>
                 <td><?php echo $client['contact_person']?></td>
+                <td><?php echo $client['vat_type'];?></td>
                 <td>
                     <button class="btn btn-danger waves-effect btnEditClient" 
+                     		data-client-vat-type="<?php echo $client['vat_type'];?>" 
                          	data-client-name='<?php echo $client['name']?>' 
                           	data-client-address='<?php echo $client['address']?>' 
                             data-client-telno='<?php echo $client['telphone_number']?>' 
@@ -72,8 +74,10 @@ class ClientController extends Controller{
                 <td><?php echo $client['fax_number']?></td>
                 <td><?php echo $client['email']?></td>
                 <td><?php echo $client['contact_person']?></td>
+                <td><?php echo $client['vat_type'];?></td>
                 <td>
                     <button class="btn btn-danger waves-effect btnEditClient" 
+                    		data-client-vat-type="<?php echo $client['vat_type'];?>" 
                          	data-client-name='<?php echo $client['name']?>' 
                           	data-client-address='<?php echo $client['address']?>' 
                             data-client-telno='<?php echo $client['telphone_number']?>' 

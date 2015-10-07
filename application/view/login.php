@@ -23,11 +23,14 @@
             }
             
             .system-text h2{ 
-                  color: white;
-                  font-weight: bolder;
-                  left: 14%;
-                  font-size: 33px;
+              color: white;
+              font-weight: bolder;
+              left: 0%;
+              font-size: 33px;
+              position: relative;
+              bottom: 50px;
             }
+            
         </style>
     </head>
     
@@ -37,8 +40,8 @@
             </div>
         <!-- Login -->
         <div class="lc-block toggled" id="l-login">
-            <div class="input-group m-b-10">
-               <img src="<?php echo home_url()?>/public/img/bgwhite.png">
+            <div class="input-group m-b-10 col-sm-12">
+               <img style="width:100%;height:100%;" src="<?php echo home_url()?>/public/img/bgwhite.png">
             </div>
             <div class="input-group m-b-20" id="unameContainer">
                 <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>

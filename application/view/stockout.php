@@ -33,7 +33,7 @@
                                             <option value="">Client Name</option>
                                             <?php 
                                                 foreach ($clients as $client) {
-                                                    echo '<option value="'.$client['id'].'" >'.$client['name'].'</option>';
+                                                    echo '<option data-vat-type="'.$client['vat_type'].'" value="'.$client['id'].'" >'.$client['name'].'</option>';
                                                 }
                                             ?>
                                         </select>
@@ -53,6 +53,7 @@
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr>
+                                                            <th>Image</th>
                                                             <th >Product Description</th>
                                                             <th >Price</th>
                                                             <th >Quantity</th>
@@ -61,6 +62,7 @@
                                                     <tbody id="pList">
                                                         <?php  foreach ($products as $product) {?>
                                                             <tr>
+                                                                <td><img height="50" width="50" src="<?php echo home_url().'/img/products/'.$product['image_url'];?>"></td>
                                                                 <td><?php 
                                                                     $items_unit ='';
                                                                     foreach ($itemUnit as $key) {
@@ -78,9 +80,9 @@
                                                                 ?></td>
                                                                 <td><?php echo $product['selling_price']; ?></td>
                                                                 <td>
-                                                                    <div class="btn-demo">
-                                                                        <input type="text" id="txtQty<?php echo $product['id']; ?>" class="txtQty_so number" style="width: 56px;margin-right: 12px" value="1"
-                                                                                data-vatype= '<?php echo $product['vat_type'];?>'
+                                                                    <div class="btn-demo" style="width: 100px;">
+                                                                        <input type="text" id="txtQty<?php echo $product['id']; ?>" class="txtQty_so number" style="width: 36px;" value="1"
+                                                                               
                                                                                 data-product-code='<?php echo $product['code']; ?>' 
                                                                                 data-product-name='<?php echo $product['name']; ?>' 
                                                                                 data-product-category='<?php echo $product['category']; ?>' 
@@ -93,7 +95,7 @@
                                                                                 data-product-date='<?php echo $product['date']; ?>' 
                                                                                 data-product-id='<?php echo $product['id']; ?>'>
                                                                         <button class="btnStockOutProduct btn btn-primary btn-icon waves-effect waves-circle waves-float"
-                                                                                data-vatype= '<?php echo $product['vat_type'];?>'
+                                                                               
                                                                                 data-product-code='<?php echo $product['code']; ?>' 
                                                                                 data-product-name='<?php echo $product['name']; ?>' 
                                                                                 data-product-category='<?php echo $product['category']; ?>' 
@@ -241,6 +243,32 @@
                                                 </tr>
                                             </table>
                                         </div>
+                                        <div class="col-sm-12">
+                                            <br/>
+                                            <div class="col-sm-12 hide-in-print">
+                                                <div class="col-sm-6 " style="padding-left: 20px;">
+                                                    <div class="radio m-b-15">
+                                                        <label>
+                                                            <input type="radio" name="rdbStatus" checked value="Order">
+                                                            <i class="input-helper"></i>
+                                                            Order
+                                                        </label>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-sm-6 " style="padding-left: 20px;">
+                                                    <div class="radio m-b-15">
+                                                        <label>
+                                                            <input type="radio" name="rdbStatus"  value="Warranty">
+                                                            <i class="input-helper"></i>
+                                                            Warranty
+                                                        </label>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br/>
                                         <div class="col-sm-12 hide-in-print">
                                              <div class="btn-demo col-sm-12">
                                                 <p class="f-500 c-black m-b-20"> &nbsp; </p>

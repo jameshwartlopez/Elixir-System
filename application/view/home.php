@@ -153,31 +153,7 @@
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <div class="col-sm-12">
-                                        <br/>
-                                        <div class="col-sm-12 hide-in-print">
-                                            <div class="col-sm-6 " style="padding-left: 20px;">
-                                                <div class="radio m-b-15">
-                                                    <label>
-                                                        <input type="radio" name="rdbVat" checked value="Vatable">
-                                                        <i class="input-helper"></i>
-                                                        Vatable
-                                                    </label>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="col-sm-6 " style="padding-left: 20px;">
-                                                <div class="radio m-b-15">
-                                                    <label>
-                                                        <input type="radio" name="rdbVat"  value="None Vatable">
-                                                        <i class="input-helper"></i>
-                                                        None Vatable
-                                                    </label>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
                                     <div class="col-sm-6"> 
                                         <p class="f-500 c-black m-b-20"> &nbsp; </p>
@@ -208,7 +184,6 @@
                                                 <th>Selling Price</th>
                                                 <th>Quantity</th>
                                                 <th>Date</th>
-                                                <th>Type</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -236,7 +211,6 @@
                                                     <td><?php echo $product['selling_price']; ?></td>
                                                     <td><?php echo $product['quantity']; ?></td>
                                                     <td><?php echo $product['date']; ?></td>
-                                                    <td><?php echo $product['vat_type']; ?></td>
                                                     <td>
                                                         <button class='btn btn-danger waves-effect btnEditProduct' 
                                                                 data-product-image="<?php echo $product['image_url'];?>" 

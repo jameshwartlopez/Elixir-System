@@ -94,7 +94,7 @@ class ProductModel extends Model{
 	}
 
 	//transactions
-	public function save_stockOutList($data,$terms,$client_id,$date,$discount){
+	public function save_stockOutList($data,$terms,$client_id,$date,$discount,$type){
 		$last_transaction = $this->get_last_inserted_data();
 		$new_transaction_no = $this->new_transaction_no($last_transaction['No']);
 
@@ -118,13 +118,14 @@ class ProductModel extends Model{
 				':date'=>$date,
 				':discount'=>$discount,
 				':user_id'=>$_SESSION['user_id'],
-				':status'=> $stat
+				':status'=> $stat,
+				':type'=>$type
 			);
 
 			$product = $this->get_product_byId($stockout['product_id']);
 			$db =  $this->db->pdo->prepare("INSERT INTO ".$this->tblStockOut."
-												(transaction_no,product_id,quantity,client_id,terms,date,discount,user_id,status) VALUES
-												(:transaction_no,:product_id,:quantity,:client_id,:terms,:date,:discount,:user_id,:status) ");
+												(transaction_no,product_id,quantity,client_id,terms,date,discount,user_id,status,type) VALUES
+												(:transaction_no,:product_id,:quantity,:client_id,:terms,:date,:discount,:user_id,:status,:type) ");
 			$sOut = $db->execute($stock_row_data);
 
 
@@ -255,6 +256,7 @@ class ProductModel extends Model{
 						tbl_stockout.date,
 						tbl_stockout.discount,
 						tbl_stockout.status,
+						tbl_stockout.type,
 						tbl_stockout.id as so_id,
 						tbl_clients.id as c_id,
 						tbl_clients.name,

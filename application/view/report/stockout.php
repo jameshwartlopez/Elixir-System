@@ -75,6 +75,7 @@
                         <th class="c-gray"><strong>TOTAL</strong></th>
                         <th class="c-gray"><strong>DATE</strong></th>
                         <th class="c-gray"><strong>USER</strong></th>
+                        <th class="c-gray"><strong>TYPE</strong></th>
                         <th class="c-gray"><strong>&nbsp;</th>
                     </thead>
                     
@@ -123,9 +124,8 @@
                                                    <td><?php echo $stockout['total']; ?></td>
                                                    <td><?php echo $stockout['date'];?></td>
                                                    <td><?php echo $stockout['Firstname']." ".$stockout['LastName'];?></td>
-                                                   <td>
-                                                      
-                                                   </td>
+                                                   <td><?php echo $stockout['type'];?></td>
+                                                   <td></td>
                                                 </tr>
                                                <?php
                                             
