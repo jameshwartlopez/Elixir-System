@@ -101,9 +101,9 @@ class ProductModel extends Model{
 		$check_client = count($this->check_client_order($client_id));
 		$stat = 'unpaid';
 		
-		if($check_client >= 1){
+		if($check_client >= 3){
 			$stat = 'hold';
-		}else if($check_client <= 0){
+		}else if($check_client < 3){
 			$stat = 'unpaid';
 		}
 

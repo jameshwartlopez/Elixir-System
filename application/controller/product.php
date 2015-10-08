@@ -446,7 +446,6 @@ class ProductController extends Controller{
 			if(count($check_client) >= 1){
 				echo "hashold";
 			}else if(count($check_client) < 1){
-				print_r($_POST['data']);
 				$product_info = $product->save_stockOutList($_POST['data'],$_POST['terms'],$_POST['client_id'],$_POST['date'],$_POST['discount'],$_POST['type']);	
 			}
 			

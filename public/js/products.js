@@ -116,7 +116,7 @@ $(document).ready(function(){
                         $(".stock-out-card-header,.clientDateContainer").show();
                         
                         window.print();
-                        window.location.reload();
+                         window.location.reload();
                         localStorage.removeItem('stockOut');
                         $("#stockGrandTotal,#stockVatTotal ,#stockOutList").html("");
                         $(".stock-out-card-header,.clientDateContainer").hide();         
