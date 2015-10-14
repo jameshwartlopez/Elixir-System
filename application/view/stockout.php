@@ -53,7 +53,7 @@
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th>Image</th>
+                                                            <!-- <th>Image</th> -->
                                                             <th >Product Description</th>
                                                             <th >Price</th>
                                                             <th >Quantity</th>
@@ -62,7 +62,7 @@
                                                     <tbody id="pList">
                                                         <?php  foreach ($products as $product) {?>
                                                             <tr>
-                                                                <td><img height="50" width="50" src="<?php echo home_url().'/img/products/'.$product['image_url'];?>"></td>
+                                                                <!-- <td><img height="50" width="50" src="<?php echo home_url().'/img/products/'.$product['image_url'];?>"></td> -->
                                                                 <td><?php 
                                                                     $items_unit ='';
                                                                     foreach ($itemUnit as $key) {
@@ -239,33 +239,29 @@
                                                 </tr>
                                                 <tr>
                                                     <td><h4>Client: </h4></td>
-                                                    <td><h4 id="lblClient">adf</h4></td>
+                                                    <td><h4 id="lblClient"></h4></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h4>Type: </h4></td>
+                                                    <td><h4 id="lblType"></h4></td>
                                                 </tr>
                                             </table>
                                         </div>
+
                                         <div class="col-sm-12">
-                                            <br/>
-                                            <div class="col-sm-12 hide-in-print">
-                                                <div class="col-sm-6 " style="padding-left: 20px;">
-                                                    <div class="radio m-b-15">
-                                                        <label>
-                                                            <input type="radio" name="rdbStatus" checked value="Order">
-                                                            <i class="input-helper"></i>
-                                                            Order
-                                                        </label>
-                                                    </div>
-                                                    
+                                        <br/>
+                                            <div class="input-group hide-in-print"> 
+                                                <span  class="input-group-addon"></span>
+                                                <div class="fg-line">
+                                                    <select class="selectpicker" id="cmbTypeOfPayments">
+                                                        <option value="">TYPE</option>
+                                                        <option value="Order">Order</option>
+                                                        <option value="Warranty">Warranty</option>
+                                                        <option value="Technical Expense">Technical Expense</option>
+                                                        <option value="Stock Transfer">Stock Transfer</option>
+                                                    </select>
                                                 </div>
-                                                <div class="col-sm-6 " style="padding-left: 20px;">
-                                                    <div class="radio m-b-15">
-                                                        <label>
-                                                            <input type="radio" name="rdbStatus"  value="Warranty">
-                                                            <i class="input-helper"></i>
-                                                            Warranty
-                                                        </label>
-                                                    </div>
                                                     
-                                                </div>
                                             </div>
                                         </div>
                                         <br/>

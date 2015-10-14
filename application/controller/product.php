@@ -195,13 +195,13 @@ class ProductController extends Controller{
 		
 		if(isset($_POST['code']) && !empty($_POST['code'])){
 			
-			$uploads_dir = 'img/products/';
-			$temp = explode(".", $_FILES["p_image"]["name"]);
-			$newfilename = round(microtime(true)) . '.' . end($temp);
-			$newfile = $uploads_dir.$newfilename;
-			$_POST['image_url'] = $newfilename;
+			// $uploads_dir = 'img/products/';
+			// $temp = explode(".", $_FILES["p_image"]["name"]);
+			// $newfilename = round(microtime(true)) . '.' . end($temp);
+			// $newfile = $uploads_dir.$newfilename;
+			// $_POST['image_url'] = $newfilename;
 		
-			move_uploaded_file($_FILES['p_image']['tmp_name'],$newfile);
+			// move_uploaded_file($_FILES['p_image']['tmp_name'],$newfile);
 
 			$result = $this->model->save_product($_POST);
 
@@ -214,7 +214,7 @@ class ProductController extends Controller{
                                             foreach ($result as $product) {
                                                 ?>
                                                 <tr>
-                                                	<td><img height="50" width="50" src="<?php echo 'img/products/'.$product['image_url'];?>"></td>
+                                                	<!-- <td><img height="50" width="50" src="<?php echo 'img/products/'.$product['image_url'];?>"></td> -->
                                                     <td><?php echo $product['code']; ?></td>
                                                     <td><?php echo $product['name']; ?></td>
                                                     <td><?php  
@@ -259,24 +259,24 @@ class ProductController extends Controller{
 			$id = $_POST['id'];
 			unset($_POST['id']);
 
-			if(isset($_FILES['p_image']['tmp_name'])){
-				$uploads_dir = 'img/products/';
-				$temp = explode(".", $_FILES["p_image"]["name"]);
-				$newfilename = round(microtime(true)) . '.' . end($temp);
-				$newfile = $uploads_dir.$newfilename;
-				$_POST['image_url'] = $newfilename;
+			// if(isset($_FILES['p_image']['tmp_name'])){
+			// 	$uploads_dir = 'img/products/';
+			// 	$temp = explode(".", $_FILES["p_image"]["name"]);
+			// 	$newfilename = round(microtime(true)) . '.' . end($temp);
+			// 	$newfile = $uploads_dir.$newfilename;
+			// 	$_POST['image_url'] = $newfilename;
 				
-				$p_model = $this->load_model('product');
-				$product_details = array_shift($p_model->show_product($id));
-				print_r($product_details);
+			// 	$p_model = $this->load_model('product');
+			// 	$product_details = array_shift($p_model->show_product($id));
+			// 	print_r($product_details);
 				
 				
-				if(file_exists($uploads_dir.$product_details['image_url'])){
-					unlink($uploads_dir.$product_details['image_url']);
-				}
+			// 	if(file_exists($uploads_dir.$product_details['image_url'])){
+			// 		unlink($uploads_dir.$product_details['image_url']);
+			// 	}
 
-				move_uploaded_file($_FILES['p_image']['tmp_name'],$newfile);
-			}
+			// 	move_uploaded_file($_FILES['p_image']['tmp_name'],$newfile);
+			// }
 			
 			$_POST['unit_price'] = str_replace(",","",$_POST['unit_price']);
 			$_POST['selling_price'] = str_replace(",","",$_POST['selling_price']);
@@ -292,7 +292,7 @@ class ProductController extends Controller{
                                             foreach ($result as $product) {
                                                 ?>
                                                 <tr>
-                                                	<td><img height="50" width="50" src="<?php echo 'img/products/'.$product['image_url'];?>"></td>
+                                                	<!-- <td><img height="50" width="50" src="<?php echo 'img/products/'.$product['image_url'];?>"></td> -->
                                                     <td><?php echo $product['code']; ?></td>
                                                     <td><?php echo $product['name']; ?></td>
                                                     <td><?php  

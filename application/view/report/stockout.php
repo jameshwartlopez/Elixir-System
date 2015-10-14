@@ -84,11 +84,17 @@
                             <?php
                                 foreach ($transaction_data as $transaction) {
                                     $status_t = '';
+                                    $p_total = 0.00;
+                                    $p_discount = 0.00;
+                                    $p_client_vatType = '';
                                     foreach ($stockoutList as $stockout) {
                                        
                                         
                                         if($stockout['transaction_no'] == $transaction['No']){
                                              $status_t = $stockout['status'];
+                                             $p_total += $stockout['total'];
+                                             $p_discount = $stockout['discount'];
+                                             $p_client_vatType = $stockout['vat_type'];
                                              //clients
                                                 $items_unit ='';
                                                 foreach ($itemUnit as $key) {
@@ -101,7 +107,7 @@
 
                                                    <td><?php echo $stockout['transaction_no']; ?></td>
                                                    <td><?php 
-                                                        echo '<strong>'.$stockout['name'].'</strong> ('.$items_unit.')<br/>'; 
+                                                        echo '<strong>'.$stockout['pname'].'</strong> ('.$items_unit.')<br/>'; 
                                                         foreach ($category as $key) {
                                                             if($key['id'] == $stockout['category']){
                                                                 echo $key['name'];
@@ -131,18 +137,23 @@
                                             
                                         }
                                     }?>
-                                    <tr>
-                                        <td colspan="8">
+                                    <tr style="border-bottom: solid 3px rgb(240, 240, 240);padding-bottom: 20px;margin-bottom: 37px;"> 
+                                        <td colspan="11" >
                                             <?php 
+                                                $vat_tot = 0.00;
+                                                if($p_client_vatType == 'Vatable'){
+                                                     $vat_tot = (($p_total - $p_discount) * 0.12);
+                                                }
                                                 if($status_t == 'unpaid'){
                                                     ?>
                                                         <button class="btn btn-danger waves-effect waves-effect btnStockOutStatus" data-client-id='<?php echo $transaction['client_id'];?>' data-transaction-no="<?php echo $transaction['No'];?>" ><?php echo ucfirst($status_t);?></button>
+                                                        <span>&nbsp; VatTotal: Php <?php echo number_format($vat_tot,2);?></span>
                                                     <?php 
                                                 }else if($status_t != 'unpaid' || $status_t != 'hold'){
-                                                    echo '<strong style="color:red;">'.ucfirst($status_t).'</strong>';
+                                                    echo '<strong style="color:red;">'.ucfirst($status_t).'</strong>  <span>&nbsp; VatTotal: Php '.number_format($vat_tot,2).'</span>';
                                                 }else{
                                                 }
-                                            ?>
+                                            ?><br/><br/><br/>
                                         </td>
                                     </tr>
                                     <?php     

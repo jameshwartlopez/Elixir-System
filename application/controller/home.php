@@ -34,7 +34,7 @@ class HomeController extends Controller{
 				$this->load_template('home',$data,'service');
 
 			}else if($data['current_user']['user_type'] != 3){
-				$this->load_template('home',$data,'photos');	
+				$this->load_template('home',$data);	
 			}
 			
 

@@ -89,7 +89,7 @@
                                             
                                     </div>
                                    
-                                   <div class="col-sm-12">
+                                   <!-- <div class="col-sm-12">
                                        
                                          <p class="f-500 c-black m-b-20"></p>
                                         <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -101,7 +101,7 @@
                                             <span class="fileinput-filename"></span>
                                             <a href="#" class="imgclose close fileinput-exists" data-dismiss="fileinput">&times;</a>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <br/>
                                     
                                     
@@ -175,7 +175,7 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Image</th>
+                                               <!--  <th>Image</th> -->
                                                 <th>Code</th>
                                                 <th>Name</th>
                                                 <th>Category</th>
@@ -192,7 +192,7 @@
                                             foreach ($products as $product) {
                                                 ?>
                                                 <tr>
-                                                    <td><img height="50" width="50" src="<?php echo 'img/products/'.$product['image_url'];?>"></td>
+                                                  <!--   <td><img height="50" width="50" src="<?php echo 'img/products/'.$product['image_url'];?>"></td> -->
                                                     <td><?php echo $product['code']; ?></td>
                                                     <td><?php echo $product['name']; ?></td>
                                                     <td><?php  
