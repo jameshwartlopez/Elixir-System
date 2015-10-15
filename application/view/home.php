@@ -127,27 +127,27 @@
                                     
                                     <br>
                                     
-                                    <div class="input-group <?php echo ($usertype != 0)?'csm':'';?>" style="<?php echo ($usertype != 0)?'display:none':'';?>">
+                                    <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" style="<?php echo ($usertype != 0)?'display:none':'';?>" id="txtPUnitPrice" class="form-control money" placeholder="Unit Price ">
+                                            <input type="text" id="txtPUnitPrice" class="form-control money" placeholder="Unit Price ">
                                         </div>
                                     </div>
                                     
                                     <br>
-                                    <div class="input-group <?php echo ($usertype != 0)?'csm':'';?>" style="<?php echo ($usertype != 0)?'display:none':'';?>">
+                                    <div class="input-group " >
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" style="<?php echo ($usertype != 0)?'display:none':'';?>"  id="txtPSellingPrice" class="form-control money" placeholder="Selling Price ">
+                                            <input type="text"   id="txtPSellingPrice" class="form-control money" placeholder="Selling Price ">
                                         </div>
                                     </div>
                                     
                                     <br>
                                     
-                                    <div class="input-group <?php echo ($usertype != 0)?'csm':'';?>" style="<?php echo ($usertype != 0)?'display:none':'';?>">
+                                    <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">    
-                                            <input type="text" style="<?php echo ($usertype != 0)?'display:none':'';?>" id="txtPQuantity" class="form-control number" placeholder="Quantity">
+                                            <input type="text"  id="txtPQuantity" class="form-control number" placeholder="Quantity">
                                         </div>
                                     </div>
                                 </div>

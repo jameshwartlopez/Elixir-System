@@ -33,8 +33,14 @@ class HomeController extends Controller{
 				$data['services'] = $service->get_service_byId($_SESSION['user_id']);
 				$this->load_template('home',$data,'service');
 
+			}else if($data['current_user']['user_type'] == 1){
+				
+				$this->load_template('home',$data,'stockin');
+
 			}else if($data['current_user']['user_type'] != 3){
+
 				$this->load_template('home',$data);	
+			
 			}
 			
 
