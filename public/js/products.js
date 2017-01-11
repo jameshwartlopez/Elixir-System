@@ -90,7 +90,7 @@ $(document).ready(function(){
                     'client_id':$("#cmbClient").val(),
                     'date':$("#txtDate").val(),
                     'discount':discount,
-                    'type':$("input:radio[name=rdbStatus]:checked").val()
+                    'type':$("#cmbTypeOfPayments").val()
 
             }
             console.log(data);
@@ -98,8 +98,10 @@ $(document).ready(function(){
                 notify_user("danger","Please select a customer for this transaction");
             }else if($("#cmbTerms").val().length <= 0){
                 notify_user("danger","Please select the terms in days");
+            }else if($("#cmbTypeOfPayments").val().length <= 0){
+                 notify_user("danger","Please select a type");
             }else{
-
+                $("#lblType").html($("#cmbTypeOfPayments").val());
                 $.post(home_url+'/product/save_stockOutList',data,function(response){
                     
                    
@@ -692,16 +694,15 @@ $(document).ready(function(){
          pcode = $.trim($("#txtPCode").val());
          pname = $.trim($("#txtPName").val());
          pcategory = $.trim($("#cmbPcategory").val());
-         pitemUnit = $.trim($("#cmbPItemUnit").val());
+         pitemUnit = $.trim($("#cmbPItemUnit").val());      
          punitPrice = $.trim($("#txtPUnitPrice").val());
          pSellingPrice = $.trim($("#txtPSellingPrice").val());
          pQuantity = $.trim($("#txtPQuantity").val());
          pDate = $.trim($("#txtDate").val());
-        
-
-         p_img = $("#fileProductImage").prop('files')[0];
+    
+         //p_img = $("#fileProductImage").prop('files')[0];
          
-        console.log(pSellingPrice);
+       
 
        
         if(
@@ -726,7 +727,10 @@ $(document).ready(function(){
             notify_user('danger','Please Enter Quantity!');
         }else{
             url = '/product/save_product';
-         
+            
+            punitPrice = punitPrice.replace(/[,]/g,'');
+            pSellingPrice = pSellingPrice.replace(/[,]/g,'');
+
             product_data = new FormData();
             product_data.append('code',pcode);
             product_data.append('name',pname);
@@ -736,7 +740,7 @@ $(document).ready(function(){
             product_data.append('selling_price',pSellingPrice);
             product_data.append('quantity',pQuantity);
             product_data.append('date',pDate);
-            product_data.append('p_image',p_img);
+            //product_data.append('p_image',p_img);
 
             if(flag == 'update'){
                 url = '/product/update_product';
@@ -754,9 +758,9 @@ $(document).ready(function(){
                 product_data.append('date',pDate);
                
 
-                if(typeof p_img !== 'undefined'){
-                    product_data.append('p_image',p_img);   
-                }
+                // if(typeof p_img !== 'undefined'){
+                //     product_data.append('p_image',p_img);   
+                // }
 
                 $.ajax({
                      type:'POST',
@@ -776,27 +780,23 @@ $(document).ready(function(){
                 });
             }else if(flag != 'update'){
                 
-
-                if(typeof p_img === 'undefined'){
-                    notify_user('danger','Please select an image');
-                }else{
-                     $.ajax({
-                         type:'POST',
-                         processData: false, // important
-                         contentType: false, // important
-                         data: product_data,
-                         url: url,
-                        success: function(response){
-                            console.log(response);
-                           if(response != ''){
-                                notify_user('info','Products successfully saved!');
-                                $("#productList").html("");
-                                $("#productList").html(response)
-                                clear_product();        
-                            }
+                 $.ajax({
+                     type:'POST',
+                     processData: false, // important
+                     contentType: false, // important
+                     data: product_data,
+                     url: url,
+                     success: function(response){
+                        console.log(response);
+                       if(response != ''){
+                            notify_user('info','Products successfully saved!');
+                            $("#productList").html("");
+                            $("#productList").html(response)
+                            clear_product();        
                         }
-                    });
-                }
+                    }
+                });
+                
             }
         }
     }
@@ -813,9 +813,9 @@ $(document).ready(function(){
          $("#btnUpdateProduct").removeAttr('data-product-id');
          $("#btnUpdateProduct").hide();
          $("#btnSaveProduct").show();
-         $("#fileProductImage").val('');
-         $("#fileProductImage").parent('span').parent('div').removeClass('fileinput-exists').addClass('fileinput-new');
-         $(".fileinput-filename").html("");
+         // $("#fileProductImage").val('');
+         // $("#fileProductImage").parent('span').parent('div').removeClass('fileinput-exists').addClass('fileinput-new');
+         // $(".fileinput-filename").html("");
          $('.selectpicker').selectpicker('refresh');
     }
     

@@ -1,0 +1,12 @@
+Mga Gamay nga usbononon
+1. Tangtangon na lang daw ang picture james, dili na lang ka upload.. iparehas na lang sa una.
+2. stockout report.. if makaya ipadisplay daw ang vattotal.. if ma save sa database mas nindot.
+3. Sa stock out dungagi ug radio button sa order, warranty ug technical expense, stock transfer para upat na.
+4. assistant - stockin ang homepage once logged in(wala siya product entry)
+5. technical -service report ang homepage
+    - view stockout pero dapat disable ang unpaid button kay makatransact siya, dili dapat.
+   (inog click sa stock out report, balik mi sa homepage kay dili na mi ka input sa service report..)
+   (pwede ra pud guro butangan ug input service report..)
+6. Neg login.. dapat ma convert ang Upper cases into lower cases.
+P.S. james, okay okay na ang imo flow sa bag.o.. kani lang i dungag.. sa product entry dapat maka save james hap..
+Daghang Salamat.

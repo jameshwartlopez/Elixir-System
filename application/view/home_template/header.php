@@ -172,7 +172,7 @@
                         ?>
 
                         <ul class="main-menu">
-                            <li class="active"><a href="<?php home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
+                            <li class="active"><a href="<?php echo home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
                             <li class="sub-menu">
                                 <a href="#"><i class="zmdi zmdi-assignment"></i> Products </a>
 
@@ -219,7 +219,7 @@
                         if($usertype == 1 ){
                             ?>
                         <ul class="main-menu">
-                            <li class="active"><a href="<?php home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
+                            <li class="active"><a href="<?php echo home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
                             <li class="sub-menu">
                                 <a href="#"><i class="zmdi zmdi-rotate-cw"></i> Transaction </a>
 
@@ -248,7 +248,7 @@
                         if( $usertype == 2){
                         ?>
                         <ul class="main-menu">
-                            <li class="active"><a href="<?php home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
+                            <li class="active"><a href="<?php echo home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
                             <li class="sub-menu">
                                 <a href="#"><i class="zmdi zmdi-assignment"></i> Products </a>
 
@@ -292,7 +292,7 @@
                         if($usertype == 3){
                         ?>
                         <ul class="main-menu">
-                            <li class="active"><a href="<?php home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
+                            <li class="active"><a href="<?php echo home_url();?>"><i class="zmdi zmdi-home"></i> Home</a></li>
                             
                            
                             <li class="sub-menu">

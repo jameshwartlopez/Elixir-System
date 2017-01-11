@@ -89,7 +89,7 @@
                                             
                                     </div>
                                    
-                                   <div class="col-sm-12">
+                                   <!-- <div class="col-sm-12">
                                        
                                          <p class="f-500 c-black m-b-20"></p>
                                         <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -101,7 +101,7 @@
                                             <span class="fileinput-filename"></span>
                                             <a href="#" class="imgclose close fileinput-exists" data-dismiss="fileinput">&times;</a>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <br/>
                                     
                                     
@@ -127,27 +127,27 @@
                                     
                                     <br>
                                     
-                                    <div class="input-group <?php echo ($usertype != 0)?'csm':'';?>" style="<?php echo ($usertype != 0)?'display:none':'';?>">
+                                    <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" style="<?php echo ($usertype != 0)?'display:none':'';?>" id="txtPUnitPrice" class="form-control money" placeholder="Unit Price ">
+                                            <input type="text" id="txtPUnitPrice" class="form-control money" placeholder="Unit Price ">
                                         </div>
                                     </div>
                                     
                                     <br>
-                                    <div class="input-group <?php echo ($usertype != 0)?'csm':'';?>" style="<?php echo ($usertype != 0)?'display:none':'';?>">
+                                    <div class="input-group " >
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">
-                                            <input type="text" style="<?php echo ($usertype != 0)?'display:none':'';?>"  id="txtPSellingPrice" class="form-control money" placeholder="Selling Price ">
+                                            <input type="text"   id="txtPSellingPrice" class="form-control money" placeholder="Selling Price ">
                                         </div>
                                     </div>
                                     
                                     <br>
                                     
-                                    <div class="input-group <?php echo ($usertype != 0)?'csm':'';?>" style="<?php echo ($usertype != 0)?'display:none':'';?>">
+                                    <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <div class="fg-line">    
-                                            <input type="text" style="<?php echo ($usertype != 0)?'display:none':'';?>" id="txtPQuantity" class="form-control number" placeholder="Quantity">
+                                            <input type="text"  id="txtPQuantity" class="form-control number" placeholder="Quantity">
                                         </div>
                                     </div>
                                 </div>
@@ -175,7 +175,7 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Image</th>
+                                               <!--  <th>Image</th> -->
                                                 <th>Code</th>
                                                 <th>Name</th>
                                                 <th>Category</th>
@@ -192,7 +192,7 @@
                                             foreach ($products as $product) {
                                                 ?>
                                                 <tr>
-                                                    <td><img height="50" width="50" src="<?php echo 'img/products/'.$product['image_url'];?>"></td>
+                                                  <!--   <td><img height="50" width="50" src="<?php echo 'img/products/'.$product['image_url'];?>"></td> -->
                                                     <td><?php echo $product['code']; ?></td>
                                                     <td><?php echo $product['name']; ?></td>
                                                     <td><?php  

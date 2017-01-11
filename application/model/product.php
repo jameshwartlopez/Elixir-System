@@ -245,7 +245,7 @@ class ProductModel extends Model{
 		$query = "SELECT 
 						tbl_products.category,
 						tbl_products.code,
-						tbl_products.name,
+						tbl_products.name as pname,
 						tbl_products.item_unit,
 						tbl_products.unit_price,
 						tbl_products.selling_price,
@@ -260,6 +260,7 @@ class ProductModel extends Model{
 						tbl_stockout.id as so_id,
 						tbl_clients.id as c_id,
 						tbl_clients.name,
+						tbl_clients.vat_type,
 						tbl_user.id,
 						tbl_user.username,
 						tbl_user.Firstname,
